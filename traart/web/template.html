@@ -1,0 +1,220 @@
+<title>Ion Trap Audio Bench</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  color-scheme: dark;
+  --bg:#080A10; --panel:#0E111A; --panel-2:#131826; --line:#1F2534; --line-2:#2A3244;
+  --text:#DBE0EC; --dim:#7A85A0; --dimmer:#4E576D;
+  --hot:#F2F5FF;
+  --b-397pi:#7C5CFF; --b-397sig:#B77CFF; --b-729:#F04E3E;
+  --b-854:#B8394A; --b-866:#8E3468; --b-tickle:#3FB6A8;
+  --ok:#4ADE80;
+  --f-disp:"IBM Plex Sans Condensed",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-body);
+  font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+:focus-visible{outline:2px solid var(--b-397pi);outline-offset:2px;border-radius:3px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--f-disp);text-transform:uppercase;letter-spacing:.13em;
+  font-size:10.5px;font-weight:600;color:var(--dim)}
+
+/* ---- shell ---------------------------------------------------------- */
+.bench{display:grid;grid-template-columns:264px minmax(0,1fr) 296px;
+  grid-template-rows:auto 1fr;min-height:100vh;gap:1px;background:var(--line)}
+.masthead{grid-column:1/-1;background:var(--panel);display:flex;align-items:center;
+  gap:18px;padding:13px 20px;border-bottom:1px solid var(--line)}
+.wordmark{font-family:var(--f-disp);font-weight:700;font-size:19px;letter-spacing:-.01em;
+  display:flex;align-items:baseline;gap:9px}
+.wordmark span{color:var(--dimmer);font-weight:500;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase}
+.masthead .spacer{flex:1}
+.chip{font-family:var(--f-mono);font-size:11px;color:var(--dim);border:1px solid var(--line-2);
+  padding:4px 9px;border-radius:2px;background:var(--panel-2)}
+.toggle{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--dim);
+  font-family:var(--f-disp);text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+.toggle input{accent-color:var(--b-397pi);width:14px;height:14px}
+
+.rail,.mixer{background:var(--panel);overflow-y:auto;max-height:calc(100vh - 56px)}
+.rail{padding:16px 14px 22px}
+.stage{background:var(--panel);display:flex;flex-direction:column;min-width:0}
+.mixer{padding:16px 14px 22px}
+.rail-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:11px}
+
+/* ---- run list ------------------------------------------------------- */
+.runs{display:flex;flex-direction:column;gap:5px;list-style:none;margin:0 0 20px;padding:0}
+.run{width:100%;text-align:left;padding:10px 11px;border:1px solid transparent;
+  border-radius:3px;background:var(--panel-2);display:grid;gap:3px;
+  transition:border-color .12s,background .12s}
+.run:hover{border-color:var(--line-2)}
+.run[aria-current="true"]{background:#161C2C;border-color:var(--b-397pi)}
+.run .name{font-family:var(--f-disp);font-weight:600;font-size:14.5px;letter-spacing:.005em}
+.run .sub{font-size:11.5px;color:var(--dim);line-height:1.35}
+.run .meta{font-family:var(--f-mono);font-size:10px;color:var(--dimmer);letter-spacing:.02em}
+.run[aria-current="true"] .meta{color:var(--dim)}
+
+.note{font-size:12px;color:var(--dim);line-height:1.55;border-left:2px solid var(--line-2);
+  padding-left:11px;margin:0 0 18px}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:5px 12px;font-size:11.5px;margin:0}
+.facts dt{color:var(--dimmer);font-family:var(--f-disp);text-transform:uppercase;
+  letter-spacing:.09em;font-size:10px;padding-top:2px}
+.facts dd{margin:0;font-family:var(--f-mono);font-size:11.5px;color:var(--text);
+  overflow-wrap:anywhere}
+
+/* ---- transport ------------------------------------------------------ */
+.transport{display:flex;align-items:center;gap:12px;padding:12px 20px;
+  border-bottom:1px solid var(--line);background:var(--panel-2)}
+.play{width:42px;height:42px;border-radius:50%;background:var(--hot);color:#080A10;
+  display:grid;place-items:center;flex:none;transition:transform .1s}
+.play:active{transform:scale(.94)}
+.play svg{display:block}
+.readout{display:flex;flex-direction:column;gap:1px;min-width:0}
+.readout .block{font-family:var(--f-disp);font-weight:600;font-size:16px;
+  letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.readout .path{font-family:var(--f-mono);font-size:10.5px;color:var(--dimmer);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.transport .spacer{flex:1}
+.scanpt{text-align:right}
+.scanpt .v{font-family:var(--f-mono);font-size:14px;color:var(--text)}
+.scanpt .l{font-size:10px}
+
+/* ---- scope ---------------------------------------------------------- */
+.scope{flex:1;display:flex;flex-direction:column;padding:14px 20px 8px;gap:10px;min-height:0}
+.canvas-wrap{position:relative;border:1px solid var(--line);border-radius:3px;
+  background:#05070C;overflow:hidden}
+.canvas-wrap canvas{display:block;width:100%}
+#lanes{height:238px}
+#wave{height:132px}
+.canvas-label{position:absolute;top:7px;left:9px;z-index:2}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;padding:2px 0 6px}
+.legend span{display:flex;align-items:center;gap:6px;font-family:var(--f-mono);
+  font-size:10.5px;color:var(--dim)}
+.legend i{width:9px;height:9px;border-radius:1px;display:block}
+
+/* ---- speed bar ------------------------------------------------------ */
+.deck{display:flex;align-items:center;gap:22px;padding:12px 20px 18px;
+  border-top:1px solid var(--line);background:var(--panel-2);flex-wrap:wrap}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-family:var(--f-disp);text-transform:uppercase;letter-spacing:.11em;
+  font-size:10px;font-weight:600;color:var(--dim)}
+select{background:var(--panel);border:1px solid var(--line-2);color:var(--text);
+  padding:6px 8px;border-radius:2px;font-family:var(--f-mono);font-size:12px}
+.deck .hint{font-size:11.5px;color:var(--dimmer);max-width:270px;line-height:1.45}
+
+/* ---- knobs ---------------------------------------------------------- */
+.knob{display:flex;flex-direction:column;align-items:center;gap:4px;
+  touch-action:none;user-select:none}
+.knob svg{cursor:ns-resize;display:block}
+.knob .kv{font-family:var(--f-mono);font-size:11.5px;color:var(--text)}
+.knob .kl{font-family:var(--f-disp);text-transform:uppercase;letter-spacing:.11em;
+  font-size:9.5px;font-weight:600;color:var(--dim)}
+
+/* ---- mixer ---------------------------------------------------------- */
+.strip{border:1px solid var(--line);border-radius:3px;background:var(--panel-2);
+  padding:11px 11px 12px;margin-bottom:8px;display:grid;gap:9px}
+.strip.muted{opacity:.42}
+.strip-head{display:flex;align-items:center;gap:8px}
+.strip-head i{width:4px;height:26px;border-radius:1px;flex:none}
+.strip-head .n{font-family:var(--f-disp);font-weight:600;font-size:14px;flex:1;line-height:1.15}
+.strip-head .n small{display:block;font-family:var(--f-mono);font-weight:400;
+  font-size:10px;color:var(--dimmer);letter-spacing:.02em}
+.mute{font-family:var(--f-mono);font-size:10px;border:1px solid var(--line-2);
+  padding:3px 6px;border-radius:2px;color:var(--dim)}
+.mute[aria-pressed="true"]{background:var(--b-854);border-color:var(--b-854);color:#fff}
+.strip-body{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center}
+.sliders{display:grid;gap:7px}
+.srow{display:grid;grid-template-columns:34px 1fr 42px;align-items:center;gap:7px;
+  font-family:var(--f-mono);font-size:10px;color:var(--dim)}
+.srow output{text-align:right;color:var(--text)}
+input[type=range]{-webkit-appearance:none;appearance:none;height:3px;background:var(--line-2);
+  border-radius:2px;width:100%}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;
+  border-radius:50%;background:var(--text);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:11px;height:11px;border:none;border-radius:50%;
+  background:var(--text);cursor:pointer}
+.center-btn{font-family:var(--f-mono);font-size:10px;color:var(--dim);
+  border:1px solid var(--line-2);border-radius:2px;padding:3px 0;width:100%}
+.center-btn:hover{color:var(--text);border-color:var(--dim)}
+
+.hush{color:var(--dimmer);font-size:11.5px;line-height:1.5;margin:14px 2px 0}
+@media (max-width:1080px){
+  .bench{grid-template-columns:1fr}
+  .rail,.mixer{max-height:none}
+}
+@media (prefers-reduced-motion:reduce){.play{transition:none}}
+</style>
+
+<div class="bench">
+  <header class="masthead">
+    <div class="wordmark">Audio Bench<span>ion trap sonification</span></div>
+    <div class="spacer"></div>
+    <div class="chip" id="clock">stopped</div>
+    <label class="toggle"><input type="checkbox" id="blind"> Blind</label>
+  </header>
+
+  <nav class="rail">
+    <div class="rail-head"><span class="eyebrow">Runs</span>
+      <span class="eyebrow" id="runcount"></span></div>
+    <ul class="runs" id="runs"></ul>
+    <p class="note" id="note"></p>
+    <dl class="facts" id="facts"></dl>
+    <p class="hush">Every pitch is rebuilt from the sequence on the fly, so slowing
+      time down stretches the rhythm and leaves the tuning where it was.</p>
+  </nav>
+
+  <main class="stage">
+    <div class="transport">
+      <button class="play" id="play" aria-label="Play"></button>
+      <div class="readout">
+        <div class="block" id="blockName">ready</div>
+        <div class="path" id="blockPath">pick a run and press play</div>
+      </div>
+      <div class="spacer"></div>
+      <div class="scanpt">
+        <div class="v" id="scanVal">&mdash;</div>
+        <div class="l eyebrow" id="scanLbl">scan point</div>
+      </div>
+    </div>
+
+    <div class="scope">
+      <div class="canvas-wrap"><canvas id="lanes"></canvas>
+        <span class="canvas-label eyebrow">pulse score &mdash; flying by</span></div>
+      <div class="legend" id="legend"></div>
+      <div class="canvas-wrap"><canvas id="wave"></canvas>
+        <span class="canvas-label eyebrow">output waveform</span></div>
+    </div>
+
+    <div class="deck">
+      <div class="knob" id="knobSpeed"></div>
+      <div class="field"><label for="scale">Scale</label>
+        <select id="scale">
+          <option value="off">continuous (no quantise)</option>
+          <option value="major">major</option>
+          <option value="minor">natural minor</option>
+          <option value="pent">minor pentatonic</option>
+          <option value="whole">whole tone</option>
+          <option value="octa">octatonic</option>
+          <option value="harm">harmonic minor</option>
+        </select></div>
+      <div class="field"><label for="root">Root</label>
+        <select id="root"></select></div>
+      <div class="knob" id="knobMaster"></div>
+      <p class="hint">Detuning sets pitch. Quantising snaps every beam to one scale,
+        so a frequency sweep climbs it step by step instead of gliding.</p>
+    </div>
+  </main>
+
+  <aside class="mixer">
+    <div class="rail-head"><span class="eyebrow">Beams</span>
+      <span class="eyebrow">carrier &middot; sensitivity &middot; level</span></div>
+    <div id="strips"></div>
+    <p class="hush">The 729 strip is the whole beam path: double pass plus single
+      pass, summed. That is why an SDF pulse arrives as two notes a motional
+      frequency apart while a carrier pulse stays one.</p>
+  </aside>
+</div>

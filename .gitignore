@@ -1,0 +1,23 @@
+# raw run data: gigabytes of .h5, never in git
+icon_experiment_data*/
+*.h5
+
+# the experiment library is its own repository
+gkp-experiment-library/
+
+# build products and caches
+traart-bench/target/
+**/__pycache__/
+*.pyc
+.venv/
+.DS_Store
+
+# audio bounces are regenerable (traart-bench --render, traart.cli sonify)
+*.wav
+
+# self-signed certificates for the VR server
+traart/vr/.certs/
+
+# Cowork session files
+.claude/
+Claude outputs/

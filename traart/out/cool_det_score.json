@@ -1,0 +1,7409 @@
+{
+ "schema": "traart-score/1",
+ "duration_ns": 17472000,
+ "meta": {
+  "shots_header": 50,
+  "n_events": 51,
+  "n_sequences": 13,
+  "unhandled": [],
+  "repeats": 12,
+  "gap_ns": 0,
+  "experiment": "Cool and Detect",
+  "job_id": 9012,
+  "file": "../icon_experiment_data_2026-09-01/2026-09-01 00:14:58.830625.h5",
+  "points_rendered": 1,
+  "shots_rendered": 12
+ },
+ "channels": {
+  "729_aod_p": {
+   "key": "729_aod_p",
+   "label": "729 AOD order +1",
+   "wavelength_nm": 729.0,
+   "role": "qubit",
+   "quench_channel": 5,
+   "central_frequency_mhz": 110.0,
+   "aom_type": "SP"
+  },
+  "729_aod_m": {
+   "key": "729_aod_m",
+   "label": "729 AOD order -1",
+   "wavelength_nm": 729.0,
+   "role": "qubit",
+   "quench_channel": 6,
+   "central_frequency_mhz": 110.0,
+   "aom_type": "SP"
+  },
+  "397_pi": {
+   "key": "397_pi",
+   "label": "397 pi",
+   "wavelength_nm": 397.0,
+   "role": "cooling",
+   "quench_channel": 12,
+   "central_frequency_mhz": 80.0,
+   "aom_type": "DP"
+  },
+  "866": {
+   "key": "866",
+   "label": "866 repump",
+   "wavelength_nm": 866.0,
+   "role": "repump",
+   "quench_channel": 13,
+   "central_frequency_mhz": 300.0,
+   "aom_type": "SP"
+  },
+  "854": {
+   "key": "854",
+   "label": "854 repump",
+   "wavelength_nm": 854.0,
+   "role": "repump",
+   "quench_channel": 2,
+   "central_frequency_mhz": 350.0,
+   "aom_type": "SP"
+  },
+  "397_sigma": {
+   "key": "397_sigma",
+   "label": "397 sigma",
+   "wavelength_nm": 397.0,
+   "role": "cooling",
+   "quench_channel": 3,
+   "central_frequency_mhz": 80.0,
+   "aom_type": "DP"
+  }
+ },
+ "pulses": [
+  {
+   "channel": "397_pi",
+   "t0_ns": 6000,
+   "t1_ns": 1006000,
+   "tones": [
+    {
+     "dds_hz": 67500000.12107193,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -24999999.75785613,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "729_aod_m",
+   "t0_ns": 6000,
+   "t1_ns": 1456000,
+   "tones": [
+    {
+     "dds_hz": 116850123.27507138,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -6850123.2750713825,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "729_aod_p",
+   "t0_ns": 6000,
+   "t1_ns": 1456000,
+   "tones": [
+    {
+     "dds_hz": 110309187.55568564,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": 309187.5556856394,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 6000,
+   "t1_ns": 1006000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 6000,
+   "t1_ns": 1016000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 1006000,
+   "t1_ns": 1052000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 1006000,
+   "t1_ns": 1018000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 1016000,
+   "t1_ns": 1018000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 1018000,
+   "t1_ns": 1038000,
+   "tones": [
+    {
+     "dds_hz": 92500000.02793968,
+     "amp": 0.34999694805591164,
+     "phase": 0.0,
+     "detuning_hz": 25000000.055879354,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 1018000,
+   "t1_ns": 1038000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 1018000,
+   "t1_ns": 1048000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 1038000,
+   "t1_ns": 1456000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 1038000,
+   "t1_ns": 1456000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 1048000,
+   "t1_ns": 1052000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 1052000,
+   "t1_ns": 1252000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 1052000,
+   "t1_ns": 1252000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 1252000,
+   "t1_ns": 1254000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 1252000,
+   "t1_ns": 1456000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 1254000,
+   "t1_ns": 1454000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 1454000,
+   "t1_ns": 1456000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 1462000,
+   "t1_ns": 2462000,
+   "tones": [
+    {
+     "dds_hz": 67500000.12107193,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -24999999.75785613,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "729_aod_m",
+   "t0_ns": 1462000,
+   "t1_ns": 2912000,
+   "tones": [
+    {
+     "dds_hz": 116850123.27507138,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -6850123.2750713825,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "729_aod_p",
+   "t0_ns": 1462000,
+   "t1_ns": 2912000,
+   "tones": [
+    {
+     "dds_hz": 110309187.55568564,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": 309187.5556856394,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 1462000,
+   "t1_ns": 2462000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 1462000,
+   "t1_ns": 2472000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 2462000,
+   "t1_ns": 2508000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 2462000,
+   "t1_ns": 2474000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 2472000,
+   "t1_ns": 2474000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 2474000,
+   "t1_ns": 2494000,
+   "tones": [
+    {
+     "dds_hz": 92500000.02793968,
+     "amp": 0.34999694805591164,
+     "phase": 0.0,
+     "detuning_hz": 25000000.055879354,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 2474000,
+   "t1_ns": 2494000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 2474000,
+   "t1_ns": 2504000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 2494000,
+   "t1_ns": 2912000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 2494000,
+   "t1_ns": 2912000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 2504000,
+   "t1_ns": 2508000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 2508000,
+   "t1_ns": 2708000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 2508000,
+   "t1_ns": 2708000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 2708000,
+   "t1_ns": 2710000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 2708000,
+   "t1_ns": 2912000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 2710000,
+   "t1_ns": 2910000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 2910000,
+   "t1_ns": 2912000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 2918000,
+   "t1_ns": 3918000,
+   "tones": [
+    {
+     "dds_hz": 67500000.12107193,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -24999999.75785613,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "729_aod_m",
+   "t0_ns": 2918000,
+   "t1_ns": 4368000,
+   "tones": [
+    {
+     "dds_hz": 116850123.27507138,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -6850123.2750713825,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "729_aod_p",
+   "t0_ns": 2918000,
+   "t1_ns": 4368000,
+   "tones": [
+    {
+     "dds_hz": 110309187.55568564,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": 309187.5556856394,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 2918000,
+   "t1_ns": 3918000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 2918000,
+   "t1_ns": 3928000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 3918000,
+   "t1_ns": 3964000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 3918000,
+   "t1_ns": 3930000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 3928000,
+   "t1_ns": 3930000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 3930000,
+   "t1_ns": 3950000,
+   "tones": [
+    {
+     "dds_hz": 92500000.02793968,
+     "amp": 0.34999694805591164,
+     "phase": 0.0,
+     "detuning_hz": 25000000.055879354,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 3930000,
+   "t1_ns": 3950000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 3930000,
+   "t1_ns": 3960000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 3950000,
+   "t1_ns": 4368000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 3950000,
+   "t1_ns": 4368000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 3960000,
+   "t1_ns": 3964000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 3964000,
+   "t1_ns": 4164000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 3964000,
+   "t1_ns": 4164000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 4164000,
+   "t1_ns": 4166000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 4164000,
+   "t1_ns": 4368000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 4166000,
+   "t1_ns": 4366000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 4366000,
+   "t1_ns": 4368000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 4374000,
+   "t1_ns": 5374000,
+   "tones": [
+    {
+     "dds_hz": 67500000.12107193,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -24999999.75785613,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "729_aod_m",
+   "t0_ns": 4374000,
+   "t1_ns": 5824000,
+   "tones": [
+    {
+     "dds_hz": 116850123.27507138,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -6850123.2750713825,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "729_aod_p",
+   "t0_ns": 4374000,
+   "t1_ns": 5824000,
+   "tones": [
+    {
+     "dds_hz": 110309187.55568564,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": 309187.5556856394,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 4374000,
+   "t1_ns": 5374000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 4374000,
+   "t1_ns": 5384000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 5374000,
+   "t1_ns": 5420000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 5374000,
+   "t1_ns": 5386000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 5384000,
+   "t1_ns": 5386000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 5386000,
+   "t1_ns": 5406000,
+   "tones": [
+    {
+     "dds_hz": 92500000.02793968,
+     "amp": 0.34999694805591164,
+     "phase": 0.0,
+     "detuning_hz": 25000000.055879354,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 5386000,
+   "t1_ns": 5406000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 5386000,
+   "t1_ns": 5416000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 5406000,
+   "t1_ns": 5824000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 5406000,
+   "t1_ns": 5824000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 5416000,
+   "t1_ns": 5420000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 5420000,
+   "t1_ns": 5620000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 5420000,
+   "t1_ns": 5620000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 5620000,
+   "t1_ns": 5622000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 5620000,
+   "t1_ns": 5824000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 5622000,
+   "t1_ns": 5822000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 5822000,
+   "t1_ns": 5824000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 5830000,
+   "t1_ns": 6830000,
+   "tones": [
+    {
+     "dds_hz": 67500000.12107193,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -24999999.75785613,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "729_aod_m",
+   "t0_ns": 5830000,
+   "t1_ns": 7280000,
+   "tones": [
+    {
+     "dds_hz": 116850123.27507138,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -6850123.2750713825,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "729_aod_p",
+   "t0_ns": 5830000,
+   "t1_ns": 7280000,
+   "tones": [
+    {
+     "dds_hz": 110309187.55568564,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": 309187.5556856394,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 5830000,
+   "t1_ns": 6830000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 5830000,
+   "t1_ns": 6840000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 6830000,
+   "t1_ns": 6876000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 6830000,
+   "t1_ns": 6842000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 6840000,
+   "t1_ns": 6842000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 6842000,
+   "t1_ns": 6862000,
+   "tones": [
+    {
+     "dds_hz": 92500000.02793968,
+     "amp": 0.34999694805591164,
+     "phase": 0.0,
+     "detuning_hz": 25000000.055879354,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 6842000,
+   "t1_ns": 6862000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 6842000,
+   "t1_ns": 6872000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 6862000,
+   "t1_ns": 7280000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 6862000,
+   "t1_ns": 7280000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 6872000,
+   "t1_ns": 6876000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 6876000,
+   "t1_ns": 7076000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 6876000,
+   "t1_ns": 7076000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 7076000,
+   "t1_ns": 7078000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 7076000,
+   "t1_ns": 7280000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 7078000,
+   "t1_ns": 7278000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 7278000,
+   "t1_ns": 7280000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 7286000,
+   "t1_ns": 8286000,
+   "tones": [
+    {
+     "dds_hz": 67500000.12107193,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -24999999.75785613,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "729_aod_m",
+   "t0_ns": 7286000,
+   "t1_ns": 8736000,
+   "tones": [
+    {
+     "dds_hz": 116850123.27507138,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -6850123.2750713825,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "729_aod_p",
+   "t0_ns": 7286000,
+   "t1_ns": 8736000,
+   "tones": [
+    {
+     "dds_hz": 110309187.55568564,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": 309187.5556856394,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 7286000,
+   "t1_ns": 8286000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 7286000,
+   "t1_ns": 8296000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 8286000,
+   "t1_ns": 8332000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 8286000,
+   "t1_ns": 8298000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 8296000,
+   "t1_ns": 8298000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 8298000,
+   "t1_ns": 8318000,
+   "tones": [
+    {
+     "dds_hz": 92500000.02793968,
+     "amp": 0.34999694805591164,
+     "phase": 0.0,
+     "detuning_hz": 25000000.055879354,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 8298000,
+   "t1_ns": 8318000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 8298000,
+   "t1_ns": 8328000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 8318000,
+   "t1_ns": 8736000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 8318000,
+   "t1_ns": 8736000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 8328000,
+   "t1_ns": 8332000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 8332000,
+   "t1_ns": 8532000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 8332000,
+   "t1_ns": 8532000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 8532000,
+   "t1_ns": 8534000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 8532000,
+   "t1_ns": 8736000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 8534000,
+   "t1_ns": 8734000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 8734000,
+   "t1_ns": 8736000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 8742000,
+   "t1_ns": 9742000,
+   "tones": [
+    {
+     "dds_hz": 67500000.12107193,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -24999999.75785613,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "729_aod_m",
+   "t0_ns": 8742000,
+   "t1_ns": 10192000,
+   "tones": [
+    {
+     "dds_hz": 116850123.27507138,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -6850123.2750713825,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "729_aod_p",
+   "t0_ns": 8742000,
+   "t1_ns": 10192000,
+   "tones": [
+    {
+     "dds_hz": 110309187.55568564,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": 309187.5556856394,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 8742000,
+   "t1_ns": 9742000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 8742000,
+   "t1_ns": 9752000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 9742000,
+   "t1_ns": 9788000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 9742000,
+   "t1_ns": 9754000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 9752000,
+   "t1_ns": 9754000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 9754000,
+   "t1_ns": 9774000,
+   "tones": [
+    {
+     "dds_hz": 92500000.02793968,
+     "amp": 0.34999694805591164,
+     "phase": 0.0,
+     "detuning_hz": 25000000.055879354,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 9754000,
+   "t1_ns": 9774000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 9754000,
+   "t1_ns": 9784000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 9774000,
+   "t1_ns": 10192000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 9774000,
+   "t1_ns": 10192000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 9784000,
+   "t1_ns": 9788000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 9788000,
+   "t1_ns": 9988000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 9788000,
+   "t1_ns": 9988000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 9988000,
+   "t1_ns": 9990000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 9988000,
+   "t1_ns": 10192000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 9990000,
+   "t1_ns": 10190000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 10190000,
+   "t1_ns": 10192000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 10198000,
+   "t1_ns": 11198000,
+   "tones": [
+    {
+     "dds_hz": 67500000.12107193,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -24999999.75785613,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "729_aod_m",
+   "t0_ns": 10198000,
+   "t1_ns": 11648000,
+   "tones": [
+    {
+     "dds_hz": 116850123.27507138,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -6850123.2750713825,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "729_aod_p",
+   "t0_ns": 10198000,
+   "t1_ns": 11648000,
+   "tones": [
+    {
+     "dds_hz": 110309187.55568564,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": 309187.5556856394,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 10198000,
+   "t1_ns": 11198000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 10198000,
+   "t1_ns": 11208000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 11198000,
+   "t1_ns": 11244000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 11198000,
+   "t1_ns": 11210000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 11208000,
+   "t1_ns": 11210000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 11210000,
+   "t1_ns": 11230000,
+   "tones": [
+    {
+     "dds_hz": 92500000.02793968,
+     "amp": 0.34999694805591164,
+     "phase": 0.0,
+     "detuning_hz": 25000000.055879354,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 11210000,
+   "t1_ns": 11230000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 11210000,
+   "t1_ns": 11240000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 11230000,
+   "t1_ns": 11648000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 11230000,
+   "t1_ns": 11648000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 11240000,
+   "t1_ns": 11244000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 11244000,
+   "t1_ns": 11444000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 11244000,
+   "t1_ns": 11444000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 11444000,
+   "t1_ns": 11446000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 11444000,
+   "t1_ns": 11648000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 11446000,
+   "t1_ns": 11646000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 11646000,
+   "t1_ns": 11648000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 11654000,
+   "t1_ns": 12654000,
+   "tones": [
+    {
+     "dds_hz": 67500000.12107193,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -24999999.75785613,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "729_aod_m",
+   "t0_ns": 11654000,
+   "t1_ns": 13104000,
+   "tones": [
+    {
+     "dds_hz": 116850123.27507138,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -6850123.2750713825,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "729_aod_p",
+   "t0_ns": 11654000,
+   "t1_ns": 13104000,
+   "tones": [
+    {
+     "dds_hz": 110309187.55568564,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": 309187.5556856394,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 11654000,
+   "t1_ns": 12654000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 11654000,
+   "t1_ns": 12664000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 12654000,
+   "t1_ns": 12700000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 12654000,
+   "t1_ns": 12666000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 12664000,
+   "t1_ns": 12666000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 12666000,
+   "t1_ns": 12686000,
+   "tones": [
+    {
+     "dds_hz": 92500000.02793968,
+     "amp": 0.34999694805591164,
+     "phase": 0.0,
+     "detuning_hz": 25000000.055879354,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 12666000,
+   "t1_ns": 12686000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 12666000,
+   "t1_ns": 12696000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 12686000,
+   "t1_ns": 13104000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 12686000,
+   "t1_ns": 13104000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 12696000,
+   "t1_ns": 12700000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 12700000,
+   "t1_ns": 12900000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 12700000,
+   "t1_ns": 12900000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 12900000,
+   "t1_ns": 12902000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 12900000,
+   "t1_ns": 13104000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 12902000,
+   "t1_ns": 13102000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 13102000,
+   "t1_ns": 13104000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 13110000,
+   "t1_ns": 14110000,
+   "tones": [
+    {
+     "dds_hz": 67500000.12107193,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -24999999.75785613,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "729_aod_m",
+   "t0_ns": 13110000,
+   "t1_ns": 14560000,
+   "tones": [
+    {
+     "dds_hz": 116850123.27507138,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -6850123.2750713825,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "729_aod_p",
+   "t0_ns": 13110000,
+   "t1_ns": 14560000,
+   "tones": [
+    {
+     "dds_hz": 110309187.55568564,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": 309187.5556856394,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 13110000,
+   "t1_ns": 14110000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 13110000,
+   "t1_ns": 14120000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 14110000,
+   "t1_ns": 14156000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 14110000,
+   "t1_ns": 14122000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 14120000,
+   "t1_ns": 14122000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 14122000,
+   "t1_ns": 14142000,
+   "tones": [
+    {
+     "dds_hz": 92500000.02793968,
+     "amp": 0.34999694805591164,
+     "phase": 0.0,
+     "detuning_hz": 25000000.055879354,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 14122000,
+   "t1_ns": 14142000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 14122000,
+   "t1_ns": 14152000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 14142000,
+   "t1_ns": 14560000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 14142000,
+   "t1_ns": 14560000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 14152000,
+   "t1_ns": 14156000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 14156000,
+   "t1_ns": 14356000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 14156000,
+   "t1_ns": 14356000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 14356000,
+   "t1_ns": 14358000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 14356000,
+   "t1_ns": 14560000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 14358000,
+   "t1_ns": 14558000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 14558000,
+   "t1_ns": 14560000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 14566000,
+   "t1_ns": 15566000,
+   "tones": [
+    {
+     "dds_hz": 67500000.12107193,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -24999999.75785613,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "729_aod_m",
+   "t0_ns": 14566000,
+   "t1_ns": 16016000,
+   "tones": [
+    {
+     "dds_hz": 116850123.27507138,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -6850123.2750713825,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "729_aod_p",
+   "t0_ns": 14566000,
+   "t1_ns": 16016000,
+   "tones": [
+    {
+     "dds_hz": 110309187.55568564,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": 309187.5556856394,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 14566000,
+   "t1_ns": 15566000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 14566000,
+   "t1_ns": 15576000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 15566000,
+   "t1_ns": 15612000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 15566000,
+   "t1_ns": 15578000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 15576000,
+   "t1_ns": 15578000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 15578000,
+   "t1_ns": 15598000,
+   "tones": [
+    {
+     "dds_hz": 92500000.02793968,
+     "amp": 0.34999694805591164,
+     "phase": 0.0,
+     "detuning_hz": 25000000.055879354,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 15578000,
+   "t1_ns": 15598000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 15578000,
+   "t1_ns": 15608000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 15598000,
+   "t1_ns": 16016000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 15598000,
+   "t1_ns": 16016000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 15608000,
+   "t1_ns": 15612000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 15612000,
+   "t1_ns": 15812000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 15612000,
+   "t1_ns": 15812000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 15812000,
+   "t1_ns": 15814000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 15812000,
+   "t1_ns": 16016000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 15814000,
+   "t1_ns": 16014000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 16014000,
+   "t1_ns": 16016000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 16022000,
+   "t1_ns": 17022000,
+   "tones": [
+    {
+     "dds_hz": 67500000.12107193,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -24999999.75785613,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "729_aod_m",
+   "t0_ns": 16022000,
+   "t1_ns": 17472000,
+   "tones": [
+    {
+     "dds_hz": 116850123.27507138,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": -6850123.2750713825,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "729_aod_p",
+   "t0_ns": 16022000,
+   "t1_ns": 17472000,
+   "tones": [
+    {
+     "dds_hz": 110309187.55568564,
+     "amp": 0.5000305194408838,
+     "phase": 0.0,
+     "detuning_hz": 309187.5556856394,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Turn on AOD"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 16022000,
+   "t1_ns": 17022000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 16022000,
+   "t1_ns": 17032000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 17022000,
+   "t1_ns": 17068000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 17022000,
+   "t1_ns": 17034000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 17032000,
+   "t1_ns": 17034000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Cooling/Doppler cooling/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 17034000,
+   "t1_ns": 17054000,
+   "tones": [
+    {
+     "dds_hz": 92500000.02793968,
+     "amp": 0.34999694805591164,
+     "phase": 0.0,
+     "detuning_hz": 25000000.055879354,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 17034000,
+   "t1_ns": 17054000,
+   "tones": [
+    {
+     "dds_hz": 340000000.08381903,
+     "amp": 0.6000122077763536,
+     "phase": 0.0,
+     "detuning_hz": -9999999.916180968,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 17034000,
+   "t1_ns": 17064000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_sigma",
+   "t0_ns": 17054000,
+   "t1_ns": 17472000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol"
+  },
+  {
+   "channel": "854",
+   "t0_ns": 17054000,
+   "t1_ns": 17472000,
+   "tones": [
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 350000000.09313226,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.09313225746154785,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 17064000,
+   "t1_ns": 17068000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/sigma_spin_pol/Repumpers"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 17068000,
+   "t1_ns": 17268000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 17068000,
+   "t1_ns": 17268000,
+   "tones": [
+    {
+     "dds_hz": 290000000.0372529,
+     "amp": 1.0,
+     "phase": 0.0,
+     "detuning_hz": -9999999.962747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 17268000,
+   "t1_ns": 17270000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "866",
+   "t0_ns": 17268000,
+   "t1_ns": 17472000,
+   "tones": [
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 300000000.0465661,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.046566128730773926,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 17270000,
+   "t1_ns": 17470000,
+   "tones": [
+    {
+     "dds_hz": 75000000.18626451,
+     "amp": 0.4499786363913813,
+     "phase": 0.0,
+     "detuning_hz": -9999999.62747097,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  },
+  {
+   "channel": "397_pi",
+   "t0_ns": 17470000,
+   "t1_ns": 17472000,
+   "tones": [
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    },
+    {
+     "dds_hz": 80000000.0745058,
+     "amp": 0.0,
+     "phase": 0.0,
+     "detuning_hz": 0.14901161193847656,
+     "amp_curve": null
+    }
+   ],
+   "path": "main/Detection"
+  }
+ ],
+ "markers": [
+  {
+   "t_ns": 2000,
+   "kind": "ttl",
+   "label": "[0] DIO edge high",
+   "detail": {
+    "state": 64,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 4000,
+   "kind": "ttl",
+   "label": "[1] DIO edge low",
+   "detail": {
+    "state": 0,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 6000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 1006000,
+   "kind": "pmt_gate_close",
+   "label": "[7] DIO edge low",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 1006000,
+   "kind": "readout",
+   "label": "[8] doppler_cooling",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 1006000,
+   "kind": "readout",
+   "label": "[9] doppler_cooling",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 1052000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 1252000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 1252000,
+   "kind": "readout",
+   "label": "[41] raw",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 1252000,
+   "kind": "readout",
+   "label": "[42] raw",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 1254000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 1454000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 1454000,
+   "kind": "readout",
+   "label": "[43] background",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 1454000,
+   "kind": "readout",
+   "label": "[44] background",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 1458000,
+   "kind": "ttl",
+   "label": "[0] DIO edge high",
+   "detail": {
+    "state": 64,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 1460000,
+   "kind": "ttl",
+   "label": "[1] DIO edge low",
+   "detail": {
+    "state": 0,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 1462000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 2462000,
+   "kind": "pmt_gate_close",
+   "label": "[7] DIO edge low",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 2462000,
+   "kind": "readout",
+   "label": "[8] doppler_cooling",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 2462000,
+   "kind": "readout",
+   "label": "[9] doppler_cooling",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 2508000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 2708000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 2708000,
+   "kind": "readout",
+   "label": "[41] raw",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 2708000,
+   "kind": "readout",
+   "label": "[42] raw",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 2710000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 2910000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 2910000,
+   "kind": "readout",
+   "label": "[43] background",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 2910000,
+   "kind": "readout",
+   "label": "[44] background",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 2914000,
+   "kind": "ttl",
+   "label": "[0] DIO edge high",
+   "detail": {
+    "state": 64,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 2916000,
+   "kind": "ttl",
+   "label": "[1] DIO edge low",
+   "detail": {
+    "state": 0,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 2918000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 3918000,
+   "kind": "pmt_gate_close",
+   "label": "[7] DIO edge low",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 3918000,
+   "kind": "readout",
+   "label": "[8] doppler_cooling",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 3918000,
+   "kind": "readout",
+   "label": "[9] doppler_cooling",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 3964000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 4164000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 4164000,
+   "kind": "readout",
+   "label": "[41] raw",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 4164000,
+   "kind": "readout",
+   "label": "[42] raw",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 4166000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 4366000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 4366000,
+   "kind": "readout",
+   "label": "[43] background",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 4366000,
+   "kind": "readout",
+   "label": "[44] background",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 4370000,
+   "kind": "ttl",
+   "label": "[0] DIO edge high",
+   "detail": {
+    "state": 64,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 4372000,
+   "kind": "ttl",
+   "label": "[1] DIO edge low",
+   "detail": {
+    "state": 0,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 4374000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 5374000,
+   "kind": "pmt_gate_close",
+   "label": "[7] DIO edge low",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 5374000,
+   "kind": "readout",
+   "label": "[8] doppler_cooling",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 5374000,
+   "kind": "readout",
+   "label": "[9] doppler_cooling",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 5420000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 5620000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 5620000,
+   "kind": "readout",
+   "label": "[41] raw",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 5620000,
+   "kind": "readout",
+   "label": "[42] raw",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 5622000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 5822000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 5822000,
+   "kind": "readout",
+   "label": "[43] background",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 5822000,
+   "kind": "readout",
+   "label": "[44] background",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 5826000,
+   "kind": "ttl",
+   "label": "[0] DIO edge high",
+   "detail": {
+    "state": 64,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 5828000,
+   "kind": "ttl",
+   "label": "[1] DIO edge low",
+   "detail": {
+    "state": 0,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 5830000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 6830000,
+   "kind": "pmt_gate_close",
+   "label": "[7] DIO edge low",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 6830000,
+   "kind": "readout",
+   "label": "[8] doppler_cooling",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 6830000,
+   "kind": "readout",
+   "label": "[9] doppler_cooling",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 6876000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 7076000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 7076000,
+   "kind": "readout",
+   "label": "[41] raw",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 7076000,
+   "kind": "readout",
+   "label": "[42] raw",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 7078000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 7278000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 7278000,
+   "kind": "readout",
+   "label": "[43] background",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 7278000,
+   "kind": "readout",
+   "label": "[44] background",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 7282000,
+   "kind": "ttl",
+   "label": "[0] DIO edge high",
+   "detail": {
+    "state": 64,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 7284000,
+   "kind": "ttl",
+   "label": "[1] DIO edge low",
+   "detail": {
+    "state": 0,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 7286000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 8286000,
+   "kind": "pmt_gate_close",
+   "label": "[7] DIO edge low",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 8286000,
+   "kind": "readout",
+   "label": "[8] doppler_cooling",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 8286000,
+   "kind": "readout",
+   "label": "[9] doppler_cooling",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 8332000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 8532000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 8532000,
+   "kind": "readout",
+   "label": "[41] raw",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 8532000,
+   "kind": "readout",
+   "label": "[42] raw",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 8534000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 8734000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 8734000,
+   "kind": "readout",
+   "label": "[43] background",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 8734000,
+   "kind": "readout",
+   "label": "[44] background",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 8738000,
+   "kind": "ttl",
+   "label": "[0] DIO edge high",
+   "detail": {
+    "state": 64,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 8740000,
+   "kind": "ttl",
+   "label": "[1] DIO edge low",
+   "detail": {
+    "state": 0,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 8742000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 9742000,
+   "kind": "pmt_gate_close",
+   "label": "[7] DIO edge low",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 9742000,
+   "kind": "readout",
+   "label": "[8] doppler_cooling",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 9742000,
+   "kind": "readout",
+   "label": "[9] doppler_cooling",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 9788000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 9988000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 9988000,
+   "kind": "readout",
+   "label": "[41] raw",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 9988000,
+   "kind": "readout",
+   "label": "[42] raw",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 9990000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 10190000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 10190000,
+   "kind": "readout",
+   "label": "[43] background",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 10190000,
+   "kind": "readout",
+   "label": "[44] background",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 10194000,
+   "kind": "ttl",
+   "label": "[0] DIO edge high",
+   "detail": {
+    "state": 64,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 10196000,
+   "kind": "ttl",
+   "label": "[1] DIO edge low",
+   "detail": {
+    "state": 0,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 10198000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 11198000,
+   "kind": "pmt_gate_close",
+   "label": "[7] DIO edge low",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 11198000,
+   "kind": "readout",
+   "label": "[8] doppler_cooling",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 11198000,
+   "kind": "readout",
+   "label": "[9] doppler_cooling",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 11244000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 11444000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 11444000,
+   "kind": "readout",
+   "label": "[41] raw",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 11444000,
+   "kind": "readout",
+   "label": "[42] raw",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 11446000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 11646000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 11646000,
+   "kind": "readout",
+   "label": "[43] background",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 11646000,
+   "kind": "readout",
+   "label": "[44] background",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 11650000,
+   "kind": "ttl",
+   "label": "[0] DIO edge high",
+   "detail": {
+    "state": 64,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 11652000,
+   "kind": "ttl",
+   "label": "[1] DIO edge low",
+   "detail": {
+    "state": 0,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 11654000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 12654000,
+   "kind": "pmt_gate_close",
+   "label": "[7] DIO edge low",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 12654000,
+   "kind": "readout",
+   "label": "[8] doppler_cooling",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 12654000,
+   "kind": "readout",
+   "label": "[9] doppler_cooling",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 12700000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 12900000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 12900000,
+   "kind": "readout",
+   "label": "[41] raw",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 12900000,
+   "kind": "readout",
+   "label": "[42] raw",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 12902000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 13102000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 13102000,
+   "kind": "readout",
+   "label": "[43] background",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 13102000,
+   "kind": "readout",
+   "label": "[44] background",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 13106000,
+   "kind": "ttl",
+   "label": "[0] DIO edge high",
+   "detail": {
+    "state": 64,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 13108000,
+   "kind": "ttl",
+   "label": "[1] DIO edge low",
+   "detail": {
+    "state": 0,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 13110000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 14110000,
+   "kind": "pmt_gate_close",
+   "label": "[7] DIO edge low",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 14110000,
+   "kind": "readout",
+   "label": "[8] doppler_cooling",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 14110000,
+   "kind": "readout",
+   "label": "[9] doppler_cooling",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 14156000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 14356000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 14356000,
+   "kind": "readout",
+   "label": "[41] raw",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 14356000,
+   "kind": "readout",
+   "label": "[42] raw",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 14358000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 14558000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 14558000,
+   "kind": "readout",
+   "label": "[43] background",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 14558000,
+   "kind": "readout",
+   "label": "[44] background",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 14562000,
+   "kind": "ttl",
+   "label": "[0] DIO edge high",
+   "detail": {
+    "state": 64,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 14564000,
+   "kind": "ttl",
+   "label": "[1] DIO edge low",
+   "detail": {
+    "state": 0,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 14566000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 15566000,
+   "kind": "pmt_gate_close",
+   "label": "[7] DIO edge low",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 15566000,
+   "kind": "readout",
+   "label": "[8] doppler_cooling",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 15566000,
+   "kind": "readout",
+   "label": "[9] doppler_cooling",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 15612000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 15812000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 15812000,
+   "kind": "readout",
+   "label": "[41] raw",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 15812000,
+   "kind": "readout",
+   "label": "[42] raw",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 15814000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 16014000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 16014000,
+   "kind": "readout",
+   "label": "[43] background",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 16014000,
+   "kind": "readout",
+   "label": "[44] background",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 16018000,
+   "kind": "ttl",
+   "label": "[0] DIO edge high",
+   "detail": {
+    "state": 64,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 16020000,
+   "kind": "ttl",
+   "label": "[1] DIO edge low",
+   "detail": {
+    "state": 0,
+    "mask": 64,
+    "path": "main"
+   }
+  },
+  {
+   "t_ns": 16022000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 17022000,
+   "kind": "pmt_gate_close",
+   "label": "[7] DIO edge low",
+   "detail": {
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 17022000,
+   "kind": "readout",
+   "label": "[8] doppler_cooling",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 17022000,
+   "kind": "readout",
+   "label": "[9] doppler_cooling",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Cooling/Doppler cooling/Readout doppler_cooling"
+   }
+  },
+  {
+   "t_ns": 17068000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 17268000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 17268000,
+   "kind": "readout",
+   "label": "[41] raw",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 17268000,
+   "kind": "readout",
+   "label": "[42] raw",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout raw"
+   }
+  },
+  {
+   "t_ns": 17270000,
+   "kind": "pmt_gate_open",
+   "label": "[6] DIO edge high",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 17470000,
+   "kind": "pmt_gate_close",
+   "label": "[40] DIO edge low",
+   "detail": {
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 17470000,
+   "kind": "readout",
+   "label": "[43] background",
+   "detail": {
+    "event": "PopPMTFIFO",
+    "path": "main/Detection/Readout background"
+   }
+  },
+  {
+   "t_ns": 17470000,
+   "kind": "readout",
+   "label": "[44] background",
+   "detail": {
+    "event": "Discriminator",
+    "path": "main/Detection/Readout background"
+   }
+  }
+ ]
+}

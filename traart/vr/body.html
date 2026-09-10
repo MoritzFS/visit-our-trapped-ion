@@ -1,0 +1,980 @@
+<title>Inside the Trap</title>
+<style>
+/*__FONTS__*/
+
+/* Committed single-theme design: this is a dark-room instrument. Every colour
+   is painted explicitly so the page holds on either host ground. */
+:root{
+  --vac:#04060B; --bezel:rgba(9,12,20,.78); --line:rgba(124,92,255,.22);
+  --text:#D9DEEC; --dim:#79839D; --dimmer:#4A5268; --hot:#F2F5FF;
+  --b397pi:#7C5CFF; --b397sig:#B77CFF; --b729:#F04E3E;
+  --b854:#B8394A; --b866:#8E3468; --btick:#3FB6A8;
+  --f-disp:"IBM Plex Sans Condensed",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--vac);color:var(--text);
+  font-family:var(--f-mono);font-size:12px;overflow:hidden;
+  -webkit-font-smoothing:antialiased}
+canvas{display:block}
+.eyebrow{font-family:var(--f-disp);text-transform:uppercase;letter-spacing:.15em;
+  font-size:10px;font-weight:600;color:var(--dim)}
+.hud{position:fixed;pointer-events:none;z-index:5}
+
+/* identity — top left */
+#ident{top:0;left:0;padding:14px 18px 16px;background:
+  linear-gradient(160deg,rgba(9,12,20,.86),rgba(9,12,20,0) 78%)}
+#ident h1{font-family:var(--f-disp);font-weight:700;font-size:20px;margin:0;
+  letter-spacing:-.01em;color:var(--hot);display:flex;align-items:baseline;gap:9px}
+#ident h1 span{font-size:10px;font-weight:500;letter-spacing:.16em;color:var(--dimmer);
+  text-transform:uppercase}
+#ident dl{margin:11px 0 0;display:grid;grid-template-columns:auto auto;gap:2px 14px;
+  font-size:11px;font-variant-numeric:tabular-nums}
+#ident dt{color:var(--dimmer)}
+#ident dd{margin:0;color:var(--dim)}
+
+/* beam legend — right */
+#legend{top:14px;right:0;padding:14px 18px;display:grid;gap:7px;justify-items:end}
+.beam-row{display:grid;grid-template-columns:auto 62px 8px;align-items:center;gap:9px;
+  font-size:11px;color:var(--dimmer);font-variant-numeric:tabular-nums;
+  transition:color .18s}
+.beam-row .k{font-family:var(--f-disp);font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;font-size:10.5px}
+.beam-row .d{text-align:right}
+.beam-row .sw{width:8px;height:8px;border-radius:1px;opacity:.28;transition:opacity .12s}
+.beam-row.on{color:var(--text)}
+.beam-row.on .sw{opacity:1;box-shadow:0 0 9px currentColor}
+
+/* transport — bottom */
+#transport{bottom:0;left:0;right:0;padding:16px 18px 15px;display:flex;
+  align-items:flex-end;gap:26px;
+  background:linear-gradient(0deg,rgba(9,12,20,.9),rgba(9,12,20,0))}
+#block{flex:1;min-width:0}
+#blockName{font-family:var(--f-disp);font-weight:600;font-size:16px;color:var(--hot);
+  line-height:1.2}
+#blockPath{color:var(--dimmer);font-size:11px;margin-top:3px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;direction:rtl;text-align:left}
+.meter{display:grid;gap:4px;min-width:104px}
+.meter .v{font-family:var(--f-disp);font-weight:600;font-size:17px;color:var(--text);
+  font-variant-numeric:tabular-nums;line-height:1}
+#bar{position:fixed;left:0;bottom:0;height:2px;background:var(--b397pi);z-index:6;
+  box-shadow:0 0 10px var(--b397pi);transition:width .04s linear}
+
+/* keys — bottom left, fades out */
+#keys{bottom:74px;left:18px;color:var(--dimmer);font-size:10.5px;line-height:1.75;
+  transition:opacity 1.2s;max-width:280px}
+#keys b{color:var(--dim);font-weight:400}
+#keys.faded{opacity:.16}
+
+/* enter overlay */
+#gate{position:fixed;inset:0;z-index:20;display:grid;place-items:center;
+  background:radial-gradient(ellipse at 50% 45%,#0A0E18,#04060B 70%)}
+#gate .card{max-width:min(560px,88vw);padding:0 24px;text-align:left}
+#gate h2{font-family:var(--f-disp);font-weight:700;font-size:clamp(30px,6vw,46px);
+  margin:0;letter-spacing:-.02em;color:var(--hot);text-wrap:balance;line-height:1.03}
+#gate p{color:var(--dim);font-size:12.5px;line-height:1.7;margin:16px 0 0;max-width:52ch}
+#gate p b{color:var(--text);font-weight:400}
+#gate .acts{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap;align-items:center}
+button.act{font:600 11px/1 var(--f-disp);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--hot);background:rgba(124,92,255,.14);border:1px solid var(--line);
+  padding:12px 20px;border-radius:2px;cursor:pointer;transition:background .15s,border-color .15s}
+button.act:hover{background:rgba(124,92,255,.26);border-color:rgba(124,92,255,.5)}
+button.act[disabled]{opacity:.35;cursor:default}
+button.act.ghost{background:none;color:var(--dim)}
+:focus-visible{outline:2px solid var(--b397pi);outline-offset:3px}
+#gate .note{color:var(--dimmer);font-size:11px;margin-top:18px;line-height:1.65}
+#VRButton{position:static!important;font:600 11px/1 var(--f-disp)!important;
+  letter-spacing:.14em!important;padding:12px 20px!important;border-radius:2px!important;
+  width:auto!important;transform:none!important;opacity:1!important;
+  background:rgba(240,78,62,.16)!important;border:1px solid rgba(240,78,62,.42)!important;
+  color:#FFD9D4!important}
+@media (prefers-reduced-motion:reduce){#keys{transition:none}}
+</style>
+
+<div id="gate"><div class="card">
+  <h2>Inside the Trap</h2>
+  <p>You are standing at the ion. The walls above and below you are the segmented
+     electrodes of <b>GKP_trap.stp</b>, the real slot, magnified <b id="gscale">30 000&times;</b>
+     so its 0.56&nbsp;mm gap is 17&nbsp;m of headroom. Everything that lights up is a
+     pulse from a run recorded on <b>1 September 2026</b> &mdash; no invented timing.</p>
+  <div class="acts">
+    <button class="act" id="btnDesk">Enter on this screen</button>
+    <span id="vrslot"></span>
+  </div>
+  <p class="note">Quest 3: open this page in the headset browser and press
+     <b>Enter VR</b>. On a laptop, click to look around, <b>WASD</b> to fly.</p>
+</div></div>
+
+<div class="hud" id="ident">
+  <h1>Inside the Trap<span>tr(art)</span></h1>
+  <dl>
+    <dt>run</dt><dd id="iRun">&mdash;</dd>
+    <dt>scan</dt><dd id="iScan">&mdash;</dd>
+    <dt>scale</dt><dd id="iScale">&mdash;</dd>
+    <dt>time</dt><dd id="iStretch">&mdash;</dd>
+  </dl>
+</div>
+
+<div class="hud" id="legend"></div>
+
+<div class="hud" id="keys">
+  <b>1&ndash;4</b> run &nbsp; <b>&larr;&rarr;</b> scan point &nbsp; <b>space</b> hold<br>
+  <b>wheel</b> / <b>-=</b> scale &nbsp; <b>[ ]</b> time stretch<br>
+  <b>WASD&nbsp;QE</b> fly &nbsp; <b>shift</b> faster<br>
+  <b>R</b> vantage point &nbsp; <b>F</b> stand on the ion<br>
+  <b>G</b> ghost beams &nbsp; <b>H</b> hide this
+</div>
+
+<div class="hud" id="transport">
+  <div id="block">
+    <div id="blockName">ready</div>
+    <div id="blockPath">&nbsp;</div>
+  </div>
+  <div class="meter"><div class="v" id="mClock">0.000 ms</div><div class="eyebrow">experiment time</div></div>
+  <div class="meter"><div class="v" id="mDet">&mdash;</div><div class="eyebrow">detuning</div></div>
+</div>
+<div id="bar" style="width:0"></div>
+
+<script type="module">
+/*__THREE__*/
+/*__VRBUTTON__*/
+{
+/* ════════════════════════════════════════════════════════════════════════
+   DATA — baked in at build time, no fetches.
+   ════════════════════════════════════════════════════════════════════════ */
+const TRAP_META = /*__TRAP_META__*/;
+const TRAP_POS_B64 = "/*__TRAP_POS__*/";
+const TRAP_IDX_B64 = "/*__TRAP_IDX__*/";
+const SCORE = /*__SCORE__*/;
+
+/* ════════════════════════════════════════════════════════════════════════
+   OPTICAL GEOMETRY  —  the block to edit when the real k-vectors are known.
+
+   Frame: the mesh is recentred on the slot centre (the ion) and rotated so
+   the plate's long CAD axis (x, 18.9 mm) is world +Y, i.e. vertical.
+
+        world +X  =  CAD +z   along the slot   (4.515 mm of open slot)
+        world +Y  =  CAD +x   up               (1.90 mm to the top edge)
+        world +Z  =  CAD +y   through the plate (2.25 mm of thickness)
+
+   `dir` is the propagation direction: the pulse flies along +dir and the ion
+   sits at the origin.  Everything here is in millimetres of real trap.
+   ════════════════════════════════════════════════════════════════════════ */
+const BEAMS = {
+  // 729 arrives perpendicular to the big trap plane — straight through the slot.
+  "729":       { dir:[ 0, 0, 1], color:0xF04E3E, r:0.030, label:"729 dp+sp" },
+  // 397 pi and 866 share the 45° path between the plate normal and the slot axis.
+  "397_pi":    { dir:[ 0.70711, 0, 0.70711], color:0x7C5CFF, r:0.026, label:"397 π" },
+  "866":       { dir:[ 0.70711, 0, 0.70711], color:0x8E3468, r:0.052, label:"866 repump" },
+  // 397 sigma and 854 are the axial pair: same line, same direction, in through
+  // one conical aperture and out through the other. The bores are cut into the
+  // slot walls from either side along CAD z, tapering 0.880 mm to 0.500 mm over
+  // 2.15 mm (a 5.0° half angle), centred on (x 3.3256, y -5.4495) — the ion to
+  // within 2 µm. A ray along this line meets no material anywhere in the plate:
+  // it is the one clear sight-line through the trap, hence the axial access.
+  // Co-propagating means the two shafts coincide exactly, so 854 is drawn with
+  // a wider waist to stay visible under sigma, the way 866 sits under 397 pi.
+  "397_sigma": { dir:[ 1, 0, 0], color:0xB77CFF, r:0.026, label:"397 σ" },
+  "854":       { dir:[ 1, 0, 0], color:0xB8394A, r:0.046, label:"854 repump" },
+};
+// Tickles have no beam: they shake the electrodes, so they glow instead.
+const TICKLES = ["tickle_rf","tickle_dc","tickle_hel"];
+
+/* How the shaft is drawn, in world metres -- deliberately NOT in trap
+   millimetres. The beams all pass through the origin, so their direction is
+   scale-free; only their thickness is a physical size. Length measured in trap
+   units grew with the magnification, and a kilometres-long shaft passing 1.5 m
+   from your head is what makes a beam look aimed at you rather than at the ion.
+
+   The bright part is an envelope centred on the ion: light is only drawn where
+   it is doing something. A beam whose closest approach to the viewer is 3.7 m
+   along its axis is then at 3% brightness there and 100% at the ion, so what
+   you see converges on the ion no matter where you stand. */
+const BEAM_REACH_M = 55;      // half-length of the shaft, world metres
+const BEAM_NEAR_M  = 12.0;    // how far from the ion it stays bright
+const BEAM_FAR     = 0.05;    // what is left of it further out
+const BEAM_CLEAR_M = 1.5;     // hard floor: never draw this close to the eye
+const FLIGHT_S     = 0.30;    // wall-clock seconds for a wavefront to arrive
+
+/* Where the viewer starts.  Standing *exactly* at the ion puts you inside
+   every beam at once, so the default vantage is a few metres off along an
+   azimuth no beam uses (22.5°, halfway between the 397 σ and the 45° pair),
+   with the crossing point out in front.  F drops you onto the ion itself.
+
+   The height is zero on purpose: every beam lies in the y = 0 plane, so
+   standing in that plane is what makes them read as lines converging on a
+   point rather than as shafts passing overhead. 22.5° is the widest gap the
+   beam set leaves, so at 4 m the nearest beam axis is still 1.5 m away. */
+const VIEW_AZ = 202.5 * Math.PI/180, VIEW_R = 4.0, VIEW_H = 0.0;
+
+/* ── scale & time ─────────────────────────────────────────────────────── */
+let scaleX   = 30000;         // 1 mm of trap  ->  scaleX mm of world
+let stretch  = 2000;          // 1 s of experiment -> `stretch` s of playback
+const SCALE_MIN = 300, SCALE_MAX = 120000;
+const STRETCH_MIN = 200, STRETCH_MAX = 400000;
+
+/* ════════════════════════════════════════════════════════════════════════
+   RENDERER
+   ════════════════════════════════════════════════════════════════════════ */
+const renderer = new THREE.WebGLRenderer({antialias:true, powerPreference:"high-performance"});
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.xr.enabled = true;
+renderer.xr.setFoveation(0.6);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.95;
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x04060B);
+scene.fog = new THREE.FogExp2(0x04060B, 0.00055);
+
+const camera = new THREE.PerspectiveCamera(72, innerWidth/innerHeight, 0.1, 6000);
+const rig = new THREE.Group();          // moves the viewer; the ion is the origin
+rig.add(camera);
+scene.add(rig);
+
+/* world holds everything authored in millimetres of real trap */
+const world = new THREE.Group();
+world.scale.setScalar(scaleX/1000);     // mm -> metres at the chosen magnification
+scene.add(world);
+
+/* ════════════════════════════════════════════════════════════════════════
+   THE TRAP
+   ════════════════════════════════════════════════════════════════════════ */
+function b64ToArray(b64, Type){
+  const bin = atob(b64), n = bin.length, bytes = new Uint8Array(n);
+  for (let i=0;i<n;i++) bytes[i] = bin.charCodeAt(i);
+  return new Type(bytes.buffer);
+}
+const geo = new THREE.BufferGeometry();
+geo.setAttribute('position', new THREE.BufferAttribute(b64ToArray(TRAP_POS_B64, Float32Array), 3));
+geo.setIndex(new THREE.BufferAttribute(b64ToArray(TRAP_IDX_B64, Uint16Array), 1));
+const flat = geo.toNonIndexed();
+flat.computeVertexNormals();
+geo.dispose();
+
+const trapMat = new THREE.MeshStandardMaterial({
+  color:0x8D97AE, metalness:0.55, roughness:0.42, flatShading:true,
+  side:THREE.DoubleSide,
+});
+const trap = new THREE.Mesh(flat, trapMat);
+world.add(trap);
+
+/* Barely-there fill so the electrodes never vanish completely between pulses. */
+scene.add(new THREE.HemisphereLight(0x1B2340, 0x04060B, 0.14));
+
+/* The ion's own light: everything you see on the metal is scattered pulse.
+   Lights sit inside `world` so they travel with the geometry, but `distance`
+   is read in world metres, so it is set from the magnification. */
+/* Punctual lights fall off as 1/d^2, and magnifying the trap moves the
+   electrode walls further away in world metres -- so a fixed intensity would
+   dim by 9x on a 3x zoom. Both are therefore derived from the magnification:
+   reach grows with it, gain with its square, and the walls stay lit the same
+   however far in or out you go. */
+const LIGHT_REF = 10000, LIGHT_BASE_REACH = 60, LIGHT_BASE_GAIN = 26;
+let LIGHT_REACH = LIGHT_BASE_REACH, LIGHT_GAIN = LIGHT_BASE_GAIN;
+const ionLight = new THREE.PointLight(0xffffff, 0, LIGHT_REACH, 2.0);
+world.add(ionLight);
+
+/* The ion. Deliberately NOT a child of `world`: it is a point, not part of
+   the trap, so it must not inflate with the magnification -- at 30 000x a
+   world-space halo would swell to metres across and swallow the whole view.
+   Sizes here are world metres and stay put however far you zoom. */
+const ion = new THREE.Mesh(
+  new THREE.SphereGeometry(0.045, 16, 12),
+  new THREE.MeshBasicMaterial({color:0xffffff}));
+scene.add(ion);
+const ionHalo = new THREE.Sprite(new THREE.SpriteMaterial({
+  color:0xC9D4FF, transparent:true, opacity:0, depthWrite:false,
+  blending:THREE.AdditiveBlending, map:radialSprite()}));
+ionHalo.scale.setScalar(0.6);
+scene.add(ionHalo);
+
+function radialSprite(){
+  const c = document.createElement('canvas'); c.width = c.height = 128;
+  const g = c.getContext('2d').createRadialGradient(64,64,0,64,64,64);
+  g.addColorStop(0,'rgba(255,255,255,1)');
+  g.addColorStop(0.25,'rgba(255,255,255,.45)');
+  g.addColorStop(1,'rgba(255,255,255,0)');
+  const x = c.getContext('2d'); x.fillStyle = g; x.fillRect(0,0,128,128);
+  return new THREE.CanvasTexture(c);
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   BEAMS
+   A beam is a quad that spins about its own axis to face the viewer, with the
+   shaft drawn analytically: a soft radial core, a bright wavefront that flies
+   in when the pulse starts, and a trailing edge that leaves when it stops.
+   ════════════════════════════════════════════════════════════════════════ */
+const BEAM_VERT = `
+varying vec2 vUv;
+varying vec3 vWorld;
+void main(){
+  vUv = uv;
+  vWorld = (modelMatrix * vec4(position, 1.0)).xyz;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+}`;
+
+const BEAM_FRAG = `
+uniform vec3  uColor;
+uniform float uAmp;      // 0..1 pulse amplitude
+uniform float uHead;     // wavefront position, 0 (source) .. 1 (dump)
+uniform float uTail;     // trailing edge
+uniform float uGhost;    // always-on hint of the beam line
+uniform float uTime;
+uniform float uNearV;    // half-width of the bright zone, in v units
+uniform float uFar;      // what survives beyond it
+uniform vec3  uCam;      // where the viewer's head is, world metres
+uniform float uClear;    // and how much room to leave around it
+varying vec2 vUv;
+varying vec3 vWorld;
+
+void main(){
+  float r = abs(vUv.x*2.0 - 1.0);
+  float core = 1.35*exp(-r*r*26.0) + exp(-r*r*7.0) + 0.30*exp(-r*r*1.6);  // core, shaft, halo
+  float v = vUv.y;
+
+  float s = 0.030;
+  float body  = step(uTail, v) * step(v, uHead);
+  float front = exp(-pow((v-uHead)/s,2.0)) * step(v, uHead + 3.0*s) * step(uHead, 0.999);
+  float back  = exp(-pow((v-uTail)/s,2.0)) * step(0.001, uTail);
+
+  // faint scintillation so a held beam is not a dead bar of colour
+  float sc = 0.90 + 0.10*sin(v*260.0 - uTime*7.0);
+
+  // the envelope: bright at the ion (v = 0.5), almost nothing far away
+  float dv  = abs(v - 0.5);
+  float env = uFar + (1.0 - uFar) * exp(-pow(dv/uNearV, 2.0));
+  // arriving matters more than leaving
+  env *= mix(1.0, 0.45, smoothstep(0.496, 0.504, v));
+
+  // Every beam passes exactly through the ion and nowhere else -- but standing
+  // a few metres away with beams every 45 degrees, one of them always runs
+  // close by your head and on behind you, and the eye reads that whole line as
+  // aimed at itself. A fixed clearance radius only dims the nearest stretch.
+  //
+  // So the cull is relative to the ion, not to a radius: nothing nearer to the
+  // eye than the ion is drawn. What is left of every beam starts at the ion and
+  // recedes, so the shafts converge on it from wherever you happen to stand,
+  // and moving changes which half you see rather than putting a beam in
+  // your face. Plus a hard floor for when you fly right up to one.
+  float dCam  = distance(vWorld, uCam);
+  float dIon  = max(length(uCam), 0.5);          // the ion is the origin
+  float side  = smoothstep(dIon * 0.55, dIon * 0.95, dCam);
+  float clear = smoothstep(uClear * 0.3, uClear, dCam);
+
+  float a = uAmp * (0.26*body*sc + 2.4*front + 1.2*back) + uGhost*0.035;
+  a *= core * env * side * clear;
+  gl_FragColor = vec4(uColor * (1.0 + 1.1*front), a);
+  #include <colorspace_fragment>
+}`;
+
+const beamPlane = new THREE.PlaneGeometry(1, 1, 1, 40);
+beamPlane.translate(0, 0.5, 0);              // 0 at source end, 1 at dump end
+const BEAM_NEAR_V = BEAM_NEAR_M / (2 * BEAM_REACH_M);
+
+const UP = new THREE.Vector3(0,1,0);
+const beams = {};
+for (const [key, cfg] of Object.entries(BEAMS)){
+  const dir = new THREE.Vector3(...cfg.dir).normalize();
+
+  // Not a child of `world`: the beam passes through the origin whatever the
+  // magnification, and only its thickness is a physical size (set in setScale).
+  const pivot = new THREE.Group();                       // +Y along the beam
+  pivot.quaternion.setFromUnitVectors(UP, dir);
+  pivot.position.copy(dir).multiplyScalar(-BEAM_REACH_M);
+  scene.add(pivot);
+
+  const uniforms = {
+    uColor:{value:new THREE.Color(cfg.color)}, uAmp:{value:0},
+    uHead:{value:0}, uTail:{value:0}, uGhost:{value:1}, uTime:{value:0},
+    uNearV:{value:BEAM_NEAR_V}, uFar:{value:BEAM_FAR},
+    uCam:{value:new THREE.Vector3()}, uClear:{value:BEAM_CLEAR_M},
+  };
+  const mesh = new THREE.Mesh(beamPlane, new THREE.ShaderMaterial({
+    vertexShader:BEAM_VERT, fragmentShader:BEAM_FRAG, uniforms,
+    transparent:true, blending:THREE.AdditiveBlending,
+    depthWrite:false, side:THREE.DoubleSide, fog:false,
+  }));
+  mesh.scale.set(cfg.r * 2 * 30, BEAM_REACH_M * 2, 1);   // width reset by setScale
+  mesh.frustumCulled = false;
+  // spin the quad about the beam axis so its face is always turned to the eye
+  const eye = new THREE.Vector3(), local = new THREE.Vector3();
+  mesh.onBeforeRender = (rnd, sc, cam) => {
+    cam.getWorldPosition(eye);
+    uniforms.uCam.value.copy(eye);
+    pivot.worldToLocal(local.copy(eye));
+    mesh.rotation.y = Math.atan2(local.x, local.z);
+  };
+  pivot.add(mesh);
+
+  const light = new THREE.PointLight(cfg.color, 0, LIGHT_REACH, 2.0);
+  world.add(light);
+
+  beams[key] = {cfg, uniforms, mesh, light, on:false,
+                onsetWall:-9, offWall:-9, amp:0, det:0};
+}
+
+/* Tickle drive: no light, so the electrode faces breathe instead. */
+const tickleLight = new THREE.PointLight(0x3FB6A8, 0, 34, 2.0);
+tickleLight.position.set(0, 0.30, 0);
+world.add(tickleLight);
+
+/* ════════════════════════════════════════════════════════════════════════
+   SCORE PLAYBACK
+
+   Two modes, one code path.
+
+   *Linked* — the page is being served by the Audio Bench, which owns the only
+   playback cursor there is. The bench's audio thread advances it in experiment
+   nanoseconds; this page asks for it four times a second and predicts forward
+   in between. What you hear and what you see are therefore the same number,
+   rather than two clocks that agree until they don't.
+
+   *Standalone* — no bench answering, so the page runs the cursor itself, off
+   the score baked into the file. Same timeline, same drawing code.
+
+   The timeline is flattened exactly the way `score.rs::Timeline::build` does
+   it — every scan point, repeated `shots` times, laid end to end — because any
+   other flattening would put the visuals a whole scan point out of step with
+   the sound.
+   ════════════════════════════════════════════════════════════════════════ */
+let tNs = 0, running = true, demoI = 0;
+let TL = null;
+
+function buildTimeline(demo, shots){
+  const chans = demo.channels;
+  const lanes = {}, segments = [];
+  for (const c of chans) lanes[c.key] = [];
+  const n = Math.max(1, shots | 0);
+  let cur = 0;
+  for (let pi = 0; pi < demo.points.length; pi++){
+    const p = demo.points[pi];
+    for (let s = 0; s < n; s++){
+      for (const pl of p.pulses){
+        const key = chans[pl[0]] && chans[pl[0]].key;
+        if (!key) continue;
+        let amp = 0, det = 0;
+        for (const t of pl[3]) if (t[1] > amp){ amp = t[1]; det = t[0]; }
+        (lanes[key] || (lanes[key] = [])).push(
+          {t0: cur + pl[1], t1: cur + pl[2], amp, det, blk: pl[4]});
+      }
+      segments.push({t0: cur, t1: cur + p.durNs, pi});
+      cur += p.durNs;
+    }
+  }
+  for (const k in lanes) lanes[k].sort((a,b) => a.t0 - b.t0);
+  return {
+    id: demo.id, title: demo.title, subtitle: demo.subtitle || "",
+    channels: chans, blocks: demo.blocks || [], lanes, segments,
+    cursor: {}, total: Math.max(cur, 1), shots: n,
+    labels: demo.points.map(p => p.label || ""),
+    nPoints: demo.points.length,
+  };
+}
+
+function useTimeline(tl, keepTime){
+  TL = tl;
+  TL.cursor = {};
+  if (!keepTime) tNs = 0;
+  for (const b of Object.values(beams)){ b.on = false; b.amp = 0; b.onsetWall = -9; b.offWall = -9; }
+  buildLegend();
+  ui.iRun.textContent = TL.title;
+}
+
+/* the run baked into the page, for when nothing is serving the clock */
+function loadLocal(i){
+  demoI = ((i % SCORE.demos.length) + SCORE.demos.length) % SCORE.demos.length;
+  const d = SCORE.demos[demoI];
+  useTimeline(buildTimeline(d, d.shots || 1));
+}
+
+function activeAt(key, t){
+  const L = TL && TL.lanes[key]; if (!L || !L.length) return null;
+  let i = TL.cursor[key] | 0;
+  if (i >= L.length || L[i].t0 > t) i = 0;
+  while (i < L.length - 1 && L[i].t1 <= t) i++;
+  TL.cursor[key] = i;
+  const p = L[i];
+  return (p.t0 <= t && t < p.t1) ? p : null;
+}
+
+function segAt(t){
+  const S = TL && TL.segments; if (!S || !S.length) return null;
+  let lo = 0, hi = S.length - 1;
+  while (lo < hi){ const m = (lo + hi + 1) >> 1; if (S[m].t0 <= t) lo = m; else hi = m - 1; }
+  return S[lo];
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   THE LINK TO THE AUDIO BENCH
+
+   /clock gives the cursor and the rate; the offset between the two machines
+   is fitted the way NTP does it, from the midpoint of the round trip. The
+   frame loop then free-runs and is pulled gently towards the prediction, so
+   motion stays smooth between polls and a loop or a demo change snaps.
+   ════════════════════════════════════════════════════════════════════════ */
+const LINK = {
+  on: false, everOn: false, demo: "", shots: 1, playing: true, stretch: 2000,
+  total: 1, offsetMs: 0, anchorT: 0, anchorMs: 0, rttMs: 0,
+  bestRtt: 1e9, bestAt: -1e9, misses: 0,
+  fetching: false, nextTry: 0, title: "", index: 0, count: 0,
+};
+
+async function pollClock(){
+  if (LINK.fetching) return;
+  LINK.fetching = true;
+  const t0 = performance.now();
+  try {
+    const r = await fetch('clock', {cache: 'no-store'});
+    if (!r.ok) throw new Error(r.status);
+    const j = await r.json();
+    const t1 = performance.now();
+    const off = j.server_us / 1000 - (t0 + t1) / 2;
+    const rtt = t1 - t0;
+    LINK.rttMs = rtt;
+    // NTP's trick: the sample with the shortest round trip is the least wrong,
+    // because the error is bounded by the asymmetry of the trip. Take a clearly
+    // better sample outright, let a stale best age out, and otherwise creep --
+    // which keeps Wi-Fi jitter from wobbling the picture in time.
+    const now = performance.now();
+    if (!LINK.on || rtt < LINK.bestRtt * 1.3 || now - LINK.bestAt > 8000){
+      LINK.offsetMs = off; LINK.bestRtt = rtt; LINK.bestAt = now;
+    } else {
+      LINK.offsetMs = LINK.offsetMs * 0.9 + off * 0.1;
+    }
+    LINK.anchorT = j.t_ns;
+    LINK.anchorMs = j.server_us / 1000;
+    LINK.total = Math.max(1, j.total_ns);
+    LINK.stretch = j.stretch || 1000;
+    LINK.playing = !!j.playing;
+    LINK.title = j.title || "";
+    LINK.index = j.demo_index | 0;
+    LINK.count = j.demo_count | 0;
+    LINK.shots = Math.max(1, j.shots | 0);
+    const newDemo = j.demo !== LINK.demo;
+    LINK.demo = j.demo;
+    if (!LINK.on){ LINK.on = true; LINK.everOn = true; LINK.misses = 0; }
+    if (newDemo) await fetchScore();
+    syncHud();
+  } catch (e) {
+    if (LINK.on) LINK.on = false;
+    LINK.misses = (LINK.misses || 0) + 1;
+    LINK.nextTry = performance.now() + Math.min(15000, 1500 * LINK.misses);
+  } finally {
+    LINK.fetching = false;
+  }
+}
+
+async function fetchScore(){
+  try {
+    const r = await fetch('score?demo=' + encodeURIComponent(LINK.demo), {cache: 'no-store'});
+    if (!r.ok) throw new Error(r.status);
+    const d = await r.json();
+    useTimeline(buildTimeline(d, LINK.shots), true);
+  } catch (e) {
+    // keep whatever we were drawing; the clock still runs
+  }
+}
+
+/* Anything the viewer presses goes to the bench, which owns the transport.
+   Nothing is changed locally: the next poll brings the truth back. */
+function cmd(q){
+  if (!LINK.on) return false;
+  fetch('cmd?' + q, {cache: 'no-store'})
+    .then(r => r.ok ? r.json() : null)
+    .then(j => { if (j){ LINK.anchorT = j.t_ns; LINK.anchorMs = j.server_us/1000;
+                         LINK.playing = !!j.playing; LINK.stretch = j.stretch;
+                         LINK.total = Math.max(1, j.total_ns); } })
+    .catch(() => {});
+  return true;
+}
+
+/* Where the cursor should be right now, in experiment ns. */
+function linkTarget(){
+  let t = LINK.anchorT;
+  if (LINK.playing){
+    t += (performance.now() + LINK.offsetMs - LINK.anchorMs) * 1e6 / Math.max(1, LINK.stretch);
+  }
+  const T = LINK.total;
+  return ((t % T) + T) % T;
+}
+
+/* A page opened straight off the disk has nothing to talk to, and fetch() on
+   a file:// URL is not merely refused, it is refused loudly once a second. */
+const CAN_LINK = location.protocol === 'https:' || location.protocol === 'http:';
+if (CAN_LINK) setInterval(() => {
+  if (!LINK.on && performance.now() < LINK.nextTry) return;
+  pollClock();
+}, 250);
+
+/* ════════════════════════════════════════════════════════════════════════
+   OVERLAY
+   ════════════════════════════════════════════════════════════════════════ */
+const ui = {};
+for (const id of ["iRun","iScan","iScale","iStretch","blockName","blockPath",
+                  "mClock","mDet","bar","legend","keys","gate","gscale"])
+  ui[id] = document.getElementById(id);
+
+function buildLegend(){
+  ui.legend.innerHTML = "";
+  for (const c of TL.channels){
+    const cfg = BEAMS[c.key];
+    const row = document.createElement('div');
+    row.className = "beam-row"; row.id = "row-" + c.key;
+    const col = cfg ? "#" + cfg.color.toString(16).padStart(6,"0") : "#3FB6A8";
+    row.style.color = col;
+    row.innerHTML = `<span class="k">${cfg ? cfg.label : c.label}</span>
+      <span class="d">&mdash;</span><span class="sw" style="background:${col}"></span>`;
+    ui.legend.appendChild(row);
+  }
+}
+
+/* ── VR panel: a small readout that hangs below the line of sight ──────── */
+const panelCv = document.createElement('canvas');
+panelCv.width = 1024; panelCv.height = 320;
+const panelTex = new THREE.CanvasTexture(panelCv);
+const panel = new THREE.Mesh(
+  new THREE.PlaneGeometry(0.62, 0.194),
+  new THREE.MeshBasicMaterial({map:panelTex, transparent:true, opacity:0.9, depthTest:false}));
+panel.position.set(0, -0.30, -0.85);
+panel.rotation.x = -0.42;
+panel.renderOrder = 999;
+panel.visible = false;
+camera.add(panel);
+
+function drawPanel(blockName, clock, det){
+  const g = panelCv.getContext('2d');
+  g.clearRect(0,0,1024,320);
+  g.fillStyle = "rgba(9,12,20,.80)"; g.fillRect(0,0,1024,320);
+  g.fillStyle = "rgba(124,92,255,.30)"; g.fillRect(0,0,1024,2);
+  g.font = "600 30px 'IBM Plex Sans Condensed',sans-serif";
+  g.fillStyle = "#F2F5FF"; g.fillText(blockName.slice(0,42), 30, 60);
+  g.font = "400 24px 'IBM Plex Mono',monospace"; g.fillStyle = "#79839D";
+  g.fillText(clock, 30, 108);
+  g.fillText(det, 30, 146);
+  let x = 30;
+  for (const c of TL.channels){
+    const b = beams[c.key];
+    const cfg = BEAMS[c.key];
+    const col = cfg ? "#" + cfg.color.toString(16).padStart(6,"0") : "#3FB6A8";
+    g.globalAlpha = b && b.on ? 1 : 0.22;
+    g.fillStyle = col; g.fillRect(x, 190, 120, 10);
+    g.font = "600 20px 'IBM Plex Sans Condensed',sans-serif";
+    g.fillText((cfg ? cfg.label : c.label).slice(0,12), x, 236);
+    g.globalAlpha = 1; x += 150;
+  }
+  g.font = "400 20px 'IBM Plex Mono',monospace"; g.fillStyle = "#4A5268";
+  g.fillText(`${(scaleX/1000).toFixed(1)}k×   1 s → ${fmtStretch()}`, 30, 292);
+  panelTex.needsUpdate = true;
+}
+
+const fmtStretch = () => (LINK.on ? LINK.stretch : stretch) >= 1000
+  ? ((LINK.on ? LINK.stretch : stretch)/1000).toFixed((LINK.on ? LINK.stretch : stretch) >= 10000 ? 0 : 1) + "k"
+  : (LINK.on ? LINK.stretch : stretch).toFixed(0);
+
+function syncHud(){
+  ui.iScale.textContent = (scaleX/1000).toFixed(1) + "k× · gap " +
+    (TRAP_META.slot.gap_mm * scaleX / 1000).toFixed(1) + " m";
+  ui.iStretch.textContent = "×" + fmtStretch() +
+    (LINK.on ? "  ·  bench" : (LINK.everOn ? "  ·  bench lost" : ""));
+  ui.gscale.textContent = Math.round(scaleX).toLocaleString("en-US").replace(/,/g," ") + "×";
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   INPUT — desktop
+   ════════════════════════════════════════════════════════════════════════ */
+const keys = new Set();
+let yaw = 0, pitch = 0, locked = false;
+addEventListener('keydown', e => {
+  keys.add(e.code);
+  if (e.code === 'Space'){ if (!cmd('toggle=1')) running = !running; e.preventDefault(); }
+  if (e.code === 'KeyR') goObserver();
+  if (e.code === 'KeyF') goIon();
+  if (e.code === 'KeyH') ui.keys.style.display = ui.keys.style.display === 'none' ? '' : 'none';
+  if (e.code === 'KeyG') ghost = ghost > 0 ? 0 : 0.35;
+  if (e.code === 'BracketLeft')  setStretch(stretch/1.4);
+  if (e.code === 'BracketRight') setStretch(stretch*1.4);
+  if (e.code === 'Minus')  setScale(scaleX/1.3);
+  if (e.code === 'Equal')  setScale(scaleX*1.3);
+  if (e.code === 'ArrowRight') step(+1);
+  if (e.code === 'ArrowLeft')  step(-1);
+  if (/^Digit[1-9]$/.test(e.code)){
+    const i = +e.code.slice(5) - 1;
+    if (LINK.on){ if (i < LINK.count) cmd('demo=' + i); }
+    else if (i < SCORE.demos.length) loadLocal(i);
+  }
+});
+addEventListener('keyup', e => keys.delete(e.code));
+
+function goObserver(){
+  rig.position.set(VIEW_R*Math.cos(VIEW_AZ), VIEW_H, VIEW_R*Math.sin(VIEW_AZ));
+  const f = rig.position.clone().negate().normalize();
+  yaw = Math.atan2(-f.x, -f.z); pitch = Math.asin(f.y);
+  rig.rotation.set(0,0,0);
+}
+function goIon(){ rig.position.set(0,0,0); yaw = -Math.PI/2; pitch = 0; rig.rotation.set(0,0,0); }
+
+/* Move by one scan point. Linked, the bench owns the cursor, so the nearest
+   honest equivalent is the next run; standalone we can simply seek. */
+function step(d){
+  if (LINK.on){ cmd('demo=' + ((LINK.index + d + LINK.count) % Math.max(1,LINK.count))); return; }
+  const seg = segAt(tNs); if (!seg) return;
+  const i = Math.min(TL.segments.length - 1, Math.max(0, TL.segments.indexOf(seg) + d));
+  tNs = TL.segments[i].t0;
+}
+function nextRun(){
+  if (cmd('next=1')) return;
+  loadLocal(demoI + 1);
+}
+function setScale(v){
+  scaleX = Math.min(SCALE_MAX, Math.max(SCALE_MIN, v));
+  world.scale.setScalar(scaleX/1000);
+  // the waist is a real size in the trap, so the shaft thickens as you zoom in
+  for (const b of Object.values(beams)) b.mesh.scale.x = b.cfg.r * 2 * scaleX / 1000;
+  const k = scaleX / LIGHT_REF;
+  LIGHT_REACH = LIGHT_BASE_REACH * k;
+  LIGHT_GAIN  = LIGHT_BASE_GAIN * k * k;
+  for (const b of Object.values(beams)) b.light.distance = LIGHT_REACH;
+  ionLight.distance = LIGHT_REACH;
+  tickleLight.distance = LIGHT_REACH * 0.45;
+  syncHud();
+}
+function setStretch(v){
+  const w = Math.min(STRETCH_MAX, Math.max(STRETCH_MIN, v));
+  if (cmd('stretch=' + w.toFixed(2))) return;   // the bench re-times the audio too
+  stretch = w; syncHud();
+}
+
+renderer.domElement.addEventListener('click', () => {
+  if (!renderer.xr.isPresenting) renderer.domElement.requestPointerLock();
+});
+document.addEventListener('pointerlockchange',
+  () => locked = document.pointerLockElement === renderer.domElement);
+addEventListener('mousemove', e => {
+  if (!locked) return;
+  yaw   -= e.movementX * 0.0022;
+  pitch  = Math.max(-1.45, Math.min(1.45, pitch - e.movementY * 0.0022));
+});
+addEventListener('wheel', e => setScale(scaleX * (e.deltaY > 0 ? 1/1.13 : 1.13)), {passive:true});
+addEventListener('resize', () => {
+  camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+
+let ghost = 0.35;
+document.getElementById('btnDesk').onclick = () => {
+  ui.gate.style.display = 'none';
+  renderer.domElement.requestPointerLock();
+};
+const vrb = VRButton.createButton(renderer);
+vrb.id = 'VRButton';
+document.getElementById('vrslot').appendChild(vrb);
+renderer.xr.addEventListener('sessionstart', () => {
+  ui.gate.style.display = 'none';
+  panel.visible = true;
+  goObserver();
+  // In VR the head supplies the pitch, so only the rig's yaw is ours to set.
+  // The headset starts looking down the rig's local -Z, and goObserver() has
+  // already solved for the yaw that points -Z at the ion -- adding anything to
+  // it turns the viewer around, which puts the ion behind their head and makes
+  // every beam appear to fly at their face instead of into the trap.
+  rig.rotation.set(0, yaw, 0);
+  pitch = 0;
+});
+renderer.xr.addEventListener('sessionend', () => panel.visible = false);
+setTimeout(() => ui.keys.classList.add('faded'), 14000);
+
+/* ── controllers ──────────────────────────────────────────────────────── */
+let prevTrigger = false, prevA = false, prevB = false;
+function pollXR(dt){
+  const s = renderer.xr.getSession(); if (!s) return;
+  for (const src of s.inputSources){
+    const gp = src.gamepad; if (!gp) continue;
+    const ax = gp.axes.length >= 4 ? [gp.axes[2], gp.axes[3]] : [gp.axes[0], gp.axes[1]];
+    const dead = v => Math.abs(v) < 0.14 ? 0 : v;
+    if (src.handedness === 'right'){
+      const v = dead(ax[1]); if (v) setScale(scaleX * Math.pow(1.9, -v*dt));
+      const h = dead(ax[0]); if (h) rig.rotation.y -= h * dt * 1.1;
+      const trig = gp.buttons[0] && gp.buttons[0].pressed;
+      if (trig && !prevTrigger){ if (!cmd('toggle=1')) running = !running; }
+      prevTrigger = trig;
+      const a = gp.buttons[4] && gp.buttons[4].pressed;
+      if (a && !prevA) nextRun();
+      prevA = a;
+    } else if (src.handedness === 'left'){
+      const v = dead(ax[1]);
+      if (v) setStretch((LINK.on ? LINK.stretch : stretch) * Math.pow(3.0, -v*dt));
+      const b = gp.buttons[4] && gp.buttons[4].pressed;
+      if (b && !prevB) step(+1);
+      prevB = b;
+    }
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   LOOP
+   ════════════════════════════════════════════════════════════════════════ */
+const fwd = new THREE.Vector3(), right = new THREE.Vector3();
+const clock = new THREE.Clock();
+let wall = 0, hudAcc = 0, fps = 0;
+
+/* A diagnostic hook, because a headset shows you nothing. With the Quest
+   attached over adb, `chrome://inspect` on the laptop gets a console on the
+   page: `__traart()` reports what the page thinks the time is, what the bench
+   says it should be, and the gap between them in milliseconds of wall clock --
+   which is the number that decides whether a flash and a click land together. */
+window.__traart = () => {
+  const target = LINK.on ? linkTarget() : null;
+  let err = target === null ? null : target - tNs;
+  if (err !== null){
+    if (err >  TL.total/2) err -= TL.total;
+    if (err < -TL.total/2) err += TL.total;
+  }
+  const st = LINK.on ? LINK.stretch : stretch;
+  return {
+    linked: LINK.on, demo: TL.id, t_ns: tNs, target_ns: target,
+    err_ns: err, err_wall_ms: err === null ? null : err * st / 1e6,
+    total_ns: TL.total, stretch: st, playing: LINK.on ? LINK.playing : running,
+    offset_ms: LINK.offsetMs, rtt_ms: LINK.rttMs, fps: Math.round(fps),
+  };
+};
+
+loadLocal(0); setScale(scaleX); goObserver();
+if (CAN_LINK) pollClock();   // if the bench is serving this page, slave to it
+
+renderer.setAnimationLoop(() => {
+  const rawDt = clock.getDelta();          // uncapped, so `fps` tells the truth
+  const dt = Math.min(rawDt, 0.1);
+  wall += dt;
+  if (rawDt > 0) fps = fps ? fps*0.92 + (1/rawDt)*0.08 : 1/rawDt;
+
+  /* --- move ---------------------------------------------------------- */
+  if (renderer.xr.isPresenting){ pollXR(dt); }
+  else {
+    camera.rotation.set(pitch, yaw, 0, 'YXZ');
+    const sp = (keys.has('ShiftLeft') || keys.has('ShiftRight') ? 46 : 9) * dt;
+    fwd.set(0,0,-1).applyEuler(camera.rotation);
+    right.set(1,0,0).applyEuler(camera.rotation);
+    if (keys.has('KeyW')) rig.position.addScaledVector(fwd, sp);
+    if (keys.has('KeyS')) rig.position.addScaledVector(fwd, -sp);
+    if (keys.has('KeyD')) rig.position.addScaledVector(right, sp);
+    if (keys.has('KeyA')) rig.position.addScaledVector(right, -sp);
+    if (keys.has('KeyE')) rig.position.y += sp;
+    if (keys.has('KeyQ')) rig.position.y -= sp;
+  }
+
+  /* --- advance the score --------------------------------------------- *
+     Linked, the cursor free-runs at the bench's rate and is pulled towards
+     the bench's own value: a hard snap every poll would judder, and pure
+     prediction would drift. A jump bigger than a few percent of the run is a
+     loop or a demo change, and those do snap.                               */
+  const T = TL.total;
+  if (LINK.on){
+    // The prediction is absolute -- a function of performance.now() and the
+    // last anchor -- so it cannot drift. Integrating dt on top of it *would*:
+    // any frame longer than the clamp (a hitch, a slow renderer) silently
+    // loses time, and the correction then has to fight a constant lag. So the
+    // cursor is read from the prediction, and only the residual is eased, to
+    // keep an anchor swap from stepping the picture.
+    // No easing and no integration: `linkTarget()` is already a continuous
+    // function of performance.now(), so reading it outright costs nothing in
+    // smoothness and leaves no lag to accumulate. What is smoothed is the
+    // clock offset it is built from, one level down, where jitter belongs.
+    tNs = linkTarget();
+  } else if (running) {
+    tNs += dt * 1e9 / Math.max(1, stretch);
+  }
+  if (tNs >= T) tNs -= T * Math.floor(tNs / T);
+  if (tNs < 0) tNs = ((tNs % T) + T) % T;
+
+  /* --- drive the beams ------------------------------------------------ */
+  let lit = 0, blockId = -1, domDet = null, ionPump = 0;
+  const mix = new THREE.Color(0,0,0);
+
+  for (const [key, b] of Object.entries(beams)){
+    const p = activeAt(key, tNs);
+    const nowOn = !!p;
+    if (nowOn && !b.on) b.onsetWall = wall;
+    if (!nowOn && b.on) b.offWall = wall;
+    b.on = nowOn;
+    if (p){ b.amp = p.amp; b.det = p.det; if (blockId < 0) blockId = p.blk; }
+
+    const flight = Math.max(0.05, Math.min(FLIGHT_S, 0.6 * (p ? (p.t1-p.t0) : 1e9) / 1e9 * stretch));
+    const head = nowOn ? Math.min(1, (wall - b.onsetWall) / flight) : 1;
+    const tail = nowOn ? 0 : Math.min(1, (wall - b.offWall) / flight);
+    const alive = nowOn || tail < 1;
+
+    b.uniforms.uHead.value = head;
+    b.uniforms.uTail.value = tail;
+    b.uniforms.uTime.value = wall;
+    b.uniforms.uGhost.value = ghost;
+    const a = alive ? Math.pow(b.amp, 0.7) : 0;
+    b.uniforms.uAmp.value = a;
+    b.mesh.visible = alive || ghost > 0;
+
+    // light on the electrodes, strongest as the wavefront passes the ion
+    const near = alive ? Math.exp(-Math.pow((0.5 - (nowOn ? head : tail))/0.09, 2)) : 0;
+    b.light.intensity = a * (0.55 + 3.4*near) * LIGHT_GAIN;
+
+    if (alive){
+      lit += a;
+      mix.add(new THREE.Color(b.cfg.color).multiplyScalar(a));
+      if (key === '397_pi' || key === '397_sigma') ionPump += a;
+      if (domDet === null || a > 0.4) domDet = b.det;
+    }
+
+    const row = document.getElementById('row-' + key);
+    if (row){
+      row.classList.toggle('on', alive);
+      row.children[1].textContent = alive
+        ? (b.det/1e6).toFixed(2).replace('-','−') + ' MHz' : '—';
+    }
+  }
+
+  /* tickle: shakes the electrodes, puts no light on the ion */
+  let tick = 0;
+  for (const k of TICKLES){ const p = activeAt(k, tNs); if (p) tick = Math.max(tick, p.amp); }
+  tickleLight.intensity = tick * (0.5 + 0.5*Math.sin(wall*24)) * LIGHT_GAIN * 0.7;
+  const tRow = document.getElementById('row-tickle_rf');
+  if (tRow) tRow.classList.toggle('on', tick > 0);
+
+  /* the ion fluoresces on 397 */
+  const glow = Math.min(1, ionPump);
+  ionHalo.material.opacity = 0.10 + 0.75*glow;
+  ionHalo.scale.setScalar(0.45 + 1.05*glow);
+  ion.material.color.setRGB(0.72+0.28*glow, 0.78+0.22*glow, 1.0);
+  if (lit > 0) mix.multiplyScalar(1/lit);
+  ionLight.color.copy(mix.r+mix.g+mix.b > 0 ? mix : new THREE.Color(0x223344));
+  ionLight.intensity = Math.min(3.0, lit*1.6) * LIGHT_GAIN;
+  ionLight.distance = LIGHT_REACH;
+
+  /* --- readouts (throttled) ------------------------------------------- */
+  hudAcc += dt;
+  if (hudAcc > 0.05){
+    hudAcc = 0;
+    const path = blockId >= 0 ? (TL.blocks[blockId] || '') : '';
+    const seg  = path.split('/');
+    const name = seg[seg.length-1] || (running ? 'idle' : 'held');
+    ui.blockName.textContent = name;
+    ui.blockPath.textContent = seg.slice(0,-1).join(' / ') || ' ';
+    const ms = tNs/1e6;
+    const clockTxt = ms.toFixed(3) + ' ms';
+    ui.mClock.textContent = clockTxt;
+    const detTxt = domDet === null ? '—'
+      : (domDet/1e6).toFixed(2).replace('-','−') + ' MHz';
+    ui.mDet.textContent = detTxt;
+    ui.bar.style.width = (100 * Math.min(1, tNs / TL.total)) + '%';
+    const sg = segAt(tNs);
+    ui.iScan.textContent = (TL.nPoints > 1 && sg)
+      ? `${TL.labels[sg.pi] || ('point ' + (sg.pi+1))}  (${sg.pi+1}/${TL.nPoints})`
+      : (TL.subtitle || 'single point');
+    if (panel.visible) drawPanel(name, clockTxt, detTxt);
+  }
+
+  renderer.render(scene, camera);
+});
+}
+</script>
