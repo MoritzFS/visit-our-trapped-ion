@@ -10,6 +10,7 @@ mod retro;
 mod score;
 mod serve;
 mod synth;
+mod tunings;
 
 use eframe::egui;
 use egui::{Color32, CornerRadius, Pos2, Rect, Stroke, Vec2};
@@ -45,6 +46,11 @@ fn main() -> eframe::Result<()> {
     let serve_port: u16 = flag("--port")
         .and_then(|p| p.parse().ok())
         .unwrap_or(serve::DEFAULT_PORT);
+    // --tunings <file>: where saved tunings live; --tuning <name>: open on one
+    let tunings_path = flag("--tunings")
+        .map(std::path::PathBuf::from)
+        .unwrap_or_else(tunings::default_path);
+    let open_tuning = flag("--tuning");
 
     // Headless bounce: traart-bench --render out.wav 20 [demo-id] [--stretch N]
     if let Some(i) = argv.iter().position(|a| a == "--render") {
@@ -124,7 +130,19 @@ fn main() -> eframe::Result<()> {
 
     if std::env::args().any(|a| a == "--selftest") {
         let ctx = egui::Context::default();
-        let mut app = App::build(&ctx, bundle, raw, None, serve_port);
+        let scratch = std::env::temp_dir().join("traart-bench-selftest-tunings.json");
+        let _ = std::fs::remove_file(&scratch);
+        let mut app = App::build(&ctx, bundle, raw, None, serve_port, scratch.clone(), None);
+        // save, recall, delete -- the panel's three verbs, off-screen
+        app.tuning_name = "selftest".into();
+        app.tuning_save();
+        let n = app.book.tunings.len();
+        app.params.stretch = 123.0;
+        app.tuning_recall(0);
+        let back = app.params.stretch;
+        app.tuning_delete();
+        println!("tunings: saved {n}, recalled stretch {back}, {} left", app.book.tunings.len());
+        let _ = std::fs::remove_file(&scratch);
         app.params.playing = true;
         let mut input = egui::RawInput::default();
         input.screen_rect = Some(egui::Rect::from_min_size(
@@ -157,7 +175,9 @@ fn main() -> eframe::Result<()> {
     eframe::run_native(
         "Audio Bench",
         options,
-        Box::new(move |cc| Ok(Box::new(App::new(cc, bundle, raw, serve_dir, serve_port)))),
+        Box::new(move |cc| {
+            Ok(Box::new(App::new(cc, bundle, raw, serve_dir, serve_port, tunings_path, open_tuning)))
+        }),
     )
 }
 
@@ -173,6 +193,14 @@ struct App {
     link: Arc<Mutex<serve::Link>>,
     serving: Option<serve::Serving>,
     serve_err: Option<String>,
+    /// Saved tunings: the file, the list, the name being typed, which entry
+    /// the panel currently matches, and the one-line readout under the list.
+    book: tunings::Book,
+    book_path: std::path::PathBuf,
+    tuning_name: String,
+    tuning_current: Option<usize>,
+    tuning_note: String,
+    applying_tuning: bool,
     blind: bool,
     window_s: f32,
     cursor_ns: f64,
@@ -190,8 +218,10 @@ impl App {
         raw: serde_json::Value,
         serve_dir: Option<std::path::PathBuf>,
         serve_port: u16,
+        tunings_path: std::path::PathBuf,
+        open_tuning: Option<String>,
     ) -> Self {
-        App::build(&cc.egui_ctx, bundle, raw, serve_dir, serve_port)
+        App::build(&cc.egui_ctx, bundle, raw, serve_dir, serve_port, tunings_path, open_tuning)
     }
 
     fn build(
@@ -200,6 +230,8 @@ impl App {
         raw: serde_json::Value,
         serve_dir: Option<std::path::PathBuf>,
         serve_port: u16,
+        tunings_path: std::path::PathBuf,
+        open_tuning: Option<String>,
     ) -> Self {
         let font_note = retro::install(ctx).is_some();
 
@@ -257,6 +289,12 @@ impl App {
             link,
             serving,
             serve_err,
+            book: tunings::Book::load(&tunings_path),
+            book_path: tunings_path,
+            tuning_name: String::new(),
+            tuning_current: None,
+            tuning_note: String::new(),
+            applying_tuning: false,
             blind: false,
             window_s: 6.0,
             cursor_ns: 0.0,
@@ -269,8 +307,77 @@ impl App {
         if let Some(i) = start {
             app.load_demo(i);
         }
+        if let Some(name) = open_tuning {
+            match app.book.tunings.iter().position(|t| t.name.eq_ignore_ascii_case(&name)) {
+                Some(i) => app.tuning_recall(i),
+                None => app.tuning_note = format!("no tuning called {name:?}"),
+            }
+        }
         app.sync_link();
         app
+    }
+
+    // ── tunings: save, recall, delete ────────────────────────────────────
+    fn tuning_save(&mut self) {
+        let d = &self.bundle.demos[self.demo];
+        let name = self.tuning_name.trim().to_string();
+        let name = if name.is_empty() { self.book.free_name(&d.title) } else { name };
+        let t = tunings::Tuning::capture(&name, &d.id, &d.title, &self.params, &self.edit, self.window_s);
+        let (i, replaced) = self.book.put(t);
+        match self.book.save(&self.book_path) {
+            Ok(()) => {
+                self.tuning_current = Some(i);
+                self.tuning_name = name.clone();
+                self.tuning_note = if replaced { format!("replaced {name:?}") } else { format!("saved {name:?}") };
+            }
+            Err(e) => self.tuning_note = format!("could not save: {e}"),
+        }
+    }
+
+    fn tuning_recall(&mut self, i: usize) {
+        let Some(t) = self.book.tunings.get(i).cloned() else { return };
+        self.applying_tuning = true;
+        if let Some(di) = self.bundle.demos.iter().position(|d| d.id == t.demo) {
+            if di != self.demo {
+                self.load_demo(di);
+            }
+        }
+        let hit = t.apply_params(&mut self.params);
+        t.apply_edit(&mut self.edit);
+        self.window_s = t.window_s.clamp(1.0, 20.0);
+        self.rebuild_timeline();
+        self.push_params();
+        self.applying_tuning = false;
+        self.tuning_current = Some(i);
+        self.tuning_name = t.name.clone();
+        let total = self.params.beams.len();
+        let run_note = if self.bundle.demos[self.demo].id == t.demo {
+            String::new()
+        } else {
+            format!(", made on {}", if t.run.is_empty() { t.demo.clone() } else { t.run.clone() })
+        };
+        self.tuning_note = format!("recalled {:?}: {hit} of {total} beams set{run_note}", t.name);
+    }
+
+    fn tuning_delete(&mut self) {
+        let Some(i) = self.tuning_current else { return };
+        if i >= self.book.tunings.len() {
+            self.tuning_current = None;
+            return;
+        }
+        let gone = self.book.tunings.remove(i);
+        self.tuning_current = None;
+        self.tuning_note = match self.book.save(&self.book_path) {
+            Ok(()) => format!("forgot {:?}", gone.name),
+            Err(e) => format!("could not save: {e}"),
+        };
+    }
+
+    /// A knob moved by hand: the panel no longer matches the file.
+    fn tuning_touched(&mut self) {
+        if !self.applying_tuning {
+            self.tuning_current = None;
+        }
     }
 
     /// Keep the served description in step: which run, and its points as the
@@ -337,11 +444,12 @@ impl App {
         }
     }
 
-    fn push_params(&self) {
+    fn push_params(&mut self) {
         if let Ok(mut s) = self.shared.lock() {
             s.params = self.params.clone();
             s.params_gen = s.params_gen.wrapping_add(1);
         }
+        self.tuning_touched();
     }
 
     fn load_demo(&mut self, idx: usize) {
@@ -364,6 +472,7 @@ impl App {
             s.cursor_ns = 0.0;
         }
         self.sync_link();
+        self.tuning_touched();
     }
 
     fn pull_state(&mut self) {
@@ -566,6 +675,7 @@ impl App {
                     if self.run_parameters(ui) {
                         self.rebuild_timeline();
                     }
+                    self.tunings_panel(ui);
 
                     ui.add_space(12.0);
                     let d = &self.bundle.demos[self.demo];
@@ -1031,6 +1141,73 @@ impl App {
 }
 
 impl App {
+    /// Saved tunings: a name, SAVE, the list, DELETE, and a readout.
+    fn tunings_panel(&mut self, ui: &mut egui::Ui) {
+        ui.add_space(10.0);
+        let mut recall: Option<usize> = None;
+        let mut save = false;
+        let mut delete = false;
+        retro::group(ui, "Tunings", |ui| {
+            ui.horizontal(|ui| {
+                let r = ui.add(
+                    egui::TextEdit::singleline(&mut self.tuning_name)
+                        .hint_text(self.bundle.demos[self.demo].title.clone())
+                        .desired_width(150.0)
+                        .font(retro::serif(13.0)),
+                );
+                if r.lost_focus() && ui.input(|i| i.key_pressed(egui::Key::Enter)) {
+                    save = true;
+                }
+                if retro::button(ui, "SAVE", false, 56.0).clicked() {
+                    save = true;
+                }
+            });
+            ui.add_space(4.0);
+            if self.book.tunings.is_empty() {
+                ui.label(
+                    egui::RichText::new("nothing saved yet")
+                        .font(retro::serif(11.5))
+                        .color(retro::INK_DIM),
+                );
+            }
+            let n = self.book.tunings.len();
+            for i in 0..n {
+                let t = &self.book.tunings[i];
+                let sub = if t.run.is_empty() { t.demo.clone() } else { t.run.clone() };
+                let cur = self.tuning_current == Some(i);
+                if retro::list_row(ui, &t.name, &sub, &t.age(), cur).clicked() {
+                    recall = Some(i);
+                }
+            }
+            ui.add_space(4.0);
+            ui.horizontal(|ui| {
+                let has = self.tuning_current.is_some();
+                if has && retro::button(ui, "DELETE", false, 64.0).clicked() {
+                    delete = true;
+                }
+                ui.label(
+                    egui::RichText::new(&self.tuning_note)
+                        .font(retro::serif(11.5))
+                        .color(retro::INK_DIM),
+                );
+            });
+            ui.label(
+                egui::RichText::new(tunings::pretty(&self.book_path))
+                    .font(retro::mono(9.5))
+                    .color(retro::INK_DIM),
+            );
+        });
+        if save {
+            self.tuning_save();
+        }
+        if let Some(i) = recall {
+            self.tuning_recall(i);
+        }
+        if delete {
+            self.tuning_delete();
+        }
+    }
+
     /// Sliders for whatever this run exposes. Returns true when the timeline
     /// must be rebuilt (on release, so dragging stays smooth).
     fn run_parameters(&mut self, ui: &mut egui::Ui) -> bool {
