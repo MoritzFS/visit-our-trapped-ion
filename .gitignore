@@ -21,3 +21,7 @@ traart/vr/.certs/
 # Cowork session files
 .claude/
 Claude outputs/
+
+# patch-script backups and the page's secondary build output
+*.bak-*
+traart/vr/trap_vr.artifact.html

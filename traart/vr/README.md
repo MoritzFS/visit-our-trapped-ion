@@ -116,15 +116,26 @@ instantaneous or geological.
 
 | | desktop | Quest |
 |---|---|---|
-| look / move | click to capture, mouse + `WASD` `QE`, `shift` faster | head + right stick to turn |
-| magnification | wheel, or `-` `=` | right stick ↕ |
-| time stretch | `[` `]` | left stick ↕ |
-| hold | `space` | right trigger |
-| run | `1`–`4` | A |
-| scan point | `←` `→` | Y |
+| look / move | click to capture, mouse + `WASD` `QE`, `shift` faster | head; right stick to turn (controllers only) |
+| magnification | wheel, or `-` `=` | right stick ↕ (controllers only) |
+| time stretch | `[` `]` | on the bench |
+| hold | `space` | on the bench |
+| run | `1`–`4` | on the bench |
+| scan point | `←` `→` | on the bench |
+| leave VR | — | hold a pinch (or a trigger) for a second, then pinch **Leave VR**; or **Exit VR** on the bench |
 | vantage / ion | `R` / `F` | — |
 | ghost beams | `G` | — |
 | hide the key list | `H` | — |
+
+In the headset nothing you do with your hands touches the transport. A tracked
+hand arrives as an input source whose only button is the pinch, mapped as the
+trigger, and a page that pauses on "trigger" pauses every time someone
+gestures — so play, run and speed belong to the bench (or, off a disk, to the
+keyboard). The one gesture the page listens for is the long pinch: hold it for
+a second and a panel appears a metre ahead with **Back** and **Leave VR**; your
+hands are drawn, a ray comes out of each, and a short pinch on a target chooses
+it. Ten idle seconds and the panel folds away. `tools/patch_hands_menu.py` is
+the change, kept as a script so it reads as one.
 
 The default vantage is 4 m from the ion, at beam height, on the azimuth with the
 widest clearance from any beam (22.5°); `F` puts you on the ion itself, which is
@@ -161,9 +172,10 @@ into the file, so both sides flatten the same numbers -- points repeated
 `shots` times, laid end to end, exactly as `score.rs` does it. A subset baked in
 months ago would put the picture a whole scan point out of step.
 
-The controllers become the bench's transport: the trigger pauses the audio,
-**A** steps to the next run on both at once, the left stick re-times both. The
-`time` line in the corner reads `· bench` when the link is up.
+The bench is the transport for both: whatever it plays, the headset shows, and
+nothing done in the headset changes what plays. The `time` line in the corner
+reads `· bench` when the link is up, and the bench's **Exit VR** button ends
+the immersive session from the laptop.
 
 With nothing serving the clock -- opened off a disk, or off `serve.py` -- the
 page runs its own cursor over the score inside it, and everything else is the
