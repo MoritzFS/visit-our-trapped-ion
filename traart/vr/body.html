@@ -365,8 +365,18 @@ void main(){
   float side  = smoothstep(dIon * 0.55, dIon * 0.95, dCam);
   float clear = smoothstep(uClear * 0.3, uClear, dCam);
 
+  // The sphere alone is not enough. A beam that runs past you continues on
+  // the far side of the sphere, and from inside a fan of thick shafts those
+  // continuations all begin at the same distance around you and recede -- the
+  // eye reads them as radiating from where you stand. So, additionally,
+  // nothing on the viewer's side of the ion's transverse plane is drawn beyond
+  // the short run-in above: every visible fragment lies at the ion or past it
+  // along the line of sight, and the only place shafts can meet is the ion.
+  float along  = dot(vWorld, normalize(-uCam));  // >0 beyond the ion, <0 towards the eye
+  float beyond = smoothstep(-0.55 * dIon, -0.30 * dIon, along);
+
   float a = uAmp * (0.26*body*sc + 2.4*front + 1.2*back) + uGhost*0.035;
-  a *= core * env * side * clear;
+  a *= core * env * side * clear * beyond;
   gl_FragColor = vec4(uColor * (1.0 + 1.1*front), a);
   #include <colorspace_fragment>
 }`;
