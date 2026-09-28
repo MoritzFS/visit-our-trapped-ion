@@ -183,6 +183,18 @@ same. `__traart()` in the browser console reports the link state and the error
 in milliseconds of wall clock; with the Quest on a cable, `chrome://inspect`
 gets you that console.
 
+## Getting it into the headset, with internet
+
+Every push to `main` that touches `traart/vr/` rebuilds the page and publishes
+it at
+
+    https://moritzfs.github.io/visit-our-trapped-ion/
+
+(`.github/workflows/pages.yml`). That is a real https host, so in the headset
+browser this URL is the whole setup: no laptop, no certificate warning, Enter
+VR just appears. There is no bench to link to there, so the page runs its own
+clock over the score baked into it, exactly as it does off a disk.
+
 ## Getting it into the headset, on site, with no internet
 
 Nothing in `trap_vr.html` fetches anything — three.js, the typefaces, the trap
