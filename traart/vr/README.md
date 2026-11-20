@@ -114,28 +114,106 @@ instantaneous or geological.
 
 ## Controls
 
+Along the bottom of the page is **Trap Control**, a small control-system panel
+in the Audio Bench's livery. It is the transport, and everything on it can be
+worked with a mouse:
+
+| on the panel | does | key |
+|---|---|---|
+| **Pause / Play**, **Rewind** | holds the cursor; sends it back to the start of the run | `space` |
+| **Run** list, ◀ ▶ | which recorded run is playing, by name | `1`–`4` |
+| **Scan point** ◀ ▶ | steps the cursor one scan point (one shot, where a point is repeated) | `←` `→` |
+| **Slowdown** | how many seconds one second of experiment takes, logarithmic, 1× to 400 000× | `[` `]` |
+| **Magnification** | how much bigger than life the trap is, 300× to 120 000× | wheel, `-` `=` |
+| **Sound** On/Off, volume | hear the run as well as see it (below) | `M` |
+| the dark strip | the whole run: a lane per beam, a block per pulse, a tick per scan point. **Drag it to move the cursor.** | |
+| ▾ | folds the knobs away and leaves the strip | |
+
+The three readouts in the title bar are the sequence block under the cursor,
+the experiment time and the detuning of the brightest beam; the lamp is green
+while the page runs, red while it is held, amber when the bench has the clock.
+
+Everything else:
+
 | | desktop | Quest |
 |---|---|---|
-| look / move | click to capture, mouse + `WASD` `QE`, `shift` faster | head; right stick to turn (controllers only) |
-| magnification | wheel, or `-` `=` | right stick ↕ (controllers only) |
-| time stretch | `[` `]` | on the bench |
-| hold | `space` | on the bench |
-| run | `1`–`4` | on the bench |
-| scan point | `←` `→` | on the bench |
-| leave VR | — | hold a pinch (or a trigger) for a second, then pinch **Leave VR**; or **Exit VR** on the bench |
+| look / move | click the scene to capture the mouse, `esc` to free it; mouse + `WASD` `QE`, `shift` faster | head; right stick to turn (controllers only) |
+| magnification | panel, wheel, or `-` `=` | right stick ↕ (controllers only) |
+| transport, run, slowdown, sound | the panel, or the keys above | hold a pinch (or a trigger) for a second: the menu |
+| leave VR | — | the same menu, **Leave VR**; or **Exit VR** on the bench |
 | vantage / ion | `R` / `F` | — |
 | ghost beams | `G` | — |
 | hide the key list | `H` | — |
 
-In the headset nothing you do with your hands touches the transport. A tracked
-hand arrives as an input source whose only button is the pinch, mapped as the
-trigger, and a page that pauses on "trigger" pauses every time someone
-gestures — so play, run and speed belong to the bench (or, off a disk, to the
-keyboard). The one gesture the page listens for is the long pinch: hold it for
-a second and a panel appears a metre ahead with **Back** and **Leave VR**; your
-hands are drawn, a ray comes out of each, and a short pinch on a target chooses
-it. Ten idle seconds and the panel folds away. `tools/patch_hands_menu.py` is
-the change, kept as a script so it reads as one.
+**Enter on this screen** no longer captures the mouse: a captured pointer cannot
+reach the panel, and the panel is the first thing a visitor needs.
+
+### In the headset
+
+A stray gesture still does nothing. A tracked hand arrives as an input source
+whose only button is the pinch, mapped as the trigger, and a page that pauses on
+"trigger" pauses every time someone gestures. The one gesture the page listens
+for is the long pinch: hold it for a second and a panel appears a metre ahead;
+your hands are drawn, a ray comes out of each, and a short pinch on a target
+chooses it. Ten idle seconds and the panel folds away.
+
+That panel now carries the transport as well as the way out: **Rewind**,
+**Pause/Play**, **Slower**, **Faster** (a factor of two each), **Prev/Next
+run**, **Prev/Next point**, **Sound on/off**, **Back**, **Leave VR**, under the
+run's name, the cursor and the slowdown. It is the only way VR input reaches the
+transport, and it sits behind a deliberate second of holding.
+`tools/patch_hands_menu.py` is the original two-button version, kept as a script
+so that change reads as one.
+
+`__traartMenu()` in the browser console hangs the same menu in front of the
+desktop camera, and `__traartMenu('play')` chooses a target as a pinch would --
+enough to check the drawing and the verbs without a headset.
+
+### When the bench is serving the page
+
+There is one cursor and the bench owns it, so the panel changes role rather
+than starting a second clock: the lamp turns amber and reads `BENCH`, and
+Pause/Play, Rewind, the run list and Slowdown send `/cmd` to the bench and
+redraw from what `/clock` says next. Slowdown narrows to the bench's 1× to
+5000×. The run list names the run that is playing and learns the others as they
+are visited, because `/clock` only names the current one. Three things step
+aside: the scrub strip is a display and the scan-point buttons are grey (the
+bench has no seek -- its cursor lives on the audio thread), and Sound reads
+`Bench`, since the bench is what you are hearing. In the headset the menu's
+transport targets are dead in this mode and only **Back** and **Leave VR**
+work: the room is listening to the bench, and whoever is at the bench runs it.
+
+## Sound
+
+On its own the page now makes the sound too. It is the bench's engine
+(`traart-bench/src/engine.rs`, `synth.rs`) rewritten for Web Audio with the
+bench's default voices: a pulse is a note that starts on the pulse's edge, its
+detuning sets the pitch (carrier × 2^(sens · ΔMHz / 12)), its DDS amplitude the
+level, and the slowdown stretches the rhythm and leaves the tuning alone. A
+note rings on for its beam's tail, which is what makes a 3 µs 729 probe audible
+at all.
+
+| voice | carrier | reference | sens | shape |
+|---|---|---|---|---|
+| 397 π | 1396.9 Hz | −10 MHz | 0.32 st/MHz | sine |
+| 397 σ | 1108.7 Hz | +25 MHz | 0.32 st/MHz | triangle |
+| 729 | 110.0 Hz | +24 MHz | 2.4 st/MHz | triangle |
+| 854 | 49.0 Hz | −10 MHz | 0.08 st/MHz | sine |
+| 866 | 61.7 Hz | −10 MHz | 0.08 st/MHz | sine |
+| tickle | 82.4 Hz | the channel's own | 1.2 st/MHz | saw |
+
+The one thing added is direction, which the bench's stereo pan could only hint
+at. Each voice goes through an HRTF panner placed upstream along its beam,
+relative to your head, so 397 σ arrives from down the slot and 729 from behind
+the plate, and turning your head turns the chord. It is a direction and not a
+place: walking does not change it, as it would not for a beam.
+
+What it does not have is the rest of the bench: no scale quantiser, no mixer
+strips, no saved tunings. `VOICES` near the **SOUND** banner in `body.html` is
+the table to edit. A browser will not let a page make sound before it has been
+touched, so the first click or key press starts it; `__traart()` reports
+`sound`, the number of `voices` and the output `level`. Dropping the cursor
+into the middle of a pulse picks its note up for what is left of it.
 
 The default vantage is 4 m from the ion, at beam height, on the azimuth with the
 widest clearance from any beam (22.5°); `F` puts you on the ion itself, which is
@@ -173,13 +251,14 @@ into the file, so both sides flatten the same numbers -- points repeated
 months ago would put the picture a whole scan point out of step.
 
 The bench is the transport for both: whatever it plays, the headset shows, and
-nothing done in the headset changes what plays. The `time` line in the corner
+nothing done in the headset changes what plays (the desktop page's panel and
+keys do reach it, through `/cmd`). The `time` line in the corner
 reads `· bench` when the link is up, and the bench's **Exit VR** button ends
 the immersive session from the laptop.
 
 With nothing serving the clock -- opened off a disk, or off `serve.py` -- the
-page runs its own cursor over the score inside it, and everything else is the
-same. `__traart()` in the browser console reports the link state and the error
+page runs its own cursor over the score inside it, makes its own sound, and
+everything else is the same. `__traart()` in the browser console reports the link state and the error
 in milliseconds of wall clock; with the Quest on a cable, `chrome://inspect`
 gets you that console.
 
@@ -193,7 +272,8 @@ it at
 (`.github/workflows/pages.yml`). That is a real https host, so in the headset
 browser this URL is the whole setup: no laptop, no certificate warning, Enter
 VR just appears. There is no bench to link to there, so the page runs its own
-clock over the score baked into it, exactly as it does off a disk.
+clock over the score baked into it, exactly as it does off a disk, and the
+panel along the bottom (or the long-pinch menu) is how you drive it.
 
 ## Getting it into the headset, on site, with no internet
 
@@ -273,9 +353,8 @@ macOS already has.
 
 ## Next
 
-Sound is the point of the pairing and it is not here yet. The score the page
-already holds is the same object the renderer voices, so the join is small:
-port `voices.py`'s pitch rule into a Web Audio graph, one oscillator per
-channel, and pan each voice to its beam's `dir` through a `PannerNode` — then
-the 397 σ you hear is coming from down the slot and the 729 from behind the
-plate, and the tritone in Cool and Detect arrives from two different places.
+The bench cannot be asked to seek or to list its runs, which is why the scrub
+strip and the run names step aside when it is serving. A `seek=` command and a
+`/runs` endpoint in `traart-bench/src/serve.rs` would close both; the cursor
+lives on the audio thread, so the seek has to travel through `Shared` the way
+`timeline_gen` does for a rewind.

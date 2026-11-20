@@ -199,8 +199,9 @@ at a slowdown of 1000, one frame of wall clock is 16 microseconds of experiment.
 | `GET /ping` | five bytes, for when nothing works and you need to know why |
 | anything else | a file from the served directory |
 
-The headset's controllers post to `/cmd`, so the trigger pauses the audio here
-and **A** steps to the next run on both at once. The masthead shows the URL and
+The page's control panel and keys post to `/cmd`, so Pause, Rewind, the run
+list and Slowdown on the served page drive the bench (in the headset, hands and
+controllers deliberately do not; see `traart/vr/README.md`). The masthead shows the URL and
 lights when something is actually reading the clock.
 
 HTTPS, with a self-signed certificate, because WebXR will not enter immersive

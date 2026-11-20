@@ -46,24 +46,76 @@ canvas{display:block}
 .beam-row.on{color:var(--text)}
 .beam-row.on .sw{opacity:1;box-shadow:0 0 9px currentColor}
 
-/* transport — bottom */
-#transport{bottom:0;left:0;right:0;padding:16px 18px 15px;display:flex;
-  align-items:flex-end;gap:26px;
-  background:linear-gradient(0deg,rgba(9,12,20,.9),rgba(9,12,20,0))}
-#block{flex:1;min-width:0}
-#blockName{font-family:var(--f-disp);font-weight:600;font-size:16px;color:var(--hot);
-  line-height:1.2}
-#blockPath{color:var(--dimmer);font-size:11px;margin-top:3px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;direction:rtl;text-align:left}
-.meter{display:grid;gap:4px;min-width:104px}
-.meter .v{font-family:var(--f-disp);font-weight:600;font-size:17px;color:var(--text);
-  font-variant-numeric:tabular-nums;line-height:1}
-#bar{position:fixed;left:0;bottom:0;height:2px;background:var(--b397pi);z-index:6;
-  box-shadow:0 0 10px var(--b397pi);transition:width .04s linear}
+/* control panel — bottom.
+   The one part of the page that is not dark-room glass: it is the Audio
+   Bench's chassis (traart-bench/src/retro.rs) — grey face, square corners,
+   hard two-pixel bevels, serif labels, phosphor readouts — so the thing you
+   operate looks like the instrument and the thing you look at does not. */
+#cs{position:fixed;left:0;right:0;bottom:0;z-index:6;pointer-events:auto;
+  --face:#D4D0C8;--face-d:#BDB9B1;--lt:#FFFFFF;--mid:#9A968F;--sh:#54514C;
+  --ink:#0A0A0A;--ink-d:#4A4742;--sel:#000080;--screen:#0C1014;--phos:#C8E6D0;
+  background:var(--face);color:var(--ink);border-top:2px solid var(--lt);
+  box-shadow:0 -1px 0 var(--sh);padding:5px 8px 7px;user-select:none;
+  -webkit-user-select:none;
+  font:13px/1.2 "Liberation Serif","Nimbus Roman No9 L","Times New Roman",Times,serif}
+#cs .cs-head{display:flex;align-items:center;gap:8px;min-width:0}
+#cs .cs-head b{font-size:17px;font-weight:400;white-space:nowrap}
+#cs .cs-head i{font-style:normal;color:var(--ink-d);font-size:12px;white-space:nowrap}
+#cs .ro{background:var(--screen);color:var(--phos);font:12px/1.25 var(--f-mono);
+  border:2px solid;border-color:var(--sh) var(--lt) var(--lt) var(--sh);
+  padding:2px 7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  font-variant-numeric:tabular-nums}
+#cs .ro small{font-size:10.5px;color:#6F8A7A;margin-left:8px}
+#csBlock{flex:1 1 180px;min-width:60px}
+#mClock{flex:0 0 108px;text-align:right}
+#mDet{flex:0 0 108px;text-align:right}
+#csLamp{width:9px;height:9px;flex:none;background:#3CBE5A;
+  border:1px solid;border-color:var(--sh) var(--lt) var(--lt) var(--sh)}
+#cs.linked #csLamp{background:#E8A21C}
+#cs.held #csLamp{background:#7A2A22}
+#cs button,#cs select{font:inherit;color:var(--ink);background:var(--face);
+  border:2px solid;border-color:var(--lt) var(--sh) var(--sh) var(--lt);
+  border-radius:0;padding:3px 10px;margin:0;cursor:default;white-space:nowrap}
+#cs button:hover:not(:disabled),#cs select:hover:not(:disabled){background:#DEDBD4}
+#cs button:active:not(:disabled),#cs button.on{background:var(--face-d);
+  border-color:var(--sh) var(--lt) var(--lt) var(--sh);padding:4px 9px 2px 11px}
+#cs button:disabled,#cs select:disabled{color:var(--mid);text-shadow:1px 1px 0 var(--lt)}
+#cs button.sq{padding-left:6px;padding-right:6px;min-width:26px}
+#cs button.sq:active:not(:disabled){padding:4px 5px 2px 7px}
+#cs select{flex:1;min-width:0;width:100%;max-width:260px;padding:3px 4px;
+  background:#ECEAE5;border-color:var(--sh) var(--lt) var(--lt) var(--sh)}
+#cs :focus-visible{outline:1px dotted var(--ink);outline-offset:-4px}
+#cs .cs-row{display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:3px;align-items:stretch}
+#cs fieldset{margin:0;padding:1px 7px 6px;min-width:0;display:flex;align-items:center;gap:5px;
+  border:1px solid var(--mid);box-shadow:1px 1px 0 var(--lt),inset 1px 1px 0 var(--lt)}
+#cs fieldset.grow{flex:1 1 200px;max-width:350px}
+#cs legend{padding:0 4px;font-size:11.5px;color:var(--ink-d)}
+#csPt{width:150px;text-align:center}
+#csSlowV{width:66px;text-align:right}
+#csScaleV{width:66px;text-align:right}
+#cs input[type=range]{-webkit-appearance:none;appearance:none;width:118px;height:20px;
+  background:none;margin:0;cursor:default}
+#cs input[type=range]::-webkit-slider-runnable-track{height:6px;background:var(--mid);
+  border:1px solid;border-color:var(--sh) var(--lt) var(--lt) var(--sh)}
+#cs input[type=range]::-moz-range-track{height:4px;background:var(--mid);
+  border:1px solid;border-color:var(--sh) var(--lt) var(--lt) var(--sh)}
+#cs input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:19px;
+  margin-top:-8px;background:var(--face);border-radius:0;
+  border:2px solid;border-color:var(--lt) var(--sh) var(--sh) var(--lt)}
+#cs input[type=range]::-moz-range-thumb{width:8px;height:15px;background:var(--face);
+  border-radius:0;border:2px solid;border-color:var(--lt) var(--sh) var(--sh) var(--lt)}
+#cs input[type=range]:disabled{opacity:.5}
+#csVol{width:70px!important}
+#csScrubBox{margin-top:6px;height:46px;background:var(--screen);position:relative;
+  border:2px solid;border-color:var(--sh) var(--lt) var(--lt) var(--sh);cursor:col-resize}
+#cs.linked #csScrubBox{cursor:default}
+#csScrub{display:block;width:100%;height:100%}
+#cs.folded .cs-row{display:none}
+#cs.folded #csScrubBox{height:14px}
 
 /* keys — bottom left, fades out */
-#keys{bottom:74px;left:18px;color:var(--dimmer);font-size:10.5px;line-height:1.75;
-  transition:opacity 1.2s;max-width:280px}
+#keys{bottom:calc(var(--cs-h,150px) + 12px);left:18px;color:var(--dimmer);font-size:10.5px;line-height:1.75;
+  transition:opacity 1.2s;max-width:340px}
 #keys b{color:var(--dim);font-weight:400}
 #keys.faded{opacity:.16}
 
@@ -103,7 +155,9 @@ button.act.ghost{background:none;color:var(--dim)}
     <span id="vrslot"></span>
   </div>
   <p class="note">Quest 3: open this page in the headset browser and press
-     <b>Enter VR</b>. On a laptop, click to look around, <b>WASD</b> to fly.</p>
+     <b>Enter VR</b>; hold a pinch for a second to get the controls. On a laptop the
+     panel along the bottom is the transport: run, slowdown, cursor, sound.
+     Click the scene to look around, <b>WASD</b> to fly, <b>Esc</b> to get the mouse back.</p>
 </div></div>
 
 <div class="hud" id="ident">
@@ -119,22 +173,55 @@ button.act.ghost{background:none;color:var(--dim)}
 <div class="hud" id="legend"></div>
 
 <div class="hud" id="keys">
-  <b>1&ndash;4</b> run &nbsp; <b>&larr;&rarr;</b> scan point &nbsp; <b>space</b> hold<br>
-  <b>wheel</b> / <b>-=</b> scale &nbsp; <b>[ ]</b> time stretch<br>
+  <b>click the scene</b> to look around &nbsp; <b>esc</b> frees the mouse<br>
+  <b>1&ndash;4</b> run &nbsp; <b>&larr;&rarr;</b> scan point &nbsp; <b>space</b> hold &nbsp; <b>M</b> sound<br>
+  <b>wheel</b> / <b>-=</b> scale &nbsp; <b>[ ]</b> slowdown<br>
   <b>WASD&nbsp;QE</b> fly &nbsp; <b>shift</b> faster<br>
   <b>R</b> vantage point &nbsp; <b>F</b> stand on the ion<br>
   <b>G</b> ghost beams &nbsp; <b>H</b> hide this
 </div>
 
-<div class="hud" id="transport">
-  <div id="block">
-    <div id="blockName">ready</div>
-    <div id="blockPath">&nbsp;</div>
+<div id="cs">
+  <div class="cs-head">
+    <b>Trap Control</b><i id="csSub">this page keeps the time</i>
+    <span class="ro" id="csBlock"><span id="blockName">ready</span><small id="blockPath"></small></span>
+    <span class="ro" id="mClock" title="experiment time">0.000 ms</span>
+    <span class="ro" id="mDet" title="detuning of the brightest beam">&mdash;</span>
+    <span id="csLamp"></span><i id="csMode">LOCAL</i>
+    <button class="sq" id="csFold" title="Fold the knobs away">&#9662;</button>
   </div>
-  <div class="meter"><div class="v" id="mClock">0.000 ms</div><div class="eyebrow">experiment time</div></div>
-  <div class="meter"><div class="v" id="mDet">&mdash;</div><div class="eyebrow">detuning</div></div>
+  <div class="cs-row">
+    <fieldset><legend>Transport</legend>
+      <button id="csPlay" title="space" style="min-width:62px">Pause</button>
+      <button id="csRew" title="Back to the start of the run">Rewind</button>
+    </fieldset>
+    <fieldset class="grow"><legend>Run</legend>
+      <button class="sq" id="csRunPrev" title="Previous run">&#9664;</button>
+      <select id="csRun" title="Which recorded run is playing (keys 1&ndash;9)"></select>
+      <button class="sq" id="csRunNext" title="Next run">&#9654;</button>
+    </fieldset>
+    <fieldset><legend>Scan point</legend>
+      <button class="sq" id="csPtPrev" title="Previous scan point (&larr;)">&#9664;</button>
+      <span class="ro" id="csPt">1 / 1</span>
+      <button class="sq" id="csPtNext" title="Next scan point (&rarr;)">&#9654;</button>
+    </fieldset>
+    <fieldset><legend>Slowdown</legend>
+      <input type="range" id="csSlow" min="0" max="1000" step="1"
+             title="How many seconds one second of experiment takes ([ and ])">
+      <span class="ro" id="csSlowV">2000&times;</span>
+    </fieldset>
+    <fieldset><legend>Magnification</legend>
+      <input type="range" id="csScale" min="0" max="1000" step="1"
+             title="How much bigger than life the trap is (wheel, - and =)">
+      <span class="ro" id="csScaleV">30k&times;</span>
+    </fieldset>
+    <fieldset><legend>Sound</legend>
+      <button id="csSnd" title="Hear the run: each beam a voice, pitched by its detuning (M)" style="min-width:44px">On</button>
+      <input type="range" id="csVol" min="0" max="100" step="1" title="Volume">
+    </fieldset>
+  </div>
+  <div id="csScrubBox" title="The whole run. Drag to move the cursor."><canvas id="csScrub"></canvas></div>
 </div>
-<div id="bar" style="width:0"></div>
 
 <script type="module">
 /*__THREE__*/
@@ -212,7 +299,10 @@ const VIEW_AZ = 202.5 * Math.PI/180, VIEW_R = 4.0, VIEW_H = 0.0;
 let scaleX   = 30000;         // 1 mm of trap  ->  scaleX mm of world
 let stretch  = 2000;          // 1 s of experiment -> `stretch` s of playback
 const SCALE_MIN = 300, SCALE_MAX = 120000;
-const STRETCH_MIN = 200, STRETCH_MAX = 400000;
+/* The bench's slowdown dial runs 1x to 5000x and that is what it accepts over
+   /cmd. On its own the page goes further, because a 3 us probe at 5000x is
+   still only 15 ms of light. */
+const STRETCH_MIN = 1, STRETCH_MAX = 400000, BENCH_STRETCH_MAX = 5000;
 
 /* ════════════════════════════════════════════════════════════════════════
    RENDERER
@@ -446,7 +536,7 @@ let TL = null;
 
 function buildTimeline(demo, shots){
   const chans = demo.channels;
-  const lanes = {}, segments = [];
+  const lanes = {}, segments = [], notes = [];
   for (const c of chans) lanes[c.key] = [];
   const n = Math.max(1, shots | 0);
   let cur = 0;
@@ -460,15 +550,17 @@ function buildTimeline(demo, shots){
         for (const t of pl[3]) if (t[1] > amp){ amp = t[1]; det = t[0]; }
         (lanes[key] || (lanes[key] = [])).push(
           {t0: cur + pl[1], t1: cur + pl[2], amp, det, blk: pl[4]});
+        notes.push({t0: cur + pl[1], t1: cur + pl[2], ci: pl[0], tones: pl[3]});
       }
       segments.push({t0: cur, t1: cur + p.durNs, pi});
       cur += p.durNs;
     }
   }
   for (const k in lanes) lanes[k].sort((a,b) => a.t0 - b.t0);
+  notes.sort((a,b) => a.t0 - b.t0);
   return {
     id: demo.id, title: demo.title, subtitle: demo.subtitle || "",
-    channels: chans, blocks: demo.blocks || [], lanes, segments,
+    channels: chans, blocks: demo.blocks || [], lanes, segments, notes,
     cursor: {}, total: Math.max(cur, 1), shots: n,
     labels: demo.points.map(p => p.label || ""),
     nPoints: demo.points.length,
@@ -482,6 +574,7 @@ function useTimeline(tl, keepTime){
   for (const b of Object.values(beams)){ b.on = false; b.amp = 0; b.onsetWall = -9; b.offWall = -9; }
   buildLegend();
   ui.iRun.textContent = TL.title;
+  soundCut(); scrubDirty = true; syncPanel();
 }
 
 /* the run baked into the page, for when nothing is serving the clock */
@@ -621,7 +714,10 @@ if (CAN_LINK) setInterval(() => {
    ════════════════════════════════════════════════════════════════════════ */
 const ui = {};
 for (const id of ["iRun","iScan","iScale","iStretch","blockName","blockPath",
-                  "mClock","mDet","bar","legend","keys","gate","gscale"])
+                  "mClock","mDet","legend","keys","gate","gscale","cs","csSub","csMode",
+                  "csFold","csPlay","csRew","csRunPrev","csRun","csRunNext","csPtPrev",
+                  "csPt","csPtNext","csSlow","csSlowV","csScale","csScaleV","csSnd",
+                  "csVol","csScrubBox","csScrub"])
   ui[id] = document.getElementById(id);
 
 function buildLegend(){
@@ -676,7 +772,7 @@ function drawPanel(blockName, clock, det){
   g.fillText(`${(scaleX/1000).toFixed(1)}k×   1 s → ${fmtStretch()}`, 30, 292);
   g.textAlign = "right";
   g.fillStyle = MENU.holdFrac > 0 ? "#F2F5FF" : "#4A5268";
-  g.fillText(MENU.holdFrac > 0 ? "keep holding…" : "hold a pinch for the menu", 994, 292);
+  g.fillText(MENU.holdFrac > 0 ? "keep holding…" : "hold a pinch for the controls", 994, 292);
   g.textAlign = "left";
   if (MENU.holdFrac > 0){
     g.fillStyle = "rgba(124,92,255,.25)"; g.fillRect(694, 302, 300, 6);
@@ -685,9 +781,10 @@ function drawPanel(blockName, clock, det){
   panelTex.needsUpdate = true;
 }
 
-const fmtStretch = () => (LINK.on ? LINK.stretch : stretch) >= 1000
-  ? ((LINK.on ? LINK.stretch : stretch)/1000).toFixed((LINK.on ? LINK.stretch : stretch) >= 10000 ? 0 : 1) + "k"
-  : (LINK.on ? LINK.stretch : stretch).toFixed(0);
+const curStretch = () => LINK.on ? LINK.stretch : stretch;
+const fmtStretch = () => curStretch() >= 1000
+  ? (curStretch()/1000).toFixed(curStretch() >= 10000 ? 0 : 1) + "k"
+  : curStretch().toFixed(0);
 
 function syncHud(){
   ui.iScale.textContent = (scaleX/1000).toFixed(1) + "k× · gap " +
@@ -695,6 +792,7 @@ function syncHud(){
   ui.iStretch.textContent = "×" + fmtStretch() +
     (LINK.on ? "  ·  bench" : (LINK.everOn ? "  ·  bench lost" : ""));
   ui.gscale.textContent = Math.round(scaleX).toLocaleString("en-US").replace(/,/g," ") + "×";
+  syncPanel();
 }
 
 /* ════════════════════════════════════════════════════════════════════════
@@ -703,22 +801,24 @@ function syncHud(){
 const keys = new Set();
 let yaw = 0, pitch = 0, locked = false;
 addEventListener('keydown', e => {
+  // a focused slider or run list keeps its own arrow keys and space
+  if (e.target && e.target.closest && e.target.closest('#cs select, #cs input')) return;
   keys.add(e.code);
-  if (e.code === 'Space'){ if (!cmd('toggle=1')) running = !running; e.preventDefault(); }
+  if (e.code === 'Space'){ togglePlay(); e.preventDefault(); }
+  if (e.code === 'KeyM') setSound(!SND.on);
   if (e.code === 'KeyR') goObserver();
   if (e.code === 'KeyF') goIon();
   if (e.code === 'KeyH') ui.keys.style.display = ui.keys.style.display === 'none' ? '' : 'none';
   if (e.code === 'KeyG') ghost = ghost > 0 ? 0 : 0.35;
-  if (e.code === 'BracketLeft')  setStretch(stretch/1.4);
-  if (e.code === 'BracketRight') setStretch(stretch*1.4);
+  if (e.code === 'BracketLeft')  setStretch(curStretch()/1.4);
+  if (e.code === 'BracketRight') setStretch(curStretch()*1.4);
   if (e.code === 'Minus')  setScale(scaleX/1.3);
   if (e.code === 'Equal')  setScale(scaleX*1.3);
   if (e.code === 'ArrowRight') step(+1);
   if (e.code === 'ArrowLeft')  step(-1);
   if (/^Digit[1-9]$/.test(e.code)){
     const i = +e.code.slice(5) - 1;
-    if (LINK.on){ if (i < LINK.count) cmd('demo=' + i); }
-    else if (i < SCORE.demos.length) loadLocal(i);
+    setRun(i);
   }
 });
 addEventListener('keyup', e => keys.delete(e.code));
@@ -737,12 +837,30 @@ function step(d){
   if (LINK.on){ cmd('demo=' + ((LINK.index + d + LINK.count) % Math.max(1,LINK.count))); return; }
   const seg = segAt(tNs); if (!seg) return;
   const i = Math.min(TL.segments.length - 1, Math.max(0, TL.segments.indexOf(seg) + d));
-  tNs = TL.segments[i].t0;
+  seek(TL.segments[i].t0);
 }
-function nextRun(){
-  if (cmd('next=1')) return;
-  loadLocal(demoI + 1);
+
+/* ── the transport ────────────────────────────────────────────────────────
+   One set of verbs for the keys, the panel and the VR menu. Each one asks the
+   bench first: cmd() returns true when the bench is serving the page, and then
+   nothing is changed here -- the next /clock poll brings the truth back. Only
+   when there is no bench does the page move its own cursor. */
+const isPlaying = () => LINK.on ? LINK.playing : running;
+function togglePlay(){ if (!cmd('toggle=1')){ running = !running; soundCut(); } }
+function rewind(){ if (!cmd('rewind=1')){ tNs = 0; soundCut(); } }
+/* The bench has no seek: its cursor lives on the audio thread. Linked, the
+   scrub bar is a display. */
+function seek(t){
+  if (LINK.on) return;
+  tNs = Math.min(TL.total - 1, Math.max(0, t)); soundCut();
 }
+function runCount(){ return LINK.on ? LINK.count : SCORE.demos.length; }
+function runIndex(){ return LINK.on ? LINK.index : demoI; }
+function setRun(i){
+  if (i < 0 || i >= runCount()) return;
+  if (!cmd('demo=' + i)) loadLocal(i);
+}
+function runBy(d){ const n = Math.max(1, runCount()); setRun((runIndex() + d + n) % n); }
 function setScale(v){
   scaleX = Math.min(SCALE_MAX, Math.max(SCALE_MIN, v));
   world.scale.setScalar(scaleX/1000);
@@ -757,9 +875,9 @@ function setScale(v){
   syncHud();
 }
 function setStretch(v){
-  const w = Math.min(STRETCH_MAX, Math.max(STRETCH_MIN, v));
+  const w = Math.min(LINK.on ? BENCH_STRETCH_MAX : STRETCH_MAX, Math.max(STRETCH_MIN, v));
   if (cmd('stretch=' + w.toFixed(2))) return;   // the bench re-times the audio too
-  stretch = w; syncHud();
+  stretch = w; soundCut(); syncHud();
 }
 
 renderer.domElement.addEventListener('click', () => {
@@ -772,17 +890,20 @@ addEventListener('mousemove', e => {
   yaw   -= e.movementX * 0.0022;
   pitch  = Math.max(-1.45, Math.min(1.45, pitch - e.movementY * 0.0022));
 });
-addEventListener('wheel', e => setScale(scaleX * (e.deltaY > 0 ? 1/1.13 : 1.13)), {passive:true});
+addEventListener('wheel', e => {
+  if (e.target && e.target.closest && e.target.closest('#cs')) return;
+  setScale(scaleX * (e.deltaY > 0 ? 1/1.13 : 1.13));
+}, {passive:true});
 addEventListener('resize', () => {
   camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();
   renderer.setSize(innerWidth, innerHeight);
 });
 
 let ghost = 0.35;
-document.getElementById('btnDesk').onclick = () => {
-  ui.gate.style.display = 'none';
-  renderer.domElement.requestPointerLock();
-};
+/* Entering does not capture the mouse any more: the first thing a visitor
+   needs is the panel, and a captured pointer cannot reach it. Clicking the
+   scene captures it, Esc gives it back. */
+document.getElementById('btnDesk').onclick = () => { ui.gate.style.display = 'none'; };
 const vrb = VRButton.createButton(renderer);
 vrb.id = 'VRButton';
 document.getElementById('vrslot').appendChild(vrb);
@@ -825,15 +946,21 @@ function pollXR(dt){
   }
 }
 
-/* ── leaving: a long pinch opens a menu ───────────────────────────────── */
+/* ── a long pinch opens a menu: the transport, and the way out ────────── */
 /* The system menu is a poor fit for a page (its pointer is not where people
    expect, and nothing in it is ours), so the page has its own way out. Hold a
    pinch -- or a trigger -- for a second and a panel appears a metre ahead with
-   two targets; the hands are drawn so you can see what you are pointing with.
-   A short pinch on a target chooses it. Ten idle seconds and it folds away. */
+   the same verbs as the desktop panel plus Leave VR; the hands are drawn so
+   you can see what you are pointing with. A short pinch on a target chooses
+   it. Ten idle seconds and it folds away.
+
+   This is the only way VR input reaches the transport, and it takes a
+   deliberate second of holding to get here -- a stray pinch still does
+   nothing. When the bench is serving the page the transport targets are dead:
+   the room is listening to the bench, and whoever is at the bench runs it. */
 const PINCH_HOLD_S = 1.0, MENU_IDLE_S = 10;
 const pinches = new Map();                      // inputSource -> start ms
-const MENU = { open: false, hover: new Map(), lastAim: 0, holdFrac: 0 };
+const MENU = { open: false, hover: new Map(), lastAim: 0, holdFrac: 0, drawn: 0 };
 
 const handMat = new THREE.MeshBasicMaterial({ color: 0xD8DCE6 });
 const handGeo = new THREE.SphereGeometry(0.006, 8, 6);
@@ -850,41 +977,78 @@ for (const side of ['left', 'right']){
   rig.add(r); rays[side] = r;
 }
 
+const MENU_W = 1024, MENU_H = 768;
 const menuCv = document.createElement('canvas');
-menuCv.width = 1024; menuCv.height = 512;
+menuCv.width = MENU_W; menuCv.height = MENU_H;
 const menuTex = new THREE.CanvasTexture(menuCv);
 const menuMesh = new THREE.Mesh(
-  new THREE.PlaneGeometry(0.6, 0.3),
+  new THREE.PlaneGeometry(0.64, 0.48),
   new THREE.MeshBasicMaterial({ map: menuTex, transparent: true, depthTest: false }));
 menuMesh.visible = false; menuMesh.renderOrder = 999;
 rig.add(menuMesh);
 
+/* One table for drawing, hit-testing and acting. `t` marks a transport target,
+   which is dead while the bench holds the transport. */
+const MENU_BTNS = (() => {
+  const x0 = 40, gap = 16, w = 224, h = 150, col = i => x0 + i * (w + gap);
+  const B = (key, c, r, span, label, act, t) =>
+    ({ key, x: col(c), y: 200 + r * (h + gap), w: w * span + gap * (span - 1), h, label, act, t });
+  return [
+    B('rew',     0, 0, 1, () => "Rewind",  rewind, true),
+    B('play',    1, 0, 1, () => isPlaying() ? "Pause" : "Play", togglePlay, true),
+    B('slower',  2, 0, 1, () => "Slower",  () => setStretch(curStretch() * 2), true),
+    B('faster',  3, 0, 1, () => "Faster",  () => setStretch(curStretch() / 2), true),
+    B('runPrev', 0, 1, 1, () => "Prev run",   () => runBy(-1), true),
+    B('runNext', 1, 1, 1, () => "Next run",   () => runBy(+1), true),
+    B('ptPrev',  2, 1, 1, () => "Prev point", () => step(-1), true),
+    B('ptNext',  3, 1, 1, () => "Next point", () => step(+1), true),
+    B('snd',     0, 2, 1, () => SND.on ? "Sound on" : "Sound off", () => setSound(!SND.on), true),
+    B('back',    1, 2, 1, () => "Back",     closeMenu, false),
+    B('leave',   2, 2, 2, () => "Leave VR", leaveVR, false),
+  ];
+})();
+const menuDead = b => b.t && LINK.on;
+function menuHit(u, v){
+  const x = u * MENU_W, y = v * MENU_H;
+  for (const b of MENU_BTNS)
+    if (x > b.x && x < b.x + b.w && y > b.y && y < b.y + b.h) return menuDead(b) ? null : b.key;
+  return null;
+}
+
 function drawMenu(){
+  MENU.drawn = wall;
   const g = menuCv.getContext('2d');
-  g.clearRect(0, 0, 1024, 512);
-  g.fillStyle = "rgba(9,12,20,.92)"; g.fillRect(0, 0, 1024, 512);
-  g.fillStyle = "rgba(124,92,255,.35)"; g.fillRect(0, 0, 1024, 3);
+  g.clearRect(0, 0, MENU_W, MENU_H);
+  g.fillStyle = "rgba(9,12,20,.92)"; g.fillRect(0, 0, MENU_W, MENU_H);
+  g.fillStyle = "rgba(124,92,255,.35)"; g.fillRect(0, 0, MENU_W, 3);
   g.textAlign = "left"; g.textBaseline = "alphabetic";
-  g.font = "600 34px 'IBM Plex Sans Condensed',sans-serif"; g.fillStyle = "#F2F5FF";
-  g.fillText("Audio Bench", 40, 70);
+  g.font = "600 40px 'IBM Plex Sans Condensed',sans-serif"; g.fillStyle = "#F2F5FF";
+  g.fillText((TL.title || "").slice(0, 40), 40, 68);
   g.font = "400 22px 'IBM Plex Mono',monospace"; g.fillStyle = "#79839D";
-  g.fillText("point with a hand, pinch to choose", 40, 108);
+  const sg = segAt(tNs);
+  g.fillText(`run ${runIndex()+1}/${runCount()}   point ${sg ? sg.pi+1 : 1}/${TL.nPoints}   ` +
+             `${(tNs/1e6).toFixed(3)} ms   ×${fmtStretch()}   ${isPlaying() ? "" : "held"}`, 40, 110);
+  g.textAlign = "right";
+  g.fillText(LINK.on ? "the bench has the transport" : "point, pinch to choose", MENU_W - 40, 68);
+  g.textAlign = "left";
+  // where the cursor is in the run
+  g.fillStyle = "rgba(124,92,255,.22)"; g.fillRect(40, 136, MENU_W - 80, 8);
+  g.fillStyle = "#7C5CFF"; g.fillRect(40, 136, (MENU_W - 80) * Math.min(1, tNs / TL.total), 8);
   const hovered = new Set(MENU.hover.values());
-  const btn = (x, label, key, accent) => {
-    const on = hovered.has(key);
+  for (const b of MENU_BTNS){
+    const on = hovered.has(b.key), accent = b.key === 'leave', dead = menuDead(b);
+    g.globalAlpha = dead ? 0.28 : 1;
     g.fillStyle = on ? (accent ? "#7C5CFF" : "#2A3244") : (accent ? "rgba(124,92,255,.22)" : "rgba(42,50,68,.6)");
-    g.fillRect(x, 170, 432, 220);
+    g.fillRect(b.x, b.y, b.w, b.h);
     g.strokeStyle = on ? "#F2F5FF" : (accent ? "#7C5CFF" : "#4A5268"); g.lineWidth = on ? 5 : 2;
-    g.strokeRect(x, 170, 432, 220);
-    g.font = "600 46px 'IBM Plex Sans Condensed',sans-serif";
+    g.strokeRect(b.x, b.y, b.w, b.h);
+    g.font = "600 36px 'IBM Plex Sans Condensed',sans-serif";
     g.fillStyle = "#F2F5FF"; g.textAlign = "center";
-    g.fillText(label, x + 216, 295);
-    g.textAlign = "left";
-  };
-  btn(40, "Back", "back", false);
-  btn(552, "Leave VR", "leave", true);
+    g.fillText(b.label(), b.x + b.w / 2, b.y + b.h / 2 + 13);
+    g.textAlign = "left"; g.globalAlpha = 1;
+  }
   g.font = "400 20px 'IBM Plex Mono',monospace"; g.fillStyle = "#4A5268";
-  g.fillText("closes itself when idle  ·  the bench can also end the session", 40, 460);
+  g.fillText("closes itself when idle  ·  hold a pinch for a second to bring it back", 40, 738);
   menuTex.needsUpdate = true;
 }
 
@@ -919,9 +1083,10 @@ function onSelectEnd(e){
   const t0 = pinches.get(e.inputSource); pinches.delete(e.inputSource);
   if (t0 === undefined || !MENU.open) return;
   if (performance.now() - t0 >= PINCH_HOLD_S * 1000) return;       // that was the opening hold
-  const key = MENU.hover.get(e.inputSource);
-  if (key === 'leave') leaveVR();
-  else if (key === 'back') closeMenu();
+  const b = MENU_BTNS.find(b => b.key === MENU.hover.get(e.inputSource));
+  if (!b || menuDead(b)) return;
+  b.act();
+  if (MENU.open){ MENU.lastAim = performance.now(); drawMenu(); }
 }
 
 const _ray = new THREE.Raycaster(), _o = new THREE.Vector3(), _d = new THREE.Vector3(), _q = new THREE.Quaternion();
@@ -968,11 +1133,7 @@ function xrMenuUpdate(dt, frame){
     const hit = _ray.intersectObject(menuMesh, false)[0];
     let key = null;
     if (hit && hit.uv){
-      const u = hit.uv.x, v = 1 - hit.uv.y;            // canvas y runs down
-      if (v > 170/512 && v < 390/512){
-        if (u > 40/1024 && u < 472/1024) key = 'back';
-        else if (u > 552/1024 && u < 984/1024) key = 'leave';
-      }
+      key = menuHit(hit.uv.x, 1 - hit.uv.y);          // canvas y runs down
       aimed = true;
     }
     const before = MENU.hover.get(src);
@@ -982,6 +1143,343 @@ function xrMenuUpdate(dt, frame){
   for (const side of ['left','right']) if (!seen.has(side)){ hands[side].visible = false; rays[side].visible = false; }
   if (aimed) MENU.lastAim = now;
   if (now - MENU.lastAim > MENU_IDLE_S * 1000) closeMenu();
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   SOUND — standalone only
+
+   The bench's engine (traart-bench/src/engine.rs, synth.rs) in Web Audio, with
+   the bench's default voices: a pulse is a note, its detuning is its pitch,
+   its DDS amplitude its level, and the slowdown stretches the rhythm without
+   touching the tuning. One oscillator per tone, started on the pulse's edge.
+
+   The one thing added is direction. Each beam's voice goes through a panner
+   placed where its light comes from, relative to your head -- upstream along
+   the beam -- so 397 sigma is heard arriving down the slot and 729 from behind
+   the plate, and turning your head turns the chord.
+
+   When the bench is serving the page it makes the sound, in step with its own
+   cursor, and this stays silent.
+   ════════════════════════════════════════════════════════════════════════ */
+//            carrier Hz, ref MHz, st/MHz, gain, wave, tail s
+const VOICES = {
+  "397_pi":    [1396.9, -10, 0.32, 0.95, "sine",     0.02],
+  "397_sigma": [1108.7,  25, 0.32, 0.75, "triangle", 0.02],
+  "729":       [ 110.0,  24, 2.40, 1.10, "triangle", 0.22],
+  "729_global":[ 146.8,  24, 2.40, 0.90, "triangle", 0.22],
+  "854":       [  49.0, -10, 0.08, 0.75, "sine",     0.05],
+  "866":       [  61.7, -10, 0.08, 0.75, "sine",     0.05],
+};
+function voiceOf(ch){
+  if (VOICES[ch.key]) return VOICES[ch.key];
+  if (ch.key.startsWith("tickle")) return [82.4, ch.refMHz || 0, 1.2, 0.6, "sawtooth", 0.16];
+  return [440, ch.refMHz || 0, 1.0, 0.7, "sine", 0.05];
+}
+const SND = { ctx: null, master: null, on: true, vol: 0.85, bus: {}, live: new Set(),
+              sched: 0, lastT: 0, cut: true };
+const SND_LOOK_S = 0.06, SND_MAX_LIVE = 64, SND_MAX_FRAME = 24;
+
+function soundReady(){
+  if (SND.ctx) return true;
+  const AC = window.AudioContext || window.webkitAudioContext;
+  if (!AC) return false;
+  SND.ctx = new AC();
+  SND.master = SND.ctx.createGain();
+  SND.master.gain.value = 0.34 * SND.vol;
+  const lim = SND.ctx.createDynamicsCompressor();     // the bench clamps; this is kinder
+  lim.threshold.value = -4; lim.knee.value = 4; lim.ratio.value = 12;
+  lim.attack.value = 0.003; lim.release.value = 0.1;
+  SND.master.connect(lim).connect(SND.ctx.destination);
+  SND.tap = SND.ctx.createAnalyser(); SND.tap.fftSize = 2048;   // for __traart() only
+  lim.connect(SND.tap);
+  return true;
+}
+function busOf(key){
+  let b = SND.bus[key];
+  if (!b){
+    const pan = SND.ctx.createPanner();
+    pan.panningModel = "HRTF"; pan.distanceModel = "inverse"; pan.rolloffFactor = 0;
+    pan.connect(SND.master);
+    const cfg = BEAMS[key];
+    b = SND.bus[key] = { pan, dir: cfg ? new THREE.Vector3(...cfg.dir).normalize() : null };
+  }
+  return b;
+}
+function soundKill(){
+  if (!SND.ctx) return;
+  const now = SND.ctx.currentTime;
+  for (const v of SND.live){
+    try {
+      v.g.gain.cancelScheduledValues(now);
+      v.g.gain.setTargetAtTime(0, now, 0.008);
+      v.osc.stop(now + 0.06);
+    } catch (e) {}
+  }
+  SND.live.clear();
+}
+/* Anything that breaks the cursor's steady walk -- a seek, a new run, a hold,
+   a change of pace -- drops what is sounding and starts scheduling afresh. */
+function soundCut(){ SND.cut = true; soundKill(); }
+function setSound(on){
+  SND.on = !!on;
+  if (SND.on && !LINK.on && soundReady()) SND.ctx.resume();
+  if (!SND.on) soundKill();
+  SND.cut = true; syncPanel();
+}
+function setVolume(v){
+  SND.vol = Math.min(1, Math.max(0, v));
+  if (SND.master) SND.master.gain.setTargetAtTime(0.34 * SND.vol, SND.ctx.currentTime, 0.02);
+}
+/* A page may not make sound before it has been touched. */
+for (const ev of ["pointerdown", "keydown", "touchend"])
+  document.addEventListener(ev, () => {
+    if (SND.on && !LINK.on && soundReady() && SND.ctx.state !== "running") SND.ctx.resume();
+  }, true);
+
+function soundNote(n, when, from){
+  const ch = TL.channels[n.ci]; if (!ch) return;
+  const [carrier, ref, sens, gain, wave, tail] = voiceOf(ch);
+  const ctx = SND.ctx, bus = busOf(ch.key);
+  const dur = Math.max(0.0005, (n.t1 - (from || n.t0)) * 1e-9 * stretch);
+  const att = Math.max(0.0008, Math.min(0.004, dur * 0.4));
+  // The tail rings on past the end of the pulse; without one a 3 us probe at
+  // 110 Hz would not complete a single cycle.
+  const rel = Math.max(Math.min(0.010, dur * 0.4), tail);
+  const t0 = Math.max(when, ctx.currentTime), t1 = Math.max(t0 + dur, t0 + att);
+  for (const [det, amp] of n.tones){
+    if (SND.live.size >= SND_MAX_LIVE) return;
+    const f = Math.min(5000, Math.max(24, carrier * Math.pow(2, sens * (det / 1e6 - ref) / 12)));
+    const osc = ctx.createOscillator(), g = ctx.createGain();
+    osc.type = f > 1500 ? "sine" : wave;      // richer shapes fold over up there
+    osc.frequency.value = f;
+    g.gain.setValueAtTime(0, t0);
+    g.gain.linearRampToValueAtTime(amp * gain, t0 + att);
+    g.gain.setValueAtTime(amp * gain, t1);
+    g.gain.linearRampToValueAtTime(0, t1 + rel);
+    osc.connect(g).connect(bus.pan);
+    osc.start(t0); osc.stop(t1 + rel + 0.02);
+    const v = { osc, g };
+    SND.live.add(v);
+    osc.onended = () => { SND.live.delete(v); g.disconnect(); };
+  }
+}
+
+const _ear = new THREE.Vector3();
+function soundTick(){
+  const ctx = SND.ctx;
+  if (!ctx || ctx.state !== "running" || LINK.on || !running || !SND.on){
+    if (SND.live.size && (LINK.on || !running || !SND.on)) soundKill();
+    SND.cut = true; return;
+  }
+  // ears: the camera, wherever the rig or the headset has put it
+  const e = camera.matrixWorld.elements, L = ctx.listener;
+  _ear.set(e[12], e[13], e[14]);
+  if (L.positionX){
+    L.positionX.value = _ear.x; L.positionY.value = _ear.y; L.positionZ.value = _ear.z;
+    L.forwardX.value = -e[8]; L.forwardY.value = -e[9]; L.forwardZ.value = -e[10];
+    L.upX.value = e[4]; L.upY.value = e[5]; L.upZ.value = e[6];
+  } else {
+    L.setPosition(_ear.x, _ear.y, _ear.z);
+    L.setOrientation(-e[8], -e[9], -e[10], e[4], e[5], e[6]);
+  }
+  for (const b of Object.values(SND.bus)){
+    // light arrives from upstream; the electrodes (tickle) are simply the trap
+    const x = b.dir ? _ear.x - 4 * b.dir.x : 0, y = b.dir ? _ear.y - 4 * b.dir.y : 0,
+          z = b.dir ? _ear.z - 4 * b.dir.z : 0;
+    if (b.pan.positionX){ b.pan.positionX.value = x; b.pan.positionY.value = y; b.pan.positionZ.value = z; }
+    else b.pan.setPosition(x, y, z);
+  }
+
+  // Schedule a little ahead of the cursor, so an edge lands on the audio
+  // clock and not on whichever frame happened to notice it.
+  const T = TL.total, nsPerS = 1e9 / Math.max(1, stretch), now = ctx.currentTime;
+  if (SND.cut){
+    // Landing in the middle of a pulse -- after a scrub, a hold, a new pace --
+    // picks its note up for what is left of it; a two-second cooling pulse
+    // should not be silent because the cursor was dropped into it.
+    SND.sched = tNs; SND.cut = false;
+    for (const n of TL.notes){
+      if (n.t0 >= tNs) break;
+      if (n.t1 > tNs) soundNote(n, now, tNs);
+    }
+  }
+  else if (tNs < SND.lastT) SND.sched = Math.max(0, SND.sched - T);      // the run looped
+  SND.lastT = tNs;
+  if (SND.sched < tNs - 0.1 * nsPerS) SND.sched = tNs;                   // a long hitch: let it go
+  const hor = Math.min(tNs + SND_LOOK_S * nsPerS, SND.sched + T);
+  let budget = SND_MAX_FRAME;
+  const emit = (a, b, off) => {
+    const N = TL.notes; let lo = 0, hi = N.length;
+    while (lo < hi){ const m = (lo + hi) >> 1; if (N[m].t0 < a) lo = m + 1; else hi = m; }
+    for (; lo < N.length && N[lo].t0 < b && budget > 0; lo++, budget--)
+      soundNote(N[lo], now + (N[lo].t0 + off - tNs) / nsPerS);
+  };
+  emit(SND.sched, Math.min(hor, T), 0);
+  if (hor > T) emit(Math.max(SND.sched, T) - T, hor - T, T);
+  SND.sched = hor;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   THE PANEL
+
+   A control-system screen for the transport: every knob calls the same verb
+   the keys call, and every readout is redrawn from the state twenty times a
+   second, so it is as true when the bench is driving as when a visitor is.
+   Linked, the knobs send /cmd and wait for /clock to answer; the two things
+   the bench cannot be asked for (a seek, a scan-point step) go grey.
+   ════════════════════════════════════════════════════════════════════════ */
+let scrubDirty = true, sliderHeld = null;
+const scrubBase = document.createElement('canvas');
+const PANEL = { runsKey: "", seen: {} };
+const logPos = (v, lo, hi) => 1000 * Math.log(Math.min(hi, Math.max(lo, v)) / lo) / Math.log(hi / lo);
+const logVal = (p, lo, hi) => lo * Math.pow(hi / lo, p / 1000);
+const stretchMax = () => LINK.on ? BENCH_STRETCH_MAX : STRETCH_MAX;
+const fmtX = v => (v >= 10000 ? (v/1000).toFixed(0) + "k" : v >= 100 ? v.toFixed(0) : v.toFixed(1)) + "×";
+
+function syncPanel(){
+  if (!TL || !ui.cs) return;
+  const linked = LINK.on, playing = isPlaying();
+  ui.cs.classList.toggle('linked', linked);
+  ui.cs.classList.toggle('held', !playing);
+  ui.csMode.textContent = linked ? 'BENCH' : (playing ? 'LOCAL' : 'HELD');
+  ui.csSub.textContent = linked ? 'the Audio Bench keeps the time'
+    : (LINK.everOn ? 'bench lost · this page keeps the time' : 'this page keeps the time');
+  ui.csPlay.textContent = playing ? 'Pause' : 'Play';
+
+  // The run list. Off a disk it is the score in the file; linked, /clock only
+  // names the run that is playing, so the others fill in as they are visited.
+  const n = runCount(), cur = runIndex();
+  if (linked && LINK.title) PANEL.seen[cur] = LINK.title;
+  const key = (linked ? 'L' : 'S') + n + '/' + cur + '/' + (linked ? LINK.title : '');
+  if (key !== PANEL.runsKey){
+    PANEL.runsKey = key;
+    ui.csRun.textContent = '';
+    for (let i = 0; i < n; i++){
+      const o = document.createElement('option');
+      o.value = i;
+      o.textContent = (i + 1) + '   ' + (linked ? (PANEL.seen[i] || 'run ' + (i + 1)) : SCORE.demos[i].title);
+      ui.csRun.appendChild(o);
+    }
+    ui.csRun.value = cur;
+  }
+
+  const sg = segAt(tNs);
+  if (sg){
+    const shot = TL.segments.indexOf(sg) % TL.shots + 1;
+    ui.csPt.textContent = `${sg.pi + 1} / ${TL.nPoints}` + (TL.shots > 1 ? `  shot ${shot}/${TL.shots}` : '');
+  }
+  ui.csPtPrev.disabled = ui.csPtNext.disabled = linked || TL.segments.length < 2;
+
+  if (sliderHeld !== ui.csSlow) ui.csSlow.value = logPos(curStretch(), STRETCH_MIN, stretchMax());
+  ui.csSlowV.textContent = fmtX(curStretch());
+  if (sliderHeld !== ui.csScale) ui.csScale.value = logPos(scaleX, SCALE_MIN, SCALE_MAX);
+  ui.csScaleV.textContent = fmtX(scaleX);
+
+  ui.csSnd.disabled = ui.csVol.disabled = linked;
+  ui.csSnd.textContent = linked ? 'Bench' : (SND.on ? 'On' : 'Off');
+  ui.csSnd.classList.toggle('on', !linked && SND.on);
+  if (sliderHeld !== ui.csVol) ui.csVol.value = Math.round(SND.vol * 100);
+}
+
+/* The run at a glance, the way the bench's score window draws it: a lane per
+   beam, a block per pulse, a line where the cursor is. Painted once per run
+   and resize; only the cursor moves. */
+function drawScrub(){
+  const cv = ui.csScrub, w = ui.csScrubBox.clientWidth - 4, h = ui.csScrubBox.clientHeight - 4;
+  if (w < 4 || h < 4) return;
+  const dpr = Math.min(devicePixelRatio || 1, 2), W = Math.round(w * dpr), H = Math.round(h * dpr);
+  if (cv.width !== W || cv.height !== H){ cv.width = W; cv.height = H; scrubDirty = true; }
+  if (scrubDirty){
+    scrubDirty = false;
+    scrubBase.width = W; scrubBase.height = H;
+    const b = scrubBase.getContext('2d'), T = TL.total;
+    b.fillStyle = "#0C1014"; b.fillRect(0, 0, W, H);
+    const rows = TL.channels.length || 1, rh = H / rows;
+    TL.channels.forEach((c, i) => {
+      const cfg = BEAMS[c.key];
+      b.fillStyle = cfg ? "#" + cfg.color.toString(16).padStart(6, "0") : "#3FB6A8";
+      for (const p of TL.lanes[c.key] || []){
+        const x0 = p.t0 / T * W, x1 = p.t1 / T * W;
+        b.globalAlpha = 0.4 + 0.6 * Math.min(1, p.amp);
+        b.fillRect(x0, i * rh + 1, Math.max(1, x1 - x0), Math.max(1, rh - 1));
+      }
+    });
+    b.globalAlpha = 1;
+    // scan points and shots
+    let last = -1;
+    for (const sgm of TL.segments){
+      if (sgm.t0 > 0){
+        b.fillStyle = sgm.pi !== last ? "rgba(200,230,208,.55)" : "rgba(200,230,208,.22)";
+        b.fillRect(Math.round(sgm.t0 / T * W), 0, 1, H);
+      }
+      last = sgm.pi;
+    }
+    if (H > 30 * dpr){
+      b.font = `${10 * dpr}px 'IBM Plex Mono',monospace`; b.textAlign = "right";
+      const txt = (T / 1e6).toFixed(3) + " ms";
+      const tw = b.measureText(txt).width;
+      b.fillStyle = "rgba(12,16,20,.8)"; b.fillRect(W - tw - 8 * dpr, H - 14 * dpr, tw + 8 * dpr, 14 * dpr);
+      b.fillStyle = "#C8E6D0"; b.fillText(txt, W - 4 * dpr, H - 4 * dpr);
+    }
+  }
+  const g = cv.getContext('2d'), x = Math.min(W - 1, tNs / TL.total * W);
+  g.drawImage(scrubBase, 0, 0);
+  g.fillStyle = "rgba(255,255,255,.10)"; g.fillRect(0, 0, x, H);
+  g.fillStyle = "#FFFFFF"; g.fillRect(Math.round(x) - (dpr > 1 ? 1 : 0), 0, dpr > 1 ? 2 : 1, H);
+}
+
+{
+  const tap = (el, fn) => el.addEventListener('click', () => { fn(); el.blur(); syncPanel(); });
+  tap(ui.csPlay, togglePlay);
+  tap(ui.csRew, rewind);
+  tap(ui.csRunPrev, () => runBy(-1));
+  tap(ui.csRunNext, () => runBy(+1));
+  tap(ui.csPtPrev, () => step(-1));
+  tap(ui.csPtNext, () => step(+1));
+  tap(ui.csSnd, () => setSound(!SND.on));
+  tap(ui.csFold, () => {
+    ui.csFold.textContent = ui.cs.classList.toggle('folded') ? '▴' : '▾';
+    scrubDirty = true;
+  });
+  ui.csRun.addEventListener('change', () => { setRun(+ui.csRun.value); ui.csRun.blur(); });
+
+  // sliders: the value under the hand wins until it is let go
+  let lastCmd = 0;
+  const slide = (el, fn) => {
+    el.addEventListener('pointerdown', () => sliderHeld = el);
+    el.addEventListener('input', () => { sliderHeld = el; fn(false); });
+    el.addEventListener('change', () => { fn(true); sliderHeld = null; el.blur(); });
+  };
+  slide(ui.csSlow, done => {
+    // the bench's command queue is short; do not flood it while dragging
+    if (LINK.on && !done && performance.now() - lastCmd < 90){ ui.csSlowV.textContent = fmtX(logVal(+ui.csSlow.value, STRETCH_MIN, stretchMax())); return; }
+    lastCmd = performance.now();
+    setStretch(logVal(+ui.csSlow.value, STRETCH_MIN, stretchMax()));
+  });
+  slide(ui.csScale, () => setScale(logVal(+ui.csScale.value, SCALE_MIN, SCALE_MAX)));
+  slide(ui.csVol, () => setVolume(+ui.csVol.value / 100));
+
+  // the scrub bar
+  let scrubbing = false;
+  const box = ui.csScrubBox;
+  const scrubTo = e => {
+    const r = ui.csScrub.getBoundingClientRect();
+    seek((e.clientX - r.left) / r.width * TL.total); drawScrub(); syncPanel();
+  };
+  box.addEventListener('pointerdown', e => {
+    if (LINK.on) return;
+    scrubbing = true; box.setPointerCapture(e.pointerId); scrubTo(e); e.preventDefault();
+  });
+  box.addEventListener('pointermove', e => { if (scrubbing) scrubTo(e); });
+  for (const ev of ['pointerup', 'pointercancel']) box.addEventListener(ev, () => scrubbing = false);
+
+  // the key list sits just above the panel, however tall it has wrapped
+  const fit = () => {
+    document.documentElement.style.setProperty('--cs-h', ui.cs.offsetHeight + 'px');
+    scrubDirty = true;
+  };
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(ui.cs);
+  fit();
 }
 
 /* ════════════════════════════════════════════════════════════════════════
@@ -1009,7 +1507,24 @@ window.__traart = () => {
     err_ns: err, err_wall_ms: err === null ? null : err * st / 1e6,
     total_ns: TL.total, stretch: st, playing: LINK.on ? LINK.playing : running,
     offset_ms: LINK.offsetMs, rtt_ms: LINK.rttMs, fps: Math.round(fps),
+    sound: !SND.on ? 'off' : LINK.on ? 'bench' : SND.ctx ? SND.ctx.state : 'waiting for a click',
+    voices: SND.live.size,
+    level: SND.tap ? (() => { const a = new Float32Array(2048); SND.tap.getFloatTimeDomainData(a);
+                              return +a.reduce((m, v) => Math.max(m, Math.abs(v)), 0).toFixed(3); })() : 0,
   };
+};
+
+/* The VR menu without a headset: `__traartMenu()` hangs it in front of the
+   desktop camera, `__traartMenu('play')` chooses a target exactly as a pinch
+   on it would, `__traartMenu(null)` puts it away. For checking the drawing
+   and the verbs; the pointing itself needs hands. */
+window.__traartMenu = key => {
+  if (key === null){ closeMenu(); return null; }
+  if (!MENU.open){ camera.updateMatrixWorld(true); openMenu(); }
+  const b = MENU_BTNS.find(b => b.key === key);
+  if (b && !menuDead(b)) b.act();
+  if (MENU.open){ MENU.lastAim = performance.now(); drawMenu(); }
+  return MENU_BTNS.map(b => b.key + (menuDead(b) ? ' (dead)' : ''));
 };
 
 loadLocal(0); setScale(scaleX); goObserver();
@@ -1059,6 +1574,7 @@ renderer.setAnimationLoop((_t, xrFrame) => {
   }
   if (tNs >= T) tNs -= T * Math.floor(tNs / T);
   if (tNs < 0) tNs = ((tNs % T) + T) % T;
+  soundTick();
 
   /* --- drive the beams ------------------------------------------------ */
   let lit = 0, blockId = -1, domDet = null, ionPump = 0;
@@ -1127,16 +1643,17 @@ renderer.setAnimationLoop((_t, xrFrame) => {
     hudAcc = 0;
     const path = blockId >= 0 ? (TL.blocks[blockId] || '') : '';
     const seg  = path.split('/');
-    const name = seg[seg.length-1] || (running ? 'idle' : 'held');
+    const name = seg[seg.length-1] || (isPlaying() ? 'idle' : 'held');
     ui.blockName.textContent = name;
-    ui.blockPath.textContent = seg.slice(0,-1).join(' / ') || ' ';
+    ui.blockPath.textContent = seg.slice(0,-1).join(' / ');
     const ms = tNs/1e6;
     const clockTxt = ms.toFixed(3) + ' ms';
     ui.mClock.textContent = clockTxt;
     const detTxt = domDet === null ? '—'
       : (domDet/1e6).toFixed(2).replace('-','−') + ' MHz';
     ui.mDet.textContent = detTxt;
-    ui.bar.style.width = (100 * Math.min(1, tNs / TL.total)) + '%';
+    syncPanel(); drawScrub();
+    if (MENU.open && wall - MENU.drawn > 0.25) drawMenu();
     const sg = segAt(tNs);
     ui.iScan.textContent = (TL.nPoints > 1 && sg)
       ? `${TL.labels[sg.pi] || ('point ' + (sg.pi+1))}  (${sg.pi+1}/${TL.nPoints})`
