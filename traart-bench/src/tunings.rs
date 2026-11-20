@@ -64,6 +64,12 @@ fn default_window() -> f32 {
     6.0
 }
 
+#[cfg(target_arch = "wasm32")]
+fn now_s() -> u64 {
+    (js_sys::Date::now() / 1000.0) as u64
+}
+
+#[cfg(not(target_arch = "wasm32"))]
 fn now_s() -> u64 {
     std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
@@ -190,20 +196,57 @@ pub struct Book {
     pub tunings: Vec<Tuning>,
 }
 
+/// The tunings the bench ships with: what a fresh install, and every visitor
+/// to the web build, finds in the list before saving anything of their own.
+const PRESETS: &str = include_str!("../presets.json");
+
+/// Where the web build keeps the list: this browser's local storage.
+#[cfg(target_arch = "wasm32")]
+const STORAGE_KEY: &str = "traart-bench/tunings";
+
+#[cfg(target_arch = "wasm32")]
+fn storage() -> Option<web_sys::Storage> {
+    web_sys::window()?.local_storage().ok()?
+}
+
 impl Book {
-    pub fn load(path: &Path) -> Book {
-        std::fs::read_to_string(path)
-            .ok()
-            .and_then(|t| serde_json::from_str(&t).ok())
-            .unwrap_or_default()
+    pub fn presets() -> Book {
+        serde_json::from_str(PRESETS).unwrap_or_default()
     }
 
+    /// The saved list, or the presets when nothing has been saved yet.
+    #[cfg(not(target_arch = "wasm32"))]
+    pub fn load(path: &Path) -> Book {
+        match std::fs::read_to_string(path) {
+            Ok(t) => serde_json::from_str(&t).unwrap_or_default(),
+            Err(_) => Book::presets(),
+        }
+    }
+
+    #[cfg(not(target_arch = "wasm32"))]
     pub fn save(&self, path: &Path) -> Result<(), String> {
         if let Some(dir) = path.parent() {
             std::fs::create_dir_all(dir).map_err(|e| e.to_string())?;
         }
         let text = serde_json::to_string_pretty(self).map_err(|e| e.to_string())?;
         std::fs::write(path, text).map_err(|e| e.to_string())
+    }
+
+    #[cfg(target_arch = "wasm32")]
+    pub fn load(_path: &Path) -> Book {
+        storage()
+            .and_then(|s| s.get_item(STORAGE_KEY).ok().flatten())
+            .and_then(|t| serde_json::from_str(&t).ok())
+            .unwrap_or_else(Book::presets)
+    }
+
+    #[cfg(target_arch = "wasm32")]
+    pub fn save(&self, _path: &Path) -> Result<(), String> {
+        let text = serde_json::to_string(self).map_err(|e| e.to_string())?;
+        storage()
+            .ok_or_else(|| "this browser offers no local storage".to_string())?
+            .set_item(STORAGE_KEY, &text)
+            .map_err(|_| "local storage refused the write".to_string())
     }
 
     /// Save under this name, replacing a tuning that already has it so that
@@ -258,6 +301,9 @@ pub fn default_path() -> PathBuf {
 
 /// The path shown in the panel, with the home directory folded back to `~`.
 pub fn pretty(path: &Path) -> String {
+    if cfg!(target_arch = "wasm32") {
+        return "kept in this browser".into();
+    }
     let s = path.display().to_string();
     match std::env::var("HOME") {
         Ok(h) if !h.is_empty() && s.starts_with(&h) => format!("~{}", &s[h.len()..]),

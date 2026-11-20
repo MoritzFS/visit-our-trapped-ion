@@ -6,6 +6,7 @@
 
 use crate::score::Timeline;
 use crate::synth::{pitch_of, BeamCfg, Scale};
+#[cfg(not(target_arch = "wasm32"))]
 use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
 use std::sync::{Arc, Mutex};
 
@@ -110,6 +111,32 @@ struct Local {
     levels: Vec<f32>,
 }
 
+impl Local {
+    fn new(sr: f32, shared: &Arc<Mutex<Shared>>) -> Local {
+        let (params, timeline, nch) = {
+            let s = shared.lock().unwrap();
+            (s.params.clone(), s.timeline.clone(), s.levels.len())
+        };
+        Local {
+            sr,
+            cursor: 0.0,
+            idx: 0,
+            voices: [Voice::default(); MAX_VOICES],
+            params,
+            params_gen: 0,
+            timeline,
+            timeline_gen: 0,
+            hop: ((sr / 240.0) as usize).max(8),
+            hop_n: 0,
+            hop_peak: 0.0,
+            hop_ch: 255,
+            hop_ch_amp: 0.0,
+            levels: vec![0.0; nch],
+        }
+    }
+}
+
+#[cfg(not(target_arch = "wasm32"))]
 pub struct Engine {
     pub shared: Arc<Mutex<Shared>>,
     _stream: cpal::Stream,
@@ -117,6 +144,7 @@ pub struct Engine {
     pub device_name: String,
 }
 
+#[cfg(not(target_arch = "wasm32"))]
 impl Engine {
     pub fn start(shared: Arc<Mutex<Shared>>) -> Result<Engine, String> {
         let host = cpal::default_host();
@@ -132,27 +160,7 @@ impl Engine {
         let sr = config.sample_rate.0 as f32;
         let channels = config.channels as usize;
 
-        let (params, timeline, nch) = {
-            let s = shared.lock().unwrap();
-            (s.params.clone(), s.timeline.clone(), s.levels.len())
-        };
-        let mut local = Local {
-            sr,
-            cursor: 0.0,
-            idx: 0,
-            voices: [Voice::default(); MAX_VOICES],
-            params,
-            params_gen: 0,
-            timeline,
-            timeline_gen: 0,
-            hop: (sr / 240.0) as usize,
-            hop_n: 0,
-            hop_peak: 0.0,
-            hop_ch: 255,
-            hop_ch_amp: 0.0,
-            levels: vec![0.0; nch],
-        };
-        local.hop = local.hop.max(8);
+        let mut local = Local::new(sr, &shared);
 
         let sh = shared.clone();
         let err_fn = |e| eprintln!("audio stream error: {e}");
@@ -189,6 +197,89 @@ impl Engine {
             _stream: stream,
             sample_rate: sr,
             device_name,
+        })
+    }
+}
+
+/// The same engine in a browser tab. Web Audio calls `render` from a script
+/// processor on the page's own thread, which is all the mutex ever sees there.
+/// A page may not make sound before it has been touched, so the context
+/// starts suspended and the first click or key press anywhere wakes it.
+#[cfg(target_arch = "wasm32")]
+pub struct Engine {
+    pub shared: Arc<Mutex<Shared>>,
+    pub sample_rate: f32,
+    pub device_name: String,
+    _ctx: web_sys::AudioContext,
+    _node: web_sys::ScriptProcessorNode,
+    _on_audio: wasm_bindgen::closure::Closure<dyn FnMut(web_sys::AudioProcessingEvent)>,
+    _on_touch: wasm_bindgen::closure::Closure<dyn FnMut()>,
+}
+
+#[cfg(target_arch = "wasm32")]
+impl Engine {
+    pub fn start(shared: Arc<Mutex<Shared>>) -> Result<Engine, String> {
+        use wasm_bindgen::closure::Closure;
+        use wasm_bindgen::JsCast;
+        let err = |what: &str| {
+            let what = what.to_string();
+            move |e: wasm_bindgen::JsValue| format!("{what}: {e:?}")
+        };
+        let ctx = web_sys::AudioContext::new().map_err(err("no Web Audio"))?;
+        let sr = ctx.sample_rate();
+        const BLOCK: usize = 2048;
+        let node = ctx
+            .create_script_processor_with_buffer_size_and_number_of_input_channels_and_number_of_output_channels(
+                BLOCK as u32, 1, 2,
+            )
+            .map_err(err("no script processor"))?;
+
+        let mut local = Local::new(sr, &shared);
+        let sh = shared.clone();
+        let mut inter = vec![0.0f32; BLOCK * 2];
+        let mut left = vec![0.0f32; BLOCK];
+        let mut right = vec![0.0f32; BLOCK];
+        let on_audio = Closure::wrap(Box::new(move |ev: web_sys::AudioProcessingEvent| {
+            let Ok(out) = ev.output_buffer() else { return };
+            let n = (out.length() as usize).min(BLOCK);
+            render(&mut local, &sh, &mut inter[..n * 2], 2);
+            for i in 0..n {
+                left[i] = inter[2 * i];
+                right[i] = inter[2 * i + 1];
+            }
+            let _ = out.copy_to_channel(&left[..n], 0);
+            let _ = out.copy_to_channel(&right[..n], 1);
+        }) as Box<dyn FnMut(web_sys::AudioProcessingEvent)>);
+        node.set_onaudioprocess(Some(on_audio.as_ref().unchecked_ref()));
+        node.connect_with_audio_node(&ctx.destination())
+            .map_err(err("could not connect the output"))?;
+
+        let wake = ctx.clone();
+        let on_touch = Closure::wrap(Box::new(move || {
+            if wake.state() != web_sys::AudioContextState::Running {
+                let _ = wake.resume();
+            }
+        }) as Box<dyn FnMut()>);
+        if let Some(doc) = web_sys::window().and_then(|w| w.document()) {
+            let opts = web_sys::AddEventListenerOptions::new();
+            opts.set_capture(true);
+            for name in ["pointerdown", "keydown", "touchend"] {
+                let _ = doc.add_event_listener_with_callback_and_add_event_listener_options(
+                    name,
+                    on_touch.as_ref().unchecked_ref(),
+                    &opts,
+                );
+            }
+        }
+
+        Ok(Engine {
+            shared,
+            sample_rate: sr,
+            device_name: "Web Audio".into(),
+            _ctx: ctx,
+            _node: node,
+            _on_audio: on_audio,
+            _on_touch: on_touch,
         })
     }
 }
@@ -410,26 +501,7 @@ fn push_state(l: &mut Local, shared: &Arc<Mutex<Shared>>, writes: &[(f32, u8)]) 
 /// Render straight to a buffer with no audio device -- used to check the engine
 /// headlessly and to bounce a run to disk (`--render out.wav 20`).
 pub fn render_offline(shared: &Arc<Mutex<Shared>>, sr: f32, seconds: f32) -> Vec<f32> {
-    let (params, timeline, nch) = {
-        let s = shared.lock().unwrap();
-        (s.params.clone(), s.timeline.clone(), s.levels.len())
-    };
-    let mut local = Local {
-        sr,
-        cursor: 0.0,
-        idx: 0,
-        voices: [Voice::default(); MAX_VOICES],
-        params,
-        params_gen: 0,
-        timeline,
-        timeline_gen: 0,
-        hop: ((sr / 240.0) as usize).max(8),
-        hop_n: 0,
-        hop_peak: 0.0,
-        hop_ch: 255,
-        hop_ch_amp: 0.0,
-        levels: vec![0.0; nch],
-    };
+    let mut local = Local::new(sr, shared);
     let total = (sr * seconds) as usize;
     let block = 512usize;
     let mut out = Vec::with_capacity(total * 2);
@@ -442,26 +514,58 @@ pub fn render_offline(shared: &Arc<Mutex<Shared>>, sr: f32, seconds: f32) -> Vec
     out
 }
 
-pub fn write_wav(path: &str, samples: &[f32], sr: u32) -> std::io::Result<()> {
-    use std::io::Write;
-    let n = samples.len() as u32;
-    let data_bytes = n * 2;
-    let mut f = std::io::BufWriter::new(std::fs::File::create(path)?);
-    f.write_all(b"RIFF")?;
-    f.write_all(&(36 + data_bytes).to_le_bytes())?;
-    f.write_all(b"WAVEfmt ")?;
-    f.write_all(&16u32.to_le_bytes())?;
-    f.write_all(&1u16.to_le_bytes())?;
-    f.write_all(&2u16.to_le_bytes())?;
-    f.write_all(&sr.to_le_bytes())?;
-    f.write_all(&(sr * 4).to_le_bytes())?;
-    f.write_all(&4u16.to_le_bytes())?;
-    f.write_all(&16u16.to_le_bytes())?;
-    f.write_all(b"data")?;
-    f.write_all(&data_bytes.to_le_bytes())?;
-    for s in samples {
-        let v = (s.clamp(-1.0, 1.0) * 32767.0) as i16;
-        f.write_all(&v.to_le_bytes())?;
+/// Interleaved stereo as a PCM WAV file, 16 or 24 bit. `info` goes into a
+/// LIST/INFO chunk (INAM title, IART artist, ICOP copyright, ICMT comment,
+/// ISFT software), so the credit travels inside the file and not next to it.
+pub fn wav_bytes(samples: &[f32], sr: u32, bits: u16, info: &[(&str, String)]) -> Vec<u8> {
+    let bytes = if bits == 24 { 3u32 } else { 2u32 };
+    let bits = (bytes * 8) as u16;
+    let data_bytes = samples.len() as u32 * bytes;
+
+    let mut list = Vec::new();
+    for (id, text) in info {
+        if id.len() != 4 || text.is_empty() {
+            continue;
+        }
+        let mut t = text.as_bytes().to_vec();
+        t.push(0);
+        list.extend_from_slice(id.as_bytes());
+        list.extend_from_slice(&(t.len() as u32).to_le_bytes());
+        if t.len() % 2 == 1 {
+            t.push(0);
+        }
+        list.extend_from_slice(&t);
     }
-    Ok(())
+    let list_bytes = if list.is_empty() { 0 } else { 12 + list.len() as u32 };
+
+    let mut f = Vec::with_capacity(44 + (list_bytes + data_bytes) as usize);
+    f.extend_from_slice(b"RIFF");
+    f.extend_from_slice(&(36 + list_bytes + data_bytes).to_le_bytes());
+    f.extend_from_slice(b"WAVEfmt ");
+    f.extend_from_slice(&16u32.to_le_bytes());
+    f.extend_from_slice(&1u16.to_le_bytes());
+    f.extend_from_slice(&2u16.to_le_bytes());
+    f.extend_from_slice(&sr.to_le_bytes());
+    f.extend_from_slice(&(sr * 2 * bytes).to_le_bytes());
+    f.extend_from_slice(&((2 * bytes) as u16).to_le_bytes());
+    f.extend_from_slice(&bits.to_le_bytes());
+    if !list.is_empty() {
+        f.extend_from_slice(b"LIST");
+        f.extend_from_slice(&(4 + list.len() as u32).to_le_bytes());
+        f.extend_from_slice(b"INFO");
+        f.extend_from_slice(&list);
+    }
+    f.extend_from_slice(b"data");
+    f.extend_from_slice(&data_bytes.to_le_bytes());
+    for s in samples {
+        let x = s.clamp(-1.0, 1.0);
+        if bytes == 3 {
+            let v = (x * 8_388_607.0) as i32;
+            f.extend_from_slice(&v.to_le_bytes()[..3]);
+        } else {
+            let v = (x * 32767.0) as i16;
+            f.extend_from_slice(&v.to_le_bytes());
+        }
+    }
+    f
 }

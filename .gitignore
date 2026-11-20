@@ -25,3 +25,7 @@ Claude outputs/
 # patch-script backups and the page's secondary build output
 *.bak-*
 traart/vr/trap_vr.artifact.html
+
+# the web build: trunk output, and locally copied faces (see traart-bench/web/README.md)
+traart-bench/dist/
+traart-bench/web/fonts/*.ttf

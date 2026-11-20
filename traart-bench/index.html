@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audio Bench: listen to a trapped ion</title>
+<meta name="description" content="Ion trap pulse sequences, made audible. Detuning sets pitch; slowing down stretches the rhythm and leaves the tuning alone.">
+<meta name="author" content="Moritz Fontboté-Schmidt">
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+<!-- trunk: build the crate next to this file, and carry the fonts along if
+     web/fonts/ has any (see web/README.md) -->
+<link data-trunk rel="rust" data-bin="traart-bench" data-wasm-opt="0">
+<link data-trunk rel="copy-dir" href="web/fonts">
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #D4D0C8; }
+  canvas { display: block; width: 100%; height: 100%; outline: none; }
+  #loading { position: absolute; inset: 0; display: grid; place-items: center;
+             font: 15px Georgia, "Times New Roman", serif; color: #4A4742;
+             pointer-events: none; padding: 16px; text-align: center; }
+</style>
+</head>
+<body>
+<canvas id="bench"></canvas>
+<div id="loading">Warming up the bench…</div>
+<noscript>The bench needs JavaScript and WebAssembly.</noscript>
+</body>
+</html>

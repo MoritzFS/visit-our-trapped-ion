@@ -8,6 +8,7 @@
 mod engine;
 mod retro;
 mod score;
+#[cfg(not(target_arch = "wasm32"))]
 mod serve;
 mod synth;
 mod tunings;
@@ -21,6 +22,125 @@ use synth::{default_cfg, BeamCfg, Scale, Wave, NOTE_NAMES};
 
 const EMBEDDED: &str = include_str!("../demos.json");
 
+/// Who made this, and what a bounced track asks of whoever uses it.
+const AUTHOR: &str = "Moritz Fontboté-Schmidt";
+const LICENSE_NAME: &str = "CC BY 4.0";
+const LICENSE_URL: &str = "https://creativecommons.org/licenses/by/4.0/";
+const HOME_URL: &str = "https://moritzfs.github.io/visit-our-trapped-ion/bench/";
+/// A bounce is 24-bit PCM at this rate; nothing lossy touches it.
+const BOUNCE_SR: u32 = 48_000;
+const BOUNCE_MAX_S: f32 = 300.0;
+
+/// The WAV's INFO chunk: the credit goes wherever the file goes.
+fn credit_info(title: &str, stretch: f32) -> Vec<(&'static str, String)> {
+    vec![
+        ("INAM", format!("{title} (slowed {stretch:.0}x)")),
+        ("IART", AUTHOR.to_string()),
+        (
+            "ICOP",
+            format!("{LICENSE_NAME} ({LICENSE_URL}). Credit: {AUTHOR}, tr(art) Audio Bench."),
+        ),
+        ("ICMT", format!("An ion trap pulse sequence, made audible. {HOME_URL}")),
+        ("ISFT", "traart-bench".to_string()),
+    ]
+}
+
+/// Hand a finished file to the user: `~/Downloads` on a desktop, the
+/// browser's own download in a tab. Returns where it went, for the readout.
+#[cfg(not(target_arch = "wasm32"))]
+fn save_file(name: &str, bytes: &[u8]) -> Result<String, String> {
+    let dir = std::env::var_os("HOME")
+        .map(|h| std::path::PathBuf::from(h).join("Downloads"))
+        .filter(|d| d.is_dir())
+        .unwrap_or_else(|| std::path::PathBuf::from("."));
+    let path = dir.join(name);
+    std::fs::write(&path, bytes).map_err(|e| e.to_string())?;
+    Ok(tunings::pretty(&path))
+}
+
+#[cfg(target_arch = "wasm32")]
+fn save_file(name: &str, bytes: &[u8]) -> Result<String, String> {
+    use wasm_bindgen::JsCast;
+    let fail = |_| "the browser refused the download".to_string();
+    let parts = js_sys::Array::of1(&js_sys::Uint8Array::from(bytes));
+    let props = web_sys::BlobPropertyBag::new();
+    props.set_type("audio/wav");
+    let blob = web_sys::Blob::new_with_u8_array_sequence_and_options(&parts, &props).map_err(fail)?;
+    let url = web_sys::Url::create_object_url_with_blob(&blob).map_err(fail)?;
+    let doc = web_sys::window().and_then(|w| w.document()).ok_or("no document")?;
+    let a: web_sys::HtmlAnchorElement = doc
+        .create_element("a")
+        .map_err(fail)?
+        .dyn_into()
+        .map_err(|_| "no anchor".to_string())?;
+    a.set_href(&url);
+    a.set_download(name);
+    a.click();
+    // Let the download take the blob before it is released.
+    let release = wasm_bindgen::closure::Closure::once_into_js(move || {
+        let _ = web_sys::Url::revoke_object_url(&url);
+    });
+    if let Some(w) = web_sys::window() {
+        let _ = w.set_timeout_with_callback_and_timeout_and_arguments_0(release.unchecked_ref(), 60_000);
+    }
+    Ok("your downloads".into())
+}
+
+#[cfg(target_arch = "wasm32")]
+async fn fetch_bytes(url: &str) -> Option<Vec<u8>> {
+    use wasm_bindgen::JsCast;
+    use wasm_bindgen_futures::JsFuture;
+    let resp = JsFuture::from(web_sys::window()?.fetch_with_str(url)).await.ok()?;
+    let resp: web_sys::Response = resp.dyn_into().ok()?;
+    if !resp.ok() {
+        return None;
+    }
+    let buf = JsFuture::from(resp.array_buffer().ok()?).await.ok()?;
+    Some(js_sys::Uint8Array::new(&buf).to_vec())
+}
+
+/// In a browser tab (`trunk build`, see `web/`): no arguments, no files, no
+/// server -- the embedded runs, the bundled presets, and two fetched faces.
+#[cfg(target_arch = "wasm32")]
+fn main() {
+    use wasm_bindgen::JsCast;
+    wasm_bindgen_futures::spawn_local(async {
+        let doc = web_sys::window().and_then(|w| w.document()).expect("a document");
+        let say = |text: &str| {
+            if let Some(el) = doc.get_element_by_id("loading") {
+                el.set_text_content(Some(text));
+            }
+        };
+        let bundle: Bundle = match serde_json::from_str(EMBEDDED) {
+            Ok(b) => b,
+            Err(e) => return say(&format!("could not read the score bundle: {e}")),
+        };
+        let serif = fetch_bytes("fonts/serif.ttf").await;
+        let mono = fetch_bytes("fonts/mono.ttf").await;
+        let canvas: web_sys::HtmlCanvasElement = doc
+            .get_element_by_id("bench")
+            .and_then(|c| c.dyn_into().ok())
+            .expect("the bench canvas");
+        let started = eframe::WebRunner::new()
+            .start(
+                canvas,
+                eframe::WebOptions::default(),
+                Box::new(move |cc| {
+                    let mut app =
+                        App::build(&cc.egui_ctx, bundle, std::path::PathBuf::new(), None);
+                    app.font_note = retro::install_with(&cc.egui_ctx, serif, mono).is_some();
+                    Ok(Box::new(app))
+                }),
+            )
+            .await;
+        match started {
+            Ok(()) => say(""),
+            Err(e) => say(&format!("the bench could not start: {e:?}")),
+        }
+    });
+}
+
+#[cfg(not(target_arch = "wasm32"))]
 fn main() -> eframe::Result<()> {
     let argv: Vec<String> = std::env::args().collect();
     let flag = |name: &str| -> Option<String> {
@@ -87,7 +207,8 @@ fn main() -> eframe::Result<()> {
         let n = params.beams.len();
         let shared = Arc::new(Mutex::new(Shared::new(params, tl, n)));
         let pcm = engine::render_offline(&shared, 44100.0, secs);
-        engine::write_wav(&out, &pcm, 44100).expect("write wav");
+        let info = credit_info(&bundle.demos[d].title, stretch);
+        std::fs::write(&out, engine::wav_bytes(&pcm, 44100, 16, &info)).expect("write wav");
         println!("{out}: {secs:.1} s of {} at x{stretch:.0}", bundle.demos[d].title);
         return Ok(());
     }
@@ -190,9 +311,15 @@ struct App {
     params: Params,
     edit: Edit,
     /// What a headset served by the bench sees, and what it asks back.
+    #[cfg(not(target_arch = "wasm32"))]
     link: Arc<Mutex<serve::Link>>,
+    #[cfg(not(target_arch = "wasm32"))]
     serving: Option<serve::Serving>,
+    #[cfg(not(target_arch = "wasm32"))]
     serve_err: Option<String>,
+    /// Bounce to WAV: how many seconds, and where the last one went.
+    bounce_s: f32,
+    bounce_note: String,
     /// Saved tunings: the file, the list, the name being typed, which entry
     /// the panel currently matches, and the one-line readout under the list.
     book: tunings::Book,
@@ -212,6 +339,7 @@ struct App {
 }
 
 impl App {
+    #[cfg(not(target_arch = "wasm32"))]
     fn new(
         cc: &eframe::CreationContext<'_>,
         bundle: Bundle,
@@ -227,9 +355,9 @@ impl App {
     fn build(
         ctx: &egui::Context,
         bundle: Bundle,
-        raw: serde_json::Value,
-        serve_dir: Option<std::path::PathBuf>,
-        serve_port: u16,
+        #[cfg(not(target_arch = "wasm32"))] raw: serde_json::Value,
+        #[cfg(not(target_arch = "wasm32"))] serve_dir: Option<std::path::PathBuf>,
+        #[cfg(not(target_arch = "wasm32"))] serve_port: u16,
         tunings_path: std::path::PathBuf,
         open_tuning: Option<String>,
     ) -> Self {
@@ -256,7 +384,9 @@ impl App {
             Ok(e) => (Some(e), None),
             Err(e) => (None, Some(e)),
         };
+        #[cfg(not(target_arch = "wasm32"))]
         let link = Arc::new(Mutex::new(serve::Link::new(Arc::new(raw))));
+        #[cfg(not(target_arch = "wasm32"))]
         let (serving, serve_err) = match serve_dir {
             Some(dir) => match serve::spawn(shared.clone(), link.clone(), dir, serve_port) {
                 Ok(sv) => {
@@ -286,9 +416,14 @@ impl App {
             audio_err,
             params,
             edit,
+            #[cfg(not(target_arch = "wasm32"))]
             link,
+            #[cfg(not(target_arch = "wasm32"))]
             serving,
+            #[cfg(not(target_arch = "wasm32"))]
             serve_err,
+            bounce_s: 30.0,
+            bounce_note: String::new(),
             book: tunings::Book::load(&tunings_path),
             book_path: tunings_path,
             tuning_name: String::new(),
@@ -382,6 +517,46 @@ impl App {
 
     /// Keep the served description in step: which run, and its points as the
     /// bench is actually playing them (round count and probe length applied).
+    #[cfg(target_arch = "wasm32")]
+    fn sync_link(&self) {}
+
+    #[cfg(target_arch = "wasm32")]
+    fn drain_commands(&mut self) {}
+
+    /// How long one pass through the run lasts at the present slowdown.
+    fn one_pass_s(&self) -> f32 {
+        let total_ns = self.shared.lock().map(|s| s.timeline.total_ns).unwrap_or(0.0);
+        (total_ns * self.params.stretch as f64 / 1e9) as f32
+    }
+
+    /// Render the panel as it stands, from the top of the run, and hand over
+    /// the file. Same engine as the speaker, so it is what was just heard.
+    fn bounce(&mut self) {
+        let tl = match self.shared.lock() {
+            Ok(s) => s.timeline.clone(),
+            Err(_) => return,
+        };
+        let mut params = self.params.clone();
+        params.playing = true;
+        let n = params.beams.len();
+        let shared = Arc::new(Mutex::new(Shared::new(params, tl, n)));
+        let secs = self.bounce_s.clamp(1.0, BOUNCE_MAX_S);
+        let pcm = engine::render_offline(&shared, BOUNCE_SR as f32, secs);
+        let title = self.demo_name(self.demo);
+        let stem = if self.blind {
+            title.to_lowercase().replace(' ', "-")
+        } else {
+            self.bundle.demos[self.demo].id.clone()
+        };
+        let name = format!("traart-{stem}-x{:.0}.wav", self.params.stretch);
+        let bytes = engine::wav_bytes(&pcm, BOUNCE_SR, 24, &credit_info(&title, self.params.stretch));
+        self.bounce_note = match save_file(&name, &bytes) {
+            Ok(place) => format!("{name}, {secs:.0} s, in {place}"),
+            Err(e) => format!("could not save: {e}"),
+        };
+    }
+
+    #[cfg(not(target_arch = "wasm32"))]
     fn sync_link(&self) {
         let d = &self.bundle.demos[self.demo];
         let tl = match self.shared.lock() {
@@ -407,6 +582,7 @@ impl App {
     }
 
     /// Whatever the headset asked for since the last frame.
+    #[cfg(not(target_arch = "wasm32"))]
     fn drain_commands(&mut self) {
         let cmds: Vec<serve::Cmd> = match self.link.lock() {
             Ok(mut l) => l.cmds.drain(..).collect(),
@@ -584,6 +760,8 @@ impl App {
                         _ => "no audio".into(),
                     };
                     retro::readout(ui, &dev, 330.0, 11.0, retro::PHOSPHOR);
+                    #[cfg(not(target_arch = "wasm32"))]
+                    {
                     if let Some(sv) = &self.serving {
                         let (polls, age) = match self.link.lock() {
                             Ok(l) => {
@@ -619,6 +797,7 @@ impl App {
                         ui.add_space(8.0);
                         retro::readout(ui, &format!("server: {e}"), 340.0, 11.0,
                                        retro::PHOSPHOR);
+                    }
                     }
                     ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
                         // Hook for the guess-the-experiment mode: hides every name.
@@ -810,6 +989,60 @@ impl App {
                                 });
                         });
                     });
+
+                    ui.add_space(16.0);
+                    let mut bounce = false;
+                    ui.vertical(|ui| {
+                        ui.set_width(250.0);
+                        ui.add_space(10.0);
+                        ui.label(
+                            egui::RichText::new("Bounce to WAV")
+                                .font(retro::serif(11.5))
+                                .color(retro::INK_DIM),
+                        );
+                        ui.horizontal(|ui| {
+                            ui.add(
+                                egui::Slider::new(&mut self.bounce_s, 1.0..=BOUNCE_MAX_S)
+                                    .logarithmic(true)
+                                    .suffix(" s")
+                                    .max_decimals(0),
+                            )
+                            .on_hover_text("how much to render, from the top of the run");
+                            if retro::button(ui, "one pass", false, 58.0)
+                                .on_hover_text("the whole run once, at this slowdown")
+                                .clicked()
+                            {
+                                self.bounce_s = self.one_pass_s().clamp(1.0, BOUNCE_MAX_S);
+                            }
+                        });
+                        ui.horizontal(|ui| {
+                            bounce = retro::button(ui, "Save WAV", false, 78.0)
+                                .on_hover_text("lossless: 24-bit, 48 kHz stereo")
+                                .clicked();
+                            ui.spacing_mut().item_spacing.x = 3.0;
+                            ui.hyperlink_to(
+                                egui::RichText::new(LICENSE_NAME).font(retro::serif(11.5)),
+                                LICENSE_URL,
+                            );
+                            ui.label(
+                                egui::RichText::new("credit")
+                                    .font(retro::serif(11.5))
+                                    .color(retro::INK_DIM),
+                            );
+                        });
+                        ui.label(
+                            egui::RichText::new(if self.bounce_note.is_empty() {
+                                AUTHOR
+                            } else {
+                                &self.bounce_note
+                            })
+                            .font(retro::serif(11.5))
+                            .color(retro::INK_DIM),
+                        );
+                    });
+                    if bounce {
+                        self.bounce();
+                    }
 
                     ui.add_space(16.0);
                     ui.vertical(|ui| {

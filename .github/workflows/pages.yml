@@ -1,8 +1,13 @@
-# Build the VR page from source and publish it on GitHub Pages.
+# Build the VR page and the Audio Bench from source and publish them on
+# GitHub Pages: the VR page is the site's index, the bench lives at /bench/.
 #
 # Pages is served over https, which is all WebXR asks for: the headset opens
 # the URL and gets Enter VR, no serve.py and no certificate to click through.
 # build.py needs nothing beyond the standard library.
+#
+# The bench is the Rust panel compiled to WebAssembly with trunk
+# (traart-bench/web/README.md). A tab cannot read system fonts, so the two
+# faces it fetches are Liberation Serif and Mono, copied in here.
 
 name: Pages
 
@@ -11,6 +16,7 @@ on:
     branches: [main]
     paths:
       - "traart/vr/**"
+      - "traart-bench/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -37,6 +43,22 @@ jobs:
         run: |
           mkdir _site
           cp traart/vr/trap_vr.html _site/index.html
+      - name: Fonts for the bench
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-liberation fontconfig
+          cp "$(fc-match -f '%{file}' 'Liberation Serif:style=Regular')" traart-bench/web/fonts/serif.ttf
+          cp "$(fc-match -f '%{file}' 'Liberation Mono:style=Regular')" traart-bench/web/fonts/mono.ttf
+          cp /usr/share/doc/fonts-liberation*/copyright traart-bench/web/fonts/LICENSE-liberation.txt
+      - name: Build the bench for the browser
+        env:
+          TRUNK_VERSION: v0.21.14
+        run: |
+          rustup target add wasm32-unknown-unknown
+          curl -sSfL "https://github.com/trunk-rs/trunk/releases/download/${TRUNK_VERSION}/trunk-x86_64-unknown-linux-gnu.tar.gz" | tar -xz -C "$HOME/.cargo/bin"
+          cd traart-bench
+          trunk build --release --public-url ./
+          cp -r dist ../_site/bench
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:
