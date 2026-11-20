@@ -13,6 +13,10 @@ That is the whole build. Rust 1.75+ and a working audio output are the only
 requirements; on macOS and Windows nothing else is needed, on Linux you want
 `libasound2-dev` and the usual X11/Wayland development packages.
 
+It also runs in a browser tab, no install:
+<https://moritzfs.github.io/visit-our-trapped-ion/bench/>. Same panel, same
+engine, compiled to WebAssembly; `web/README.md` says how and what differs.
+
 ## What it plays
 
 Five runs from `icon_experiment_data_2026-09-01`, exported by the Python side
@@ -63,6 +67,20 @@ Each beam gets a strip:
 **Quantise to scale** snaps every beam onto one scale, so a sweep climbs it in
 steps instead of gliding.
 
+**Bounce to WAV** renders the panel as it stands, from the top of the run,
+through the same engine the speaker hears: 24-bit, 48 kHz stereo, nothing
+lossy. Set the length, or press **one pass** for the whole run once at the
+present slowdown, then **Save WAV** -- a download in the browser, a file in
+`~/Downloads` on the desktop.
+
+### Using what you bounce
+
+Tracks made with the bench are under
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/): use them, cut them,
+release them, commercially too, and credit **Moritz Fontboté-Schmidt, tr(art)
+Audio Bench** with a link to the page above. The same line is written into
+every file's metadata (the WAV `INFO` chunk), so it stays with the track.
+
 ## Run parameters
 
 Some runs expose a piece of their sequence as a live control, shown under the
@@ -103,7 +121,10 @@ refined in place. The first knob moved afterwards clears the highlight, because
 what is on the panel is then no longer what is in the file. DELETE forgets the
 highlighted one.
 
-They live in one JSON file:
+The list starts out with the tunings in `presets.json`, which is compiled in:
+a fresh install and every visitor to the web build find those before saving
+anything of their own. In the browser the list is kept in that browser's local
+storage. On the desktop they live in one JSON file:
 
 ```
 ~/Library/Application Support/traart-bench/tunings.json   macOS

@@ -3408,11 +3408,15 @@ version = "0.1.0"
 dependencies = [
  "cpal",
  "eframe",
+ "js-sys",
  "rcgen",
  "rustls",
  "rustls-pemfile",
  "serde",
  "serde_json",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
 ]
 
 [[package]]

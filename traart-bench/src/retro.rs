@@ -46,10 +46,20 @@ fn first_readable(paths: &[&str]) -> Option<Vec<u8>> {
 
 /// Returns the name of the serif face actually loaded, if any.
 pub fn install(ctx: &egui::Context) -> Option<String> {
+    install_with(ctx, first_readable(SERIF_CANDIDATES), first_readable(MONO_CANDIDATES))
+}
+
+/// The same with the faces handed in: a browser tab has no font directory to
+/// look in, so the web build fetches its two faces and passes them here.
+pub fn install_with(
+    ctx: &egui::Context,
+    serif_face: Option<Vec<u8>>,
+    mono_face: Option<Vec<u8>>,
+) -> Option<String> {
     let mut fonts = egui::FontDefinitions::default();
     let mut loaded = None;
 
-    if let Some(bytes) = first_readable(SERIF_CANDIDATES) {
+    if let Some(bytes) = serif_face {
         fonts.font_data.insert(
             "chassis-serif".to_owned(),
             std::sync::Arc::new(egui::FontData::from_owned(bytes)),
@@ -59,7 +69,7 @@ pub fn install(ctx: &egui::Context) -> Option<String> {
         }
         loaded = Some("serif".to_string());
     }
-    if let Some(bytes) = first_readable(MONO_CANDIDATES) {
+    if let Some(bytes) = mono_face {
         fonts.font_data.insert(
             "chassis-mono".to_owned(),
             std::sync::Arc::new(egui::FontData::from_owned(bytes)),
